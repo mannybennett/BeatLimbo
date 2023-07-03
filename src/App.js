@@ -26,7 +26,9 @@
 
 // *V3*
 
+import React, {useState} from 'react'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { FileUploader } from "react-drag-drop-files";
 
 const s3Client = new S3Client({
   region: process.env.REACT_APP_REGION,
@@ -36,15 +38,17 @@ const s3Client = new S3Client({
   }
 });
 
-const uploadObjectParams = {
-  Bucket: process.env.REACT_APP_BUCKET,
-  Key: 'test-object2.txt',
-  Body: 'Hello, this is a 2nd test object!'
+const uploadObjectParams = (file) => {
+  return {
+    Bucket: process.env.REACT_APP_BUCKET,
+    Key: file.name,
+    Body: file
+  }
 };
 
-const uploadObject = async () => {
+const uploadObject = async (file) => {
   try {
-    const command = new PutObjectCommand(uploadObjectParams);
+    const command = new PutObjectCommand(uploadObjectParams(file));
     const response = await s3Client.send(command);
     console.log('Object uploaded successfully:', response);
   } catch (error) {
@@ -53,6 +57,13 @@ const uploadObject = async () => {
 };
 
 function App() {
+
+  const fileTypes = ["mp3"];
+
+  const [file, setFile] = useState(null);
+  const onSelect = (file) => {
+    console.log(file);
+  };
   
   return (
     <div className="App">
@@ -60,6 +71,7 @@ function App() {
         <p>
           Beat Limbo
         </p>
+        <FileUploader onSelect={(file) => uploadObject(file)} name="file" types={fileTypes} />
       </header>
     </div>
   );
