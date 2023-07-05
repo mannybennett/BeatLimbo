@@ -14,6 +14,9 @@ const Navigation = () => {
                         <Link to="/limbo">Limbo</Link>
                     </li>
                     <li className="nav-list-item">
+                        <Link to="/upload">Upload</Link>
+                    </li>
+                    <li className="nav-list-item">
                         <Link to="/login">Login</Link>
                     </li>
                 </ul>
