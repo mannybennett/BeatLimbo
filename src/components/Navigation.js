@@ -1,6 +1,7 @@
 import React from 'react'
 import { AppBar, Toolbar, Typography } from '@mui/material'
 import { Link } from "react-router-dom";
+import LogoutButton from './LogoutButton';
 
 const Navigation = () => {
     return (
@@ -17,7 +18,10 @@ const Navigation = () => {
                         <Link to="/upload">Upload</Link>
                     </li>
                     <li className="nav-list-item">
-                        <Link to="/login">Login</Link>
+                        <Link to="/login">Sign In</Link>
+                    </li>
+                    <li className="nav-list-item">
+                        <LogoutButton />
                     </li>
                 </ul>
             </Toolbar>
