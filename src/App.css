@@ -1,0 +1,8 @@
+.nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.nav-list-item {
+  margin: auto 20px;
+}

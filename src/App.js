@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { FileUploader } from "react-drag-drop-files";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import Button from '@mui/material/Button';
+import './App.css'
 
 function App() {
   const [audioUrl, setAudioUrl] = useState('');
@@ -16,12 +19,12 @@ function App() {
     }
   });
   
+  const uuid = uuidv4().slice(0, 8)
   
   const uploadObjectParams = (file) => {
     return {
       Bucket: process.env.REACT_APP_BUCKET,
-      // file.name + user_id (for unique identifier) note: will have to restrict duplicates
-      Key: file.name,
+      Key: `${uuid}${file.name}`,
       Body: file
     }
   };
@@ -35,8 +38,22 @@ function App() {
       console.error('Error uploading object:', error);
     }
   };
+
+  const deleteObject = async (key) => {
+    try {
+      const command = new DeleteObjectCommand({
+        Bucket: process.env.REACT_APP_BUCKET,
+        Key: key
+      });
+      const response = await s3Client.send(command);
+      console.log('Object deleted successfully:', response);
+    } catch (error) {
+      console.error('Error deleting object:', error);
+    }
+  };
   
     useEffect(() => {
+      //Needs to occur when Feed page is loaded
       const fetchFileNames = async () => {
         const fileData = await axios.get('/api/audioFiles');
         const fileArray = fileData.data.map(file => file.file_name);
@@ -57,14 +74,25 @@ function App() {
       console.error('Error posting audio file:', error);
     }
   };
+
+  const deleteAudioFile = async (id, key) => {
+    try {
+      await axios.delete(`/api/audioFiles/${id}`);
+      console.log('Audio file deleted successfully');
+      await deleteObject(key);
+      console.log('Object deleted from S3 bucket');
+    } catch (error) {
+      console.error('Error deleting file:', error);
+    }
+  };  
   
   const getAudioUrl = (key) => `https://myfirstaudiobucket.s3.amazonaws.com/${key}`
   
   const onSelect = async (file) => {
     await uploadObject(file);
-    const url = getAudioUrl(file.name);
+    const url = getAudioUrl(`${uuid}${file.name}`);
     setAudioUrl(url);
-    await postAudioFile(file.name, 3);
+    await postAudioFile(`${uuid}${file.name}`, 2);
   };
 
   const fileTypes = ["mp3"];
@@ -75,10 +103,12 @@ function App() {
         <p>
           Beat Limbo
         </p>
-        <FileUploader onSelect={onSelect} name="file" types={fileTypes} />
+        <FileUploader onSelect={onSelect} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
         {console.log(allUrls)}
         <br></br>
         <ReactAudioPlayer src={audioUrl} controls />
+        <br></br>
+        <Button onClick={()=>deleteAudioFile(8, 'b1afbed0kyoto.mp3')} variant="outlined">Delete</Button>
       </header>
     </div>
   );
