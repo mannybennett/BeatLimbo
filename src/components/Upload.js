@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { FileUploader } from "react-drag-drop-files";
 import ReactAudioPlayer from 'react-audio-player';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import Button from '@mui/material/Button';
 
 const Upload =() => {
   const [audioUrl, setAudioUrl] = useState('');
@@ -37,19 +36,6 @@ const Upload =() => {
       console.error('Error uploading object:', error);
     }
   };
-
-  const deleteObject = async (key) => {
-    try {
-      const command = new DeleteObjectCommand({
-        Bucket: process.env.REACT_APP_BUCKET,
-        Key: key
-      });
-      const response = await s3Client.send(command);
-      console.log('Object deleted successfully:', response);
-    } catch (error) {
-      console.error('Error deleting object:', error);
-    }
-  };
   
     useEffect(() => {
       //Needs to occur when Feed page is loaded
@@ -73,17 +59,6 @@ const Upload =() => {
       console.error('Error posting audio file:', error);
     }
   };
-
-  const deleteAudioFile = async (id, key) => {
-    try {
-      await axios.delete(`/api/audioFiles/${id}`);
-      console.log('Audio file deleted successfully');
-      await deleteObject(key);
-      console.log('Object deleted from S3 bucket');
-    } catch (error) {
-      console.error('Error deleting file:', error);
-    }
-  };  
   
   const getAudioUrl = (key) => `https://myfirstaudiobucket.s3.amazonaws.com/${key}`
   
@@ -106,8 +81,6 @@ const Upload =() => {
         {console.log(allUrls)}
         <br></br>
         <ReactAudioPlayer src={audioUrl} controls />
-        <br></br>
-        <Button onClick={()=>deleteAudioFile(13, '95c7eb3akyoto.mp3')} variant="outlined">Delete</Button>
       </header>
     </div>
   );
