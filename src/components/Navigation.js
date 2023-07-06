@@ -23,6 +23,9 @@ const Navigation = () => {
                     <li className="nav-list-item">
                         <LogoutButton />
                     </li>
+                    <li className="nav-list-item">
+                    <Link to="/profile">Profile</Link>
+                    </li>
                 </ul>
             </Toolbar>
         </AppBar>

@@ -9,20 +9,15 @@ function LoginButton() {
       if (isAuthenticated) {
         try {
           const accessToken = await getAccessTokenSilently();
-          // Use the access token (JWT) for API requests
           console.log(accessToken);
-
           const response = await fetch('/userinfo', {
             headers: {
-              Authorization: `Bearer ${accessToken}`, // Include the access token
+              Authorization: `Bearer ${accessToken}`,
             },
           });
-
           if (response.ok) {
             const userProfile = await response.json();
             setUser({ ...user, name: userProfile.name, picture: userProfile.picture });
-          } else {
-            // Handle error response
           }
         } catch (error) {
           console.error('Error fetching user profile:', error);
@@ -34,18 +29,7 @@ function LoginButton() {
   }, [isAuthenticated, setUser, user, getAccessTokenSilently]);
 
   return (
-    <>
-      {!isAuthenticated && (
-        <button onClick={() => loginWithRedirect()}>Log In</button>
-      )}
-      {isAuthenticated && (
-        <div>
-          <p>Welcome, {user.name}</p>
-          <img src={user.picture} alt="Profile" />
-          {/* Additional content */}
-        </div>
-      )}
-    </>
+    <button onClick={() => loginWithRedirect()}>Log In</button>
   );
 }
 
