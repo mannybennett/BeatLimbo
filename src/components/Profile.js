@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from "axios";
@@ -10,7 +10,26 @@ const Profile = () => {
   const { user:auth0User, isAuthenticated, isLoading } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [userCreated, setUserCreated] = useState(false);
+  // const [sqlUsers, setSqlUsers] = useState([]);
   const navigate = useNavigate()
+
+  // useEffect(() => {
+  //   const fetchSqlUsers = async () => {
+  //     const userData = await axios.get('/api/users');
+  //     const userArray = userData.data.map(user => {
+  //       return {
+  //         ...user
+  //       }
+  //     });
+  //     setSqlUsers(userArray);
+  //   };
+    
+  //   fetchSqlUsers();
+  // }, []);
+
+  // if (sqlUsers.find(sql => sql.email === user.email)) {
+  //   setUserCreated(true)
+  // };
 
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -63,6 +82,7 @@ const Profile = () => {
       try {
         await axios.post('/api/users', {
           user_name: user.nickname,
+          email: auth0User.email,
           profile_picture: `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}`
         });
         setUserCreated(true)
@@ -102,6 +122,9 @@ const Profile = () => {
           <br></br>
           <TextField onChange={selectUsername} label="Username" variant="outlined"></TextField>
           <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
+          <br></br>
+          {/* <p>{auth0User.email}</p>
+          <p>{user.email}</p> */}
         </form>
       </div>
     )

@@ -5,9 +5,26 @@ import ReactAudioPlayer from 'react-audio-player';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const Upload =() => {
+const Upload =({ user, userCreated }) => {
+  // do I actually have user?
+  // userCreated not working from Profile.js
   const [audioUrl, setAudioUrl] = useState('');
-  const [allUrls, setAllUrls] = useState([]);
+  const [sqlUsers, setSqlUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    const fetchSqlUsers = async () => {
+      const userData = await axios.get('/api/users');
+      const userArray = userData.data.map(user => {
+        return {
+          ...user
+        }
+      });
+      setSqlUsers(userArray);
+    };
+    
+    fetchSqlUsers();
+  }, []);
   
   const s3Client = new S3Client({
     region: process.env.REACT_APP_REGION,
@@ -37,17 +54,6 @@ const Upload =() => {
     }
   };
   
-    useEffect(() => {
-      //Needs to occur when Feed page is loaded
-      const fetchFileNames = async () => {
-        const fileData = await axios.get('/api/audioFiles');
-        const fileArray = fileData.data.map(file => file.file_name);
-        setAllUrls(fileArray);
-      };
-  
-      fetchFileNames();
-    }, []);
-  
   const postAudioFile = async (fileName, userId) => {
     try {
       await axios.post('/api/audioFiles/upload', {
@@ -63,10 +69,21 @@ const Upload =() => {
   const getAudioUrl = (key) => `https://myfirstaudiobucket.s3.amazonaws.com/${key}`
   
   const onSelect = async (file) => {
-    await uploadObject(file);
-    const url = getAudioUrl(`${uuid}${file.name}`);
-    setAudioUrl(url);
-    await postAudioFile(`${uuid}${file.name}`, 2);
+      // where is the right place for setCurrentUser? useEffect?
+      setCurrentUser(sqlUsers.find(sql => sql.email === user.email));
+      console.log(currentUser);
+      await uploadObject(file);
+      const url = getAudioUrl(`${uuid}${file.name}`);
+      setAudioUrl(url);
+      await postAudioFile(`${uuid}${file.name}`, currentUser.id);
+    // if (userCreated) {
+    //   setCurrentUser(sqlUsers.find(sql => sql.email === user.email));
+    //   console.log(currentUser);
+    //   await uploadObject(file);
+    //   const url = getAudioUrl(`${uuid}${file.name}`);
+    //   setAudioUrl(url);
+    //   await postAudioFile(`${uuid}${file.name}`, currentUser.id);
+    // }
   };
 
   const fileTypes = ["mp3"];
@@ -78,7 +95,7 @@ const Upload =() => {
           Beat Limbo
         </p>
         <FileUploader onSelect={onSelect} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
-        {console.log(allUrls)}
+        {console.log(sqlUsers)}
         <br></br>
         <ReactAudioPlayer src={audioUrl} controls />
       </header>
