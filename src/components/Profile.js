@@ -6,33 +6,28 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { FileUploader } from "react-drag-drop-files";
 import {TextField, Button} from '@mui/material';
 
-const Profile = () => {
-  const { user:auth0User, isAuthenticated, isLoading } = useAuth0();
+const Profile = (props) => {
+  const { user:auth0User, isAuthenticated } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [userCreated, setUserCreated] = useState(false);
-  // const [sqlUsers, setSqlUsers] = useState([]);
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const sqlUsers = []
 
-  // useEffect(() => {
-  //   const fetchSqlUsers = async () => {
-  //     const userData = await axios.get('/api/users');
-  //     const userArray = userData.data.map(user => {
-  //       return {
-  //         ...user
-  //       }
-  //     });
-  //     setSqlUsers(userArray);
-  //   };
-    
-  //   fetchSqlUsers();
-  // }, []);
+  const getUser = async () => {
+    console.log(auth0User)
+    await axios.get(`/api/users/${auth0User.email}`)
+    .then(res => props.updateUser(res.data[0]))
+    .then(setLoading(false))
+  }
 
-  // if (sqlUsers.find(sql => sql.email === user.email)) {
-  //   setUserCreated(true)
-  // };
+  useEffect(() => {
+    setLoading(true)
+    if (auth0User) getUser()
+  }, [auth0User]);
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
+  if (sqlUsers.find(sql => sql.email === user.email)) {
+    setUserCreated(true)
   };
 
   const s3Client = new S3Client({
@@ -112,9 +107,11 @@ const Profile = () => {
     // Create new component instead to welcome users that has link to feed component (limbo)
     navigate("/limbo");
   }
-
+  console.log(user);
   return (
-    isAuthenticated && (
+    <>
+    {loading && <p>Loading...</p>}
+    {!loading && isAuthenticated && (
       <div>
         <p>Select Profile Picture and Username</p>
         <form onSubmit={navigation}>
@@ -123,11 +120,11 @@ const Profile = () => {
           <TextField onChange={selectUsername} label="Username" variant="outlined"></TextField>
           <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
           <br></br>
-          {/* <p>{auth0User.email}</p>
-          <p>{user.email}</p> */}
+          {console.log()}
         </form>
       </div>
-    )
+    )}
+    </>
   );
 };
 

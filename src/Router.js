@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router';
 import { useAuth0 } from "@auth0/auth0-react";
-import Upload from './components/Upload';
+import Upload from './containers/Upload';
 import Login from './components/Login';
-import Limbo from './components/Limbo';
-import Profile from './components/Profile';
+import Limbo from './containers/Limbo';
+import Profile from './containers/Profile';
 
 // The Router component acts as an intermediary between the Profile and Upload components,
 // passing the necessary data along the component hierarchy.

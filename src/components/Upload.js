@@ -5,26 +5,26 @@ import ReactAudioPlayer from 'react-audio-player';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const Upload =({ user, userCreated }) => {
+const Upload =(props) => {
   // do I actually have user?
   // userCreated not working from Profile.js
   const [audioUrl, setAudioUrl] = useState('');
   const [sqlUsers, setSqlUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
-    const fetchSqlUsers = async () => {
-      const userData = await axios.get('/api/users');
-      const userArray = userData.data.map(user => {
-        return {
-          ...user
-        }
-      });
-      setSqlUsers(userArray);
-    };
+  // useEffect(() => {
+  //   const fetchSqlUsers = async () => {
+  //     const userData = await axios.get('/api/users');
+  //     const userArray = userData.data.map(user => {
+  //       return {
+  //         ...user
+  //       }
+  //     });
+  //     setSqlUsers(userArray);
+  //   };
     
-    fetchSqlUsers();
-  }, []);
+  //   fetchSqlUsers();
+  // }, []);
   
   const s3Client = new S3Client({
     region: process.env.REACT_APP_REGION,
@@ -70,12 +70,12 @@ const Upload =({ user, userCreated }) => {
   
   const onSelect = async (file) => {
       // where is the right place for setCurrentUser? useEffect?
-      setCurrentUser(sqlUsers.find(sql => sql.email === user.email));
+      // setCurrentUser(sqlUsers.find(sql => sql.email === user.email));
       console.log(currentUser);
       await uploadObject(file);
       const url = getAudioUrl(`${uuid}${file.name}`);
       setAudioUrl(url);
-      await postAudioFile(`${uuid}${file.name}`, currentUser.id);
+      await postAudioFile(`${uuid}${file.name}`, props.user.id);
     // if (userCreated) {
     //   setCurrentUser(sqlUsers.find(sql => sql.email === user.email));
     //   console.log(currentUser);
