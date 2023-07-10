@@ -1,8 +1,7 @@
+
 const state = {
   user: {},
-  bananas: {
-    color: 'yellow'
-  }
+  audioFiles: []
 }
 
 export default state;

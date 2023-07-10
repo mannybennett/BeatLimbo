@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from "axios";
@@ -10,10 +10,33 @@ const Profile = () => {
   const { user:auth0User, isAuthenticated } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [loading, setLoading] = useState(true)
+
   const navigate = useNavigate()
 
+  const navigation = (e) => {
+    e.preventDefault();
+    // Create new component instead to welcome users that has link to feed component (limbo)
+    navigate("/limbo");
+  }
+  
+  // Find better way to navigate if account is already existent
+
+  const getUser = async () => {
+    await axios.get(`/api/users/${auth0User.email}`)
+    .then(res => {
+      if (res.data.length) {
+        navigate("/limbo")
+      } else {
+        console.log(res)
+      }
+    })
+  };
+
   useEffect(() => {
-    if (auth0User) setLoading(false)
+    if (auth0User) {
+      setLoading(false)
+      getUser()
+    } 
   }, [auth0User]);
 
   const s3Client = new S3Client({
@@ -72,12 +95,6 @@ const Profile = () => {
 
   const fileTypes = ["jpg", "png", "jpeg"];
 
-  const navigation = (e) => {
-    e.preventDefault();
-    // Create new component instead to welcome users that has link to feed component (limbo)
-    navigate("/limbo");
-  }
-  console.log(user);
   return (
     <>
     {loading && <p>Loading...</p>}

@@ -3,7 +3,8 @@ import Upload from '../components/Upload';
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.data
+    user: state.user.data,
+    audioFiles: state.audioFiles.data
   };
 };
 

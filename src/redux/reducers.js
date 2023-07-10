@@ -9,4 +9,13 @@ const user = (state = {}, action) => {
   }
 };
 
-export default combineReducers({ user });
+const audioFiles = (state = [], action) => {
+  switch (action.type) {
+    case 'GET_FILES':
+      return action.value;
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ user, audioFiles });

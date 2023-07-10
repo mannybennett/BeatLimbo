@@ -18,7 +18,7 @@ const Navigation = (props) => {
                         <Link to="/upload">Upload</Link>
                     </li>
                     <li className="nav-list-item">
-                        <Link to="/login">Sign In</Link>
+                        <Link to="/">Landing</Link>
                     </li>
                     {props.user && 
                     <li className="nav-list-item">
