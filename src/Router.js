@@ -1,26 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router';
-import { useAuth0 } from "@auth0/auth0-react";
 import Upload from './containers/Upload';
 import Login from './components/Login';
 import Limbo from './containers/Limbo';
 import Profile from './containers/Profile';
-
-// The Router component acts as an intermediary between the Profile and Upload components,
-// passing the necessary data along the component hierarchy.
+import Landing from './components/Landing';
 
 function Router() {
-  const { user:auth0User } = useAuth0();
-  const [user, setUser] = useState(auth0User);
-  const [userCreated, setUserCreated] = useState(false);
-
   return (
     <Routes>
+      <Route path='/' element={<Landing/>} />
       <Route path='/limbo' element={<Limbo/>} />
-      <Route path='/upload' element={<Upload user={user} userCreated={userCreated}/>} />
+      <Route path='/upload' element={<Upload/>} />
       <Route path='/login' element={<Login/>} />
-      <Route path='/profile'
-      element={<Profile user={user} setUser={setUser} userCreated={userCreated} setUserCreated={setUserCreated}/>} />
+      <Route path='/profile'element={<Profile/>} />
     </Routes>
   )
 };

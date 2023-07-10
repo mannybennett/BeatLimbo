@@ -1,9 +1,9 @@
-import React from 'react'
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import React from 'react';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 import LogoutButton from './LogoutButton';
 
-const Navigation = () => {
+const Navigation = (props) => {
     return (
         <AppBar position="relative">
             <Toolbar>
@@ -20,9 +20,10 @@ const Navigation = () => {
                     <li className="nav-list-item">
                         <Link to="/login">Sign In</Link>
                     </li>
+                    {props.user && 
                     <li className="nav-list-item">
                         <LogoutButton />
-                    </li>
+                    </li>}
                     <li className="nav-list-item">
                     <Link to="/profile">Profile</Link>
                     </li>
@@ -32,4 +33,4 @@ const Navigation = () => {
     )
 }
 
-export default Navigation
+export default Navigation;

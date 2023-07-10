@@ -6,29 +6,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { FileUploader } from "react-drag-drop-files";
 import {TextField, Button} from '@mui/material';
 
-const Profile = (props) => {
+const Profile = () => {
   const { user:auth0User, isAuthenticated } = useAuth0();
   const [user, setUser] = useState(auth0User);
-  const [userCreated, setUserCreated] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-  const sqlUsers = []
-
-  const getUser = async () => {
-    console.log(auth0User)
-    await axios.get(`/api/users/${auth0User.email}`)
-    .then(res => props.updateUser(res.data[0]))
-    .then(setLoading(false))
-  }
 
   useEffect(() => {
-    setLoading(true)
-    if (auth0User) getUser()
+    if (auth0User) setLoading(false)
   }, [auth0User]);
-
-  if (sqlUsers.find(sql => sql.email === user.email)) {
-    setUserCreated(true)
-  };
 
   const s3Client = new S3Client({
     region: process.env.REACT_APP_REGION,
@@ -59,7 +45,7 @@ const Profile = (props) => {
   const selectPic = (file) => {
     setUser({
       ...user,
-      picture: file
+      picture: file.name
     })
     uploadObject(file)
   };
@@ -72,32 +58,16 @@ const Profile = (props) => {
   };
 
   const createUser = async () => {
-    if (!userCreated) {
-      // Create
       try {
         await axios.post('/api/users', {
           user_name: user.nickname,
           email: auth0User.email,
           profile_picture: `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}`
         });
-        setUserCreated(true)
         console.log('User Created successfully');
       } catch (error) {
         console.error('Error creating user:', error);
       }
-    } 
-    // else {
-    //   // Update (Not Sure If I Will Integrate)
-    //   try {
-    //     await axios.put('/api/users/:id', {
-    //       user_name: user.nickname,
-    //       profile_picture: `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}`
-    //     });
-    //     console.log('User Updated successfully');
-    //   } catch (error) {
-    //     console.error('Error updating user:', error);
-    //   }
-    // }
   };
 
   const fileTypes = ["jpg", "png", "jpeg"];
@@ -117,7 +87,7 @@ const Profile = (props) => {
         <form onSubmit={navigation}>
           <FileUploader onSelect={selectPic} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
           <br></br>
-          <TextField onChange={selectUsername} label="Username" variant="outlined"></TextField>
+          <TextField onChange={selectUsername} label="Username" variant="outlined" required></TextField>
           <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
           <br></br>
           {console.log()}
