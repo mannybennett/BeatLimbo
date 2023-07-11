@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
+import ReactAudioPlayer from 'react-audio-player';
 //import defaultPic from ...
 
 const Limbo = (props) => {
@@ -19,6 +20,7 @@ const Limbo = (props) => {
   useEffect(() => {
     getUser()
     getAudioFiles()
+    //refresh with new uploads?
   }, []);
 
 console.log("User", props.user)
@@ -28,10 +30,20 @@ console.log("Files", props.audioFiles)
     //const setDefaultImg = (e) => {e.target.src = defaultPic}
     //img tag
     <div>
-      <p>Feed</p>
-      {props.audioFiles && props.audioFiles.length > 0 && (
-      <p>{props.audioFiles[0].id}</p>
-    )}
+      <h2>Feed</h2>
+      {props.audioFiles.length > 0 && 
+        props.audioFiles.map((file, idx) => {
+          return (
+            <div key={idx}>
+              <h4>{file.title}</h4>
+              <ReactAudioPlayer
+              src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
+              controls
+              controlsList='nodownload noplaybackrate' />
+            </div>
+          )
+        }
+      )}
     </div>
   )
 };
