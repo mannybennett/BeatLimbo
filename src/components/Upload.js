@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { FileUploader } from "react-drag-drop-files";
-import ReactAudioPlayer from 'react-audio-player';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import {TextField, Button} from '@mui/material';
 
 const Upload =(props) => {
-  const [audioUrl, setAudioUrl] = useState('');
-  const [audioFile, setAudioFile] = useState({});
+  const [audioFile, setAudioFile] = useState(null);
   const [title, setTitle] = useState('');
   
   const s3Client = new S3Client({
@@ -58,15 +56,14 @@ const Upload =(props) => {
     setTitle(e.target.value)
   };
   
-  const getAudioUrl = (key) => `https://myfirstaudiobucket.s3.amazonaws.com/${key}`
-  
   const uploadFile = async (e) => {
-    e.preventDefault()
-    await uploadObject(audioFile);
-    const url = getAudioUrl(`${uuid}${audioFile.name}`);
-    setAudioUrl(url);
-    await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name);
-  }
+    if (audioFile) {
+      e.preventDefault()
+      await uploadObject(audioFile);
+      await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name);
+    }
+    // else...(notify user to complete form first)
+  };
 
   const onSelect = async (file) => {
     setAudioFile(file)
@@ -78,11 +75,8 @@ const Upload =(props) => {
     <div className="App">
         <form>
           <FileUploader onSelect={onSelect} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
-          <br></br>
           <TextField onChange={selectTitle} label="Title" variant="outlined" required></TextField>
           <Button type="submit" onClick={uploadFile} variant="contained">Upload</Button>
-          <br></br>
-          <ReactAudioPlayer src={audioUrl} controls />
         </form>
     </div>
   );

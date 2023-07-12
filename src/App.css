@@ -1,8 +1,22 @@
-.nav-list {
-  list-style: none;
-  display: flex;
+body {
+  background-color: #424242;
 }
 
-.nav-list-item {
-  margin: auto 20px;
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.textIcon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.linkHover {
+  transition: color 0.6s;
+}
+
+.linkHover:hover {
+  color: #d91226;
 }

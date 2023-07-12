@@ -85,7 +85,7 @@ const ProfileCreation = () => {
         await axios.post('/api/users', {
           user_name: user.nickname,
           email: auth0User.email,
-          profile_picture: `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}`
+          profile_picture: user.picture ? `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}` : null
         });
         console.log('User Created successfully');
       } catch (error) {
