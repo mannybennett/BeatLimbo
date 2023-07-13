@@ -10,6 +10,9 @@ export const theme = createTheme({
       main: '#d91226',
       light: "#cc3333"
     },
+    warning:{
+      main: '#4fc3f7'
+    },
     info:{
       main:"#e8e8e8"
     }
