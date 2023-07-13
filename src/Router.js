@@ -10,7 +10,7 @@ import ProfileCreation from './containers/ProfileCreation';
 
 function Router() {
   return (
-    <Box bgcolor="lightgray" flex={5}>
+    <Box bgcolor="#1f1f1f" flex={5}>
       <Routes>
         <Route path='/' element={<Landing/>} />
         <Route path='/limbo' element={<Limbo/>} />

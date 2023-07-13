@@ -16,9 +16,9 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Box bgcolor="lightgray">
+        <Box bgcolor="#1f1f1f">
           <Navigation />
-          <Stack sx={{ minHeight: "90vh" }} direction="row" spacing={space}>
+          <Stack sx={{ minHeight: "95.7vh" }} direction="row" spacing={space}>
             <LeftBar />
             <Router />
             <RightBar />
