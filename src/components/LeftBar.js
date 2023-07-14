@@ -7,9 +7,9 @@ const LeftBar = () => {
     <Box bgcolor="#1f1f1f" flex={1}
       sx={{
         display: { xs: "none", sm: "block" },
-        backgroundImage: `url(${redwavey})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "repeat"
+        // backgroundImage: `url(${redwavey})`,
+        // backgroundSize: "cover",
+        // backgroundRepeat: "repeat"
       }}
     >
       <Box position="fixed"></Box>

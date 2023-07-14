@@ -105,7 +105,7 @@ const Upload =(props) => {
             multiple={false}
             // children="Reset Style"
             types={fileTypes} />
-          <TextField onChange={selectTitle} label="Title" variant="outlined" required />
+          <TextField inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" variant="outlined" required />
           <Button type="submit" onClick={uploadFile} variant="contained">Upload</Button>
           <Modal
             open={open}

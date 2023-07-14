@@ -104,7 +104,7 @@ const ProfileCreation = () => {
         <form onSubmit={navigation}>
           <FileUploader onSelect={selectPic} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
           <br></br>
-          <TextField onChange={selectUsername} label="Username" variant="outlined" required></TextField>
+          <TextField inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" variant="outlined" required></TextField>
           <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
           <br></br>
           {console.log()}

@@ -12,13 +12,12 @@ import whitewavey from "./images/whitewavey.jpg"
 function Router() {
   return (
     <Box bgcolor="#1f1f1f" flex={5}
-    sx={{
-      display: { xs: "none", sm: "block" },
-      backgroundImage: `url(${whitewavey})`,
-      backgroundSize: "cover",
-      backgroundRepeat: "repeat",
-      // boxShadow: "-10px 0px 20px black, 10px 0px 20px black"
-    }}
+    // sx={{
+    //   backgroundImage: `url(${whitewavey})`,
+    //   backgroundSize: "cover",
+    //   backgroundRepeat: "repeat",
+    //   // boxShadow: "-10px 0px 20px black, 10px 0px 20px black"
+    // }}
     >
       <Routes>
         <Route path='/' element={<Landing/>} />
