@@ -8,18 +8,20 @@ import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
   const [expandedId, setExpandedId] = useState(null);
-  const [selectedValue, setSelectedValue] = useState({});
+  const [clickedButton, setClickedButton] = useState({});
+  const [allVotes, setAllVotes] = useState([]);
 
   const handleExpandClick = (id) => {
     setExpandedId(id === expandedId ? null : id);
   };
 
   const handleChange = (value, postId) => {
-    setSelectedValue((prevSelectedValues) => ({
-      ...prevSelectedValues,
+    setClickedButton((prevClickedButton) => ({
+      ...prevClickedButton,
       [postId]: value,
     }));
-  };  
+    postVote(value, props.user.id, postId)
+  };
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -30,7 +32,6 @@ const Limbo = (props) => {
     transition: 'transform 1s'
   }));
   
-
   const getUser = async () => {
     await axios.get(`/api/users/${auth0User.email}`)
     .then(res => props.updateUser(res.data[0]))
@@ -41,14 +42,53 @@ const Limbo = (props) => {
     .then(res => props.getFiles(res.data))
   }
 
+  const setButtons = (votes) => {
+    const userVotes = votes.filter(vote => vote.user_id === props.user.id);
+    console.log('Votes:', userVotes);
+  
+    const initialClickedButton = userVotes.reduce((acc, vote) => {
+      acc[vote.audio_file_id] = vote.vote;
+      return acc;
+    }, {});
+  
+    setClickedButton(initialClickedButton);
+  };
+  
+  const getAllVotes = async () => {
+    try {
+      const response = await axios.get('/api/limbo/');
+      setAllVotes(response.data);
+      setButtons(response.data);
+    } catch (error) {
+      console.log('Error fetching votes:', error);
+    }
+  };
+
+  const postVote = async (vote, userId, audioFileId) => {
+    try {
+      await axios.post('/api/limbo', {
+        vote: vote,
+        user_id: userId,
+        audio_file_id: audioFileId
+      });
+      console.log('Vote posted successfully');
+    } catch (error) {
+      console.error('Error posting vote:', error);
+    }
+  };
+
   useEffect(() => {
     getUser()
     getAudioFiles()
     //refresh with new uploads?
   }, []);
 
-console.log("User", props.user)
-console.log("Files", props.audioFiles)
+  useEffect(() => {
+    getAllVotes()
+  }, []);
+
+// console.log("User", props.user)
+// console.log("Files", props.audioFiles)
 
   return (
     <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
@@ -58,59 +98,8 @@ console.log("Files", props.audioFiles)
           const isExpanded = file.id === expandedId;
           return (
             <Card key={idx} sx={{ display: 'flex', flexDirection: 'column', padding: "10px", marginBottom: 5, bgcolor: "#1f1f1f", width: "90%", maxWidth: '1000px', boxShadow: "1px 5px 20px black" }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>                
-                <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: 'flex-end' }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', marginRight: '10px' }}>
-                    <CardMedia
-                      component="img"
-                      sx={{ width: 150, height: 150, borderRadius: 1, marginBottom: '10px'}}
-                      image={file.image}
-                      alt="Track Image"
-                    />
-                    <Typography
-                      sx={{ width: '100%', height: "53.99px", borderTop: '1px solid #0a0a0a', borderBottom: '1px solid #0a0a0a', borderRadius: 1, textAlign: 'center', lineHeight: '53.99px' }}
-                      variant="h5"
-                      color="#919191"
-                      component="div">
-                        {file.user_name}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", alignItems: 'flex-start', flexDirection: 'column', width: "100%" }}>
-                    <Typography color="#e8e8e8" component="div" variant="h3" paddingBottom={2}>
-                      {file.title}
-                    </Typography>
-                    <ReactAudioPlayer
-                      className='audioPlayer'
-                      src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
-                      controls
-                      controlsList='nodownload noplaybackrate'
-                    />
-                    <Box sx={{ display: 'flex', width: '100%', height: "53.99px", bgcolor: '' }}>
-                      <Box sx={{ width: '50%', height: '100%', paddingRight: '5px' }}>
-                        <Checkbox
-                        checked={selectedValue[file.id] === 'like'}
-                        onChange={() => handleChange('like', file.id)}
-                        value="like"
-                        sx={{ width: '100%', height: '100%' }}
-                        icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE / POST</Button>}
-                        checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE / POST</Button>}
-                      />
-                      </Box>
-                      <Box sx={{ width: '50%', height: '100%', paddingLeft: '5px' }}>
-                        <Checkbox
-                        checked={selectedValue[file.id] === 'dislike'}
-                        onChange={() => handleChange('dislike', file.id)}
-                        value="dislike"
-                        sx={{ width: '100%', height: '100%' }}
-                        icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE / GHOST</Button>}
-                        checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE / GHOST</Button>}
-                      />
-                      </Box>
-                      
-                    </Box>
-                  </Box>
-                </Box>    
-                <Box sx={{ display: { xs: "flex", md: "none" }, flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
                   <Box sx={{ display: 'flex', width: '100%' }}>
                     <CardMedia
                       component="img"
@@ -141,22 +130,22 @@ console.log("Files", props.audioFiles)
                     <Box sx={{ display: 'flex', width: '100%', height: "53.99px", bgcolor: '' }}>
                       <Box sx={{ width: '50%', height: '100%', paddingRight: '5px' }}>
                         <Checkbox
-                        checked={selectedValue[file.id] === 'like'}
-                        onChange={() => handleChange('like', file.id)}
-                        value="like"
+                        checked={clickedButton[file.id] === 'complete'}
+                        onChange={() => handleChange('complete', file.id)}
+                        value="complete"
                         sx={{ width: '100%', height: '100%' }}
-                        icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE / POST</Button>}
-                        checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE / POST</Button>}
+                        icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE</Button>}
+                        checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE</Button>}
                       />
                       </Box>
                       <Box sx={{ width: '50%', height: '100%', paddingLeft: '5px' }}>
                         <Checkbox
-                        checked={selectedValue[file.id] === 'dislike'}
-                        onChange={() => handleChange('dislike', file.id)}
-                        value="dislike"
+                        checked={clickedButton[file.id] === 'delete'}
+                        onChange={() => handleChange('delete', file.id)}
+                        value="delete"
                         sx={{ width: '100%', height: '100%' }}
-                        icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE / GHOST</Button>}
-                        checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE / GHOST</Button>}
+                        icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE</Button>}
+                        checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE</Button>}
                       />
                       </Box>
                     </Box>

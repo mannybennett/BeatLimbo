@@ -76,10 +76,28 @@ const Navigation = (props) => {
         </Links>
         <MobileLinks>
           <Link to="/limbo">
-            <GraphicEqIcon className="linkHover" sx={{ fontSize: 30, marginTop: "3px" }} />
+            <GraphicEqIcon
+              sx={{
+                fontSize: 30,
+                marginTop: "3px",
+                transition: "color 0.6s",
+                "&:hover": {
+                  color: "#d91226",
+                }
+              }}
+            />
           </Link>
           <Link to="/upload">
-            <UploadIcon className="linkHover" sx={{ fontSize: 30, marginTop: "3px" }} />
+            <UploadIcon
+              sx={{
+                fontSize: 30,
+                marginTop: "3px",
+                transition: "color 0.6s",
+                "&:hover": {
+                  color: "#d91226",
+                }
+              }}
+            />
           </Link>
           {props.user && (
             <div>

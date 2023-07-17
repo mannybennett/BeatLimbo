@@ -6,7 +6,18 @@ const MobileLogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <LogoutIcon sx={{ fontSize: 30, marginTop: "3px" }} onClick={() => logout({ returnTo: "http://localhost:3000" })} />
+    <LogoutIcon
+      onClick={() => logout({ returnTo: "http://localhost:3000" })}
+      sx={{
+        cursor: 'pointer',
+        fontSize: 30,
+        marginTop: "3px",
+        transition: "color 0.6s",
+        "&:hover": {
+          color: "#d91226",
+        }
+      }}
+    />
   );
 };
 
