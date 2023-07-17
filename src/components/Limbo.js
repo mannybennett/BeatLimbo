@@ -9,7 +9,7 @@ const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
   const [expandedId, setExpandedId] = useState(null);
   const [clickedButton, setClickedButton] = useState({});
-  const [allVotes, setAllVotes] = useState([]);
+  // const [allVotes, setAllVotes] = useState([]);
 
   const handleExpandClick = (id) => {
     setExpandedId(id === expandedId ? null : id);
@@ -42,25 +42,25 @@ const Limbo = (props) => {
     .then(res => props.getFiles(res.data))
   }
 
-  const setButtons = (votes) => {
-    const userVotes = votes.filter(vote => vote.user_id === props.user.id);
-    console.log('Votes:', userVotes);
+  // const setButtons = (votes) => {
+  //   const userVotes = votes.filter(vote => vote.user_id === props.user.id);
+  //   console.log('Votes:', userVotes);
   
-    const initialClickedButton = userVotes.reduce((acc, vote) => {
-      acc[vote.audio_file_id] = vote.vote;
-      return acc;
-    }, {});
+  //   const initialClickedButton = userVotes.reduce((acc, vote) => {
+  //     acc[vote.audio_file_id] = vote.vote;
+  //     return acc;
+  //   }, {});
   
-    setClickedButton(initialClickedButton);
-  };
+  //   setClickedButton(initialClickedButton);
+  // };
   
   const getAllVotes = async () => {
     try {
       const response = await axios.get('/api/limbo/');
-      setAllVotes(response.data);
-      setButtons(response.data);
+      return response.data;
     } catch (error) {
       console.log('Error fetching votes:', error);
+      throw error;
     }
   };
 
@@ -78,16 +78,31 @@ const Limbo = (props) => {
   };
 
   useEffect(() => {
-    getUser()
-    getAudioFiles()
-    //refresh with new uploads?
+    // NOT WORKING ON FIRST RENDER
+    const fetchData = async () => {
+      try {
+        const votes = await getAllVotes();
+        const userVotes = votes.filter(vote => vote.user_id === props.user.id);
+        setClickedButton(
+          userVotes.reduce((acc, vote) => {
+            acc[vote.audio_file_id] = vote.vote;
+            return acc;
+          }, {})
+        );
+      } catch (error) {
+        return console.log('Error:', error)
+      }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
-    getAllVotes()
+    getUser();
+    getAudioFiles();
   }, []);
 
-// console.log("User", props.user)
+console.log("User", props.user)
 // console.log("Files", props.audioFiles)
 
   return (
