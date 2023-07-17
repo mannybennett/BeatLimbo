@@ -114,17 +114,17 @@ console.log("Files", props.audioFiles)
                   <Box sx={{ display: 'flex', width: '100%' }}>
                     <CardMedia
                       component="img"
-                      sx={{ width: 150, height: 150, borderRadius: 1, marginBottom: '10px', marginRight: '10px'}}
+                      sx={{ width: 80, height: 80, borderRadius: 1, marginBottom: '10px', marginRight: '10px'}}
                       image={file.image}
                       alt="Track Image"
                     />
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
-                      <Typography sx={{ width: '100%' }} color="#e8e8e8" component="div" variant="h3">
+                      <Typography sx={{ width: '100%' }} color="#e8e8e8" component="div" variant="h6">
                         {file.title}
                       </Typography>
                       <Typography
                         sx={{  }}
-                        variant="h6"
+                        variant="p"
                         color="#919191"
                         component="div">
                           {file.user_name}
