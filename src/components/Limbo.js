@@ -235,9 +235,9 @@ console.log("Comments", comments)
                 </ExpandMore>
               </CardActions>
               <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                <Divider sx={{ backgroundColor: '#919191' }} variant="middle" />
+                <Divider sx={{ backgroundColor: '#3d3d3d' }} variant="middle" />
                 <CardContent>
-                  <Typography marginBottom={1.2} color="#e8e8e8" component="div" variant="h5">Comments</Typography>
+                  {/* <Typography marginBottom={1.2} color="#e8e8e8" component="div" variant="h5">Comments</Typography> */}
                   {comments.length > 0 &&
                     comments.map((comment, idx) => {
                       if (expandedId === comment.audio_file_id) {
@@ -255,14 +255,18 @@ console.log("Comments", comments)
                             </Box>                    
                             <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
                               {comment.comment}
-                            </Typography>
-                            {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                              <Divider sx={{ backgroundColor: '#919191', margin: '12px 0', width: '60%' }} />                  
-                            </Box> */}
+                            </Typography>                            
                           </Box> 
                         )
+                      } else {
+                        // return (
+                        //   <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
+                        //     Be the first to comment!
+                        //   </Typography>
+                        // )
                       }
-                  })}                  
+                    })
+                  }               
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <IconButton>
