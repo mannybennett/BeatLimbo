@@ -32,3 +32,34 @@ a {
 .css-19uu3ae-MuiButtonBase-root-MuiCheckbox-root {
   padding: 0 !important;
 }
+
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.css-1ifeshr-MuiSvgIcon-root {
+  animation: animate 3s ease infinite;
+}
+
+@keyframes animate {
+  0%{
+    fill: #e8e8e8;
+  }
+  20%{
+    fill: #d91226;
+  }
+  40%{
+    fill: #4fc3f7;
+  }
+  60%{
+    fill: #d91226;
+  }
+  80%{
+    fill: #4fc3f7;
+  }
+  100%{
+    fill: #e8e8e8;
+  }
+}
