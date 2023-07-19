@@ -22,6 +22,7 @@ const ProfileCreation = () => {
   // Find better way to navigate if account is already existent
 
   const getUser = async () => {
+    setLoading(true)
     await axios.get(`/api/users/${auth0User.email}`)
     .then(res => {
       if (res.data.length) {
@@ -30,6 +31,7 @@ const ProfileCreation = () => {
         console.log(res)
       }
     })
+    setLoading(false)
   };
 
   useEffect(() => {

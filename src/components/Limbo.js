@@ -43,10 +43,6 @@ const Limbo = (props) => {
     marginLeft: 'auto'
   }));
 
-  const inputComment = (e) => {
-    setNewComment(e.target.value)
-  }
-
   const handleExpandClick = (id) => {
     setExpandedId(id === expandedId ? null : id);
   };
@@ -111,7 +107,6 @@ const Limbo = (props) => {
         audio_file_id: audioFileId,
         profile_picture: profilePicture
       });
-      // v cheap way v
       getAllComments()
       console.log('Comment posted successfully');
     } catch (error) {
@@ -134,21 +129,21 @@ const Limbo = (props) => {
     await postComment(newComment, props.user.id, props.user.user_name, expandedId, props.user.profile_picture)
     handleClose()
   }
-
+  
   useEffect(() => {
     getUser();
   }, []);
-
+  
   useEffect(() => {
     getAudioFiles();
   }, []);
-
+  
   useEffect(() => {
     getAllComments()
   }, []);
-
+  
   useEffect(() => {
-    // NOT WORKING ON FIRST RENDER
+    // works but there is slight delay //
     const fetchVotes = async () => {
       try {
         const votes = await getAllVotes();
@@ -165,11 +160,10 @@ const Limbo = (props) => {
     };
 
     fetchVotes();
-  }, []);
-
+  }, [props.user]);
 
 // console.log("User", props.user)
-console.log("Comments", comments)
+// console.log("Comments", comments)
 // console.log("Files", props.audioFiles)
 
   return (
@@ -313,7 +307,7 @@ console.log("Comments", comments)
                 <Box sx={modalStyle}>
                   <form onSubmit={sendComment} className='commentForm'>
                     <TextField
-                      onChange={inputComment}
+                      onChange={(e) => setNewComment(e.target.value)}
                       sx={{
                         marginBottom: 2,
                         background: 'white',

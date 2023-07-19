@@ -23,7 +23,8 @@ const Upload =(props) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '70%',
+    maxWidth: '400px',
     bgcolor: '#1f1f1f',
     borderRadius: 10,
     boxShadow: 24,
@@ -86,6 +87,7 @@ const Upload =(props) => {
       // v Not Working v
       setTitle('')
     } else {
+      e.preventDefault()
       handleOpen()
     }
   };
@@ -110,11 +112,10 @@ const Upload =(props) => {
           <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="modal-modal-title"
           >
             <Box sx={modalStyle}>
               <WarningAmberIcon sx={{ fontSize: 40, color: "#d91226" }} />
-              <Typography sx={{ color: "white" }} id="modal-modal-title" variant="h6" component="h2">
+              <Typography sx={{ color: "white" }} variant="p" component="div">
                 Please select an audio file and a title
               </Typography>
             </Box>
