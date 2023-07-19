@@ -182,7 +182,7 @@ const Limbo = (props) => {
                       sx={{ width: 80, height: 80, borderRadius: 1, marginBottom: '10px', marginRight: '10px'}}
                       image={file.image}
                       alt="Track Image"
-                    />
+                      />
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
                       <Typography sx={{ width: '100%' }} color="#e8e8e8" component="div" variant="h6">
                         {file.title}
@@ -192,7 +192,7 @@ const Limbo = (props) => {
                         variant="p"
                         color="#919191"
                         component="div"
-                      >
+                        >
                         {file.user_name}
                       </Typography>
                     </Box>
@@ -203,7 +203,7 @@ const Limbo = (props) => {
                       src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
                       controls
                       controlsList='nodownload noplaybackrate'
-                    />
+                      />
                     <Box sx={{ display: 'flex', width: '100%', height: "53.99px", bgcolor: '' }}>
                       <Box sx={{ width: '50%', height: '100%', paddingRight: '5px' }}>
                         <Checkbox
@@ -213,7 +213,7 @@ const Limbo = (props) => {
                         sx={{ width: '100%', height: '100%' }}
                         icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE</Button>}
                         checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE</Button>}
-                      />
+                        />
                       </Box>
                       <Box sx={{ width: '50%', height: '100%', paddingLeft: '5px' }}>
                         <Checkbox
@@ -223,7 +223,7 @@ const Limbo = (props) => {
                         sx={{ width: '100%', height: '100%' }}
                         icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE</Button>}
                         checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE</Button>}
-                      />
+                        />
                       </Box>
                     </Box>
                   </Box>
@@ -235,14 +235,22 @@ const Limbo = (props) => {
                   onClick={() => handleExpandClick(file.id)}
                   aria-expanded={isExpanded}
                   aria-label="show more"
-                >
+                  >
                   <InsertCommentOutlinedIcon color='info' fontSize='medium' />
                 </ExpandMore>
               </CardActions>
               <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                 <Divider sx={{ backgroundColor: '#3d3d3d' }} variant="middle" />
                 <CardContent>
-                  {/* <Typography marginBottom={1.2} color="#e8e8e8" component="div" variant="h5">Comments</Typography> */}
+                  {/* <Typography marginBottom={1.2} color="#e8e8e8" component="div" variant="h5">Comments</Typography> */}                  
+                  {/* {comments.forEach((comment, idx) => {
+                    if (expandedId !== comment.audio_file_id) {
+                      <Typography key={idx} sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
+                        Be the first to comment!
+                      </Typography>
+                    }
+                  })
+                  } */}
                   {comments.length > 0 &&
                     comments.map((comment, idx) => {
                       if (expandedId === comment.audio_file_id) {
@@ -254,7 +262,7 @@ const Limbo = (props) => {
                                 variant="p"
                                 color="#919191"
                                 component="div"
-                              >
+                                >
                                 {comment.user_name}
                               </Typography>
                             </Box>
@@ -270,15 +278,9 @@ const Limbo = (props) => {
                             </Box>                    
                           </Box> 
                         )
-                      } else {
-                        // return (
-                        //   <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
-                        //     Be the first to comment!
-                        //   </Typography>
-                        // )
                       }
                     })
-                  }               
+                  }                                 
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                   <IconButton>
@@ -303,7 +305,7 @@ const Limbo = (props) => {
                     }
                   }
                 }}
-              >
+                >
                 <Box sx={modalStyle}>
                   <form onSubmit={sendComment} className='commentForm'>
                     <TextField
@@ -320,7 +322,7 @@ const Limbo = (props) => {
                       variant="filled"
                       multiline
                       required
-                    />
+                      />
                     <Button sx={{ width: '20%' }} type='submit' variant='contained'>POST</Button>
                   </form>                  
                 </Box>
@@ -328,7 +330,7 @@ const Limbo = (props) => {
             </Card>
           )
         }
-      )}
+        )}
     </Box>
   )
 };
