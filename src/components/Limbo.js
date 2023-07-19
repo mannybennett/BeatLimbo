@@ -5,6 +5,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import { useMediaQuery, Card, Button, Box, CardContent, CardMedia, Typography, CardActions, Collapse, IconButton, styled, Checkbox, Divider, Modal, TextField, Avatar } from '@mui/material';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -34,6 +35,14 @@ const Limbo = (props) => {
     textAlign: "center"
   };
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto'
+  }));
+
   const inputComment = (e) => {
     setNewComment(e.target.value)
   }
@@ -49,15 +58,6 @@ const Limbo = (props) => {
     }));
     postVote(value, props.user.id, postId)
   };
-
-  const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: 'transform 1s'
-  }));
   
   const getUser = async () => {
     await axios.get(`/api/users/${auth0User.email}`)
@@ -111,10 +111,21 @@ const Limbo = (props) => {
         audio_file_id: audioFileId,
         profile_picture: profilePicture
       });
+      // v cheap way v
       getAllComments()
       console.log('Comment posted successfully');
     } catch (error) {
       console.error('Error posting comment:', error);
+    }
+  };
+
+  const deleteComment = async (commentId) => {
+    try {
+      await axios.delete(`/api/limbo/comments/${commentId}`);
+      console.log('Comment deleted successfully');
+      setComments(comments.filter(comment => comment.id !== commentId))     
+    } catch (error) {
+      console.error('Error deleting comment:', error);
     }
   };
 
@@ -252,10 +263,17 @@ console.log("Comments", comments)
                               >
                                 {comment.user_name}
                               </Typography>
+                            </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
+                                {comment.comment}
+                              </Typography>
+                              {comment.user_id === props.user.id &&
+                              <IconButton>
+                                <DeleteIcon onClick={() => deleteComment(comment.id)} sx={{ fill: '#3d3d3d' }} fontSize='small' />
+                              </IconButton>
+                              }                            
                             </Box>                    
-                            <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
-                              {comment.comment}
-                            </Typography>                            
                           </Box> 
                         )
                       } else {

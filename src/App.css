@@ -40,23 +40,20 @@ a {
 }
 
 .css-1ifeshr-MuiSvgIcon-root {
-  animation: animate 3s ease infinite;
+  animation: animate 2s ease infinite;
 }
 
 @keyframes animate {
   0%{
     fill: #e8e8e8;
   }
-  20%{
+  25%{
     fill: #d91226;
   }
-  40%{
-    fill: #4fc3f7;
+  50%{
+    fill: #e8e8e8;
   }
-  60%{
-    fill: #d91226;
-  }
-  80%{
+  75%{
     fill: #4fc3f7;
   }
   100%{
