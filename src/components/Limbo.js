@@ -183,7 +183,7 @@ const Limbo = (props) => {
                       image={file.image}
                       alt="Track Image"
                       />
-                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', marginBottom: '10px' }}>
                       <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" component="div" variant="h6">
                         {file.title}
                       </Typography>
@@ -229,7 +229,7 @@ const Limbo = (props) => {
                   </Box>
                 </Box>    
               </Box>
-              <CardActions disableSpacing>
+              <CardActions sx={{ paddingRight: 0 }}>
                 <ExpandMore
                   expand={isExpanded}
                   onClick={() => handleExpandClick(file.id)}
@@ -271,8 +271,8 @@ const Limbo = (props) => {
                                 {comment.comment}
                               </Typography>
                               {comment.user_id === props.user.id &&
-                              <IconButton>
-                                <DeleteIcon onClick={() => deleteComment(comment.id)} sx={{ fill: '#3d3d3d' }} fontSize='small' />
+                              <IconButton onClick={() => deleteComment(comment.id)}>
+                                <DeleteIcon sx={{ fill: '#3d3d3d' }} fontSize='small' />
                               </IconButton>
                               }                            
                             </Box>                    
@@ -283,8 +283,8 @@ const Limbo = (props) => {
                   }                                 
                 </CardContent>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <IconButton>
-                    <AddBoxIcon onClick={handleOpen} sx={{ fill: '#e8e8e8' }} fontSize='large' />
+                  <IconButton onClick={handleOpen}>
+                    <AddBoxIcon sx={{ fill: '#e8e8e8' }} fontSize='large' />
                   </IconButton>
                 </Box>                
               </Collapse>
@@ -315,7 +315,7 @@ const Limbo = (props) => {
                         background: 'white',
                         borderRadius: 1,
                       }}
-                      inputProps={{ maxLength: 80 }}
+                      inputProps={{ maxLength: 100 }}
                       fullWidth={true}
                       color='primary'
                       label="Comment"

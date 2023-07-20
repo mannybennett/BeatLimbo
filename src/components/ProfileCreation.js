@@ -4,10 +4,10 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FileUploader } from "react-drag-drop-files";
-import {TextField, Button} from '@mui/material';
+import {TextField, Button, CircularProgress, Backdrop} from '@mui/material';
 
 const ProfileCreation = () => {
-  const { user:auth0User, isAuthenticated } = useAuth0();
+  const { user:auth0User } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [loading, setLoading] = useState(true)
 
@@ -18,8 +18,6 @@ const ProfileCreation = () => {
     // Create new component instead to welcome users that has link to feed component (limbo)
     navigate("/limbo");
   }
-  
-  // Find better way to navigate if account is already existent
 
   const getUser = async () => {
     setLoading(true)
@@ -99,20 +97,27 @@ const ProfileCreation = () => {
 
   return (
     <>
-    {loading && <p>Loading...</p>}
-    {!loading && isAuthenticated && (
-      <div>
-        <p>Select Profile Picture and Username</p>
-        <form onSubmit={navigation}>
-          <FileUploader onSelect={selectPic} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
-          <br></br>
-          <TextField inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" variant="outlined" required></TextField>
-          <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
-          <br></br>
-          {console.log()}
-        </form>
-      </div>
-    )}
+      {loading && 
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={true}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      }
+      {!loading &&
+        <div>
+          <p>Select Profile Picture and Username</p>
+          <form onSubmit={navigation}>
+            <FileUploader onSelect={selectPic} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
+            <br></br>
+            <TextField inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" variant="outlined" required></TextField>
+            <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
+            <br></br>
+            {console.log()}
+          </form>
+        </div>
+      }
     </>
   );
 };
