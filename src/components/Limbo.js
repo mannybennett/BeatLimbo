@@ -170,7 +170,7 @@ const Limbo = (props) => {
     <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
       {/* <Typography variant='h3' component='div' color='#e8e8e8'>LIMBO</Typography> */}
       {props.audioFiles.length > 0 && 
-        props.audioFiles.map((file, idx) => {
+        props.audioFiles.toReversed().map((file, idx) => {
           const isExpanded = file.id === expandedId;
           return (
             <Card key={idx} sx={{ display: 'flex', flexDirection: 'column', padding: "10px", marginBottom: 5, bgcolor: "#1f1f1f", width: "90%", maxWidth: '1000px', boxShadow: "1px 5px 20px black" }}>
@@ -184,7 +184,7 @@ const Limbo = (props) => {
                       alt="Track Image"
                       />
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%' }}>
-                      <Typography sx={{ width: '100%' }} color="#e8e8e8" component="div" variant="h6">
+                      <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" component="div" variant="h6">
                         {file.title}
                       </Typography>
                       <Typography
@@ -204,7 +204,7 @@ const Limbo = (props) => {
                       controls
                       controlsList='nodownload noplaybackrate'
                       />
-                    <Box sx={{ display: 'flex', width: '100%', height: "53.99px", bgcolor: '' }}>
+                    <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
                       <Box sx={{ width: '50%', height: '100%', paddingRight: '5px' }}>
                         <Checkbox
                         checked={clickedButton[file.id] === 'complete'}
