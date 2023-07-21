@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Paper, CircularProgress, Backdrop } from "@mui/material";
+import {
+  Box,
+  styled,
+  Table,
+  TableBody,
+  TableCell,
+  tableCellClasses,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  CircularProgress,
+  Backdrop,
+  Avatar,
+  Typography
+} from "@mui/material";
 
 const Profile = (props) => {
   const [allVotes, setAllVotes] = useState([]);
@@ -22,6 +37,15 @@ const Profile = (props) => {
     const filteredFiles = props.audioFiles.filter(file => file.user_id === props.user.id)
     setUserFiles(filteredFiles)
   }, [])
+
+  const AvatarContainer = styled(Box)({
+    position: 'relative',
+    width: '90%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '70px 0 100px 0'
+  });
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -87,8 +111,20 @@ const Profile = (props) => {
       }
       {!loading &&
         <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
+          <AvatarContainer>
+            <Box sx={{ width: '100%', height: {xs: '75px', md: '110px'}, bgcolor: '#e8e8e8' }}></Box>
+            <Avatar sx={{ width: {xs: '165px', md: '200px'}, height: {xs: '165px', md: '200px'}, position: 'absolute', top: '-50px', boxShadow: "0px 0px 20px 5px black" }} src={props.user.profile_picture} alt="User"/>
+          </AvatarContainer>
+          {/* <Typography component="div" variant="h6">{props.user.user_name}</Typography> */}
           <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 0 }}>
             <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell sx={{ fontSize: '20px' }} align="center">Vote Stats</StyledTableCell>
+                  <StyledTableCell></StyledTableCell>
+                </TableRow>
+              </TableHead>
               <TableHead>
                 <TableRow>
                   <StyledTableCell>Beats</StyledTableCell>

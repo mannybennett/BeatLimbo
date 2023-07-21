@@ -30,6 +30,7 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "uuid": "^9.0.0",
+    "web-audio-beat-detector": "^8.1.51",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

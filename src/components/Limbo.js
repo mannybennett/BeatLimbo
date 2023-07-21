@@ -6,6 +6,8 @@ import { useMediaQuery, Card, Button, Box, CardContent, CardMedia, Typography, C
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -233,7 +235,7 @@ const Limbo = (props) => {
                         controlsList='nodownload noplaybackrate'
                         />
                       <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
-                        <Box sx={{ width: '50%', height: '100%', paddingRight: '5px' }}>
+                        <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
                           <Checkbox
                           checked={clickedButton[file.id] === 'complete'}
                           onChange={() => handleChange('complete', file.id)}
@@ -243,7 +245,14 @@ const Limbo = (props) => {
                           checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE</Button>}
                           />
                         </Box>
-                        <Box sx={{ width: '50%', height: '100%', paddingLeft: '5px' }}>
+                        <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', lg: 'flex'}, justifyContent: 'center', alignItems: 'center' }}>
+                          <ArrowLeftIcon color="info" />
+                          <Typography color="#e8e8e8" component="div" variant="subtitle1">
+                            VOTE
+                          </Typography>
+                          <ArrowRightIcon color="info" />
+                        </Box>
+                        <Box sx={{ width: '100%', height: '100%', paddingLeft: '5px' }}>
                           <Checkbox
                           checked={clickedButton[file.id] === 'delete'}
                           onChange={() => handleChange('delete', file.id)}
