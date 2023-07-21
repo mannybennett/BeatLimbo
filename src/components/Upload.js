@@ -16,7 +16,7 @@ const Upload =(props) => {
 
   const defaultImg = "https://myfirstaudiobucket.s3.amazonaws.com/speaker.jpg"
 
-  const fileTypes = ["mp3"];
+  const fileTypes = ["mp3", "wav"];
 
   const modalStyle = {
     position: 'absolute',
@@ -103,7 +103,7 @@ const Upload =(props) => {
             onSelect={onSelect}
             maxSize={20}
             onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
-            label="Click Here to Upload an MP3 File"
+            label="Click Here to Upload an MP3/WAV File"
             multiple={false}
             // children="Reset Style"
             types={fileTypes} />
