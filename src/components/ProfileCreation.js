@@ -7,7 +7,7 @@ import { FileUploader } from "react-drag-drop-files";
 import {TextField, Button, CircularProgress, Backdrop} from '@mui/material';
 
 const ProfileCreation = () => {
-  const { user:auth0User } = useAuth0();
+  const { user:auth0User, getAccessTokenSilently } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [loading, setLoading] = useState(true)
 
@@ -34,7 +34,6 @@ const ProfileCreation = () => {
 
   useEffect(() => {
     if (auth0User) {
-      setLoading(false)
       getUser()
     } 
   }, [auth0User]);
