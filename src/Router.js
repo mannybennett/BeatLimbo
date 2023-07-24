@@ -7,17 +7,16 @@ import Limbo from './containers/Limbo';
 import Profile from './containers/Profile';
 import Landing from './components/Landing';
 import ProfileCreation from './containers/ProfileCreation';
-import whitewavey from "./images/whitewavey.jpg"
+import grey from './images/grey.jpg';
 
 function Router() {
   return (
     <Box bgcolor="#1f1f1f" flex={5}
-    // sx={{
-    //   backgroundImage: `url(${whitewavey})`,
-    //   backgroundSize: "cover",
-    //   backgroundRepeat: "repeat",
-    //   // boxShadow: "-10px 0px 20px black, 10px 0px 20px black"
-    // }}
+      sx={{
+        // backgroundImage: `url(${grey})`,
+        backgroundImage: 'linear-gradient(to bottom right, #d91226, #5e0810)',
+        backgroundAttachment: 'fixed'
+      }}
     >
       <Routes>
         <Route path='/' element={<Landing/>} />

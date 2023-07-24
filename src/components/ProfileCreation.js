@@ -7,8 +7,9 @@ import { FileUploader } from "react-drag-drop-files";
 import {TextField, Button, CircularProgress, Backdrop} from '@mui/material';
 
 const ProfileCreation = () => {
-  const { user:auth0User, getAccessTokenSilently } = useAuth0();
+  const { user:auth0User } = useAuth0();
   const [user, setUser] = useState(auth0User);
+  const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
@@ -25,8 +26,6 @@ const ProfileCreation = () => {
     .then(res => {
       if (res.data.length) {
         navigate("/limbo")
-      } else {
-        console.log(res)
       }
     })
     setLoading(false)
@@ -77,9 +76,11 @@ const ProfileCreation = () => {
       ...user,
       nickname: e.target.value
     })
+    setUserName(e.target.value)
   };
 
   const createUser = async () => {
+    if (userName) {
       try {
         await axios.post('/api/users', {
           user_name: user.nickname,
@@ -90,6 +91,7 @@ const ProfileCreation = () => {
       } catch (error) {
         console.error('Error creating user:', error);
       }
+    }
   };
 
   const fileTypes = ["jpg", "png", "jpeg"];

@@ -8,6 +8,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import grey from '../images/grey.jpg';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -203,7 +204,20 @@ const Limbo = (props) => {
           props.audioFiles.toReversed().map((file, idx) => {
             const isExpanded = file.id === expandedId;
             return (
-              <Card key={idx} sx={{ display: 'flex', flexDirection: 'column', padding: "10px", marginBottom: 5, bgcolor: "#1f1f1f", width: "90%", maxWidth: '1000px', boxShadow: "1px 5px 20px black" }}>
+              <Card key={idx}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: "10px",
+                  marginBottom: 5,
+                  bgcolor: "#1f1f1f",
+                  width: "90%",
+                  maxWidth: '1000px',
+                  boxShadow: "1px 5px 20px black",
+                  backgroundImage: `url(${grey})`,
+                  // backgroundImage: 'linear-gradient(to bottom right, #d91226, #5e0810)',
+                }}
+              >
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
                     <Box sx={{ display: 'flex', width: '100%' }}>
