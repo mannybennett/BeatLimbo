@@ -16,14 +16,8 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Box className='box' bgcolor="black">
           <Navigation />
-          <Stack sx={{ minHeight: "100vh" }} direction="row" spacing={space}>
-            <LeftBar />
-            <Router />
-            <RightBar />
-          </Stack>
-        </Box>
+          <Router />
       </BrowserRouter>
     </Provider>
   );

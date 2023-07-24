@@ -11,11 +11,11 @@ import grey from './images/grey.jpg';
 
 function Router() {
   return (
-    <Box bgcolor="#1f1f1f" flex={5}
+    <Box bgcolor="#424242"
       sx={{
         // backgroundImage: `url(${grey})`,
-        backgroundImage: 'linear-gradient(to bottom right, #d91226, #5e0810)',
-        backgroundAttachment: 'fixed'
+        // backgroundImage: 'linear-gradient(to bottom right, #d91226, #5e0810)',
+        // backgroundAttachment: 'fixed'
       }}
     >
       <Routes>
