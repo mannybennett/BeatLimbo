@@ -7,6 +7,7 @@ const YoutubeEmbed = () => (
       width="100%"
       height="200px"
       src="https://www.youtube.com/embed/t8zhdv4ruK0"
+      title="vid"
     />
   </div>
 );

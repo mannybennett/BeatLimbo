@@ -18,8 +18,13 @@ const Limbo = (props) => {
   const [newComment, setNewComment] = useState('')
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false);
-  const playerRef = useRef(null);
   // const [allVotes, setAllVotes] = useState([]);
+
+  const postRef = useRef(null);
+
+  const handleScroll = () => {
+    postRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -33,7 +38,7 @@ const Limbo = (props) => {
     left: mobileView ? '50%' : '49.7%',
     transform: 'translate(-50%, -50%)',
     width: mobileView ? '90%' : '50%',
-    maxWidth: '900px',
+    maxWidth: '600px',
     bgcolor: '#1f1f1f',
     borderRadius: 1,
     boxShadow: 24,
@@ -206,13 +211,14 @@ const Limbo = (props) => {
       {!loading &&
       <>
         <Stack marginTop={3} spacing={space} sx={{ minHeight: "100vh" }} direction='row'>
-          <Box flex={3} sx={{ display: { xs: "none", xl: "block" } }}></Box>
+          <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>
           <Box flex={5} sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: 3, md: 0 }, paddingRight: { xs: 3, md: 0 } }}>
           {props.audioFiles.length > 0 && 
             props.audioFiles.toReversed().map((file, idx) => {
               const isExpanded = file.id === expandedId;
               return (
                 <Card key={idx}
+                  ref={isExpanded ? postRef : null}
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -268,7 +274,7 @@ const Limbo = (props) => {
                           </Box>
                           <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', lg: 'flex'}, justifyContent: 'center', alignItems: 'center' }}>
                             <ArrowLeftIcon color="info" />
-                            <Typography color="#e8e8e8" component="div" variant="subtitle1">
+                            <Typography color="#e8e8e8" variant="subtitle1">
                               VOTE
                             </Typography>
                             <ArrowRightIcon color="info" />
@@ -300,7 +306,7 @@ const Limbo = (props) => {
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <Divider sx={{ backgroundColor: '#3d3d3d' }} variant="middle" />
                     <CardContent>
-                      {/* <Typography marginBottom={1.2} color="#e8e8e8" component="div" variant="h5">Comments</Typography> */}
+                      {/* <Typography marginBottom={1.2} color="#e8e8e8" variant="h5">Comments</Typography> */}
                       {comments.some(comment => expandedId === comment.audio_file_id) ? (
                         comments.map((comment, idx) => {
                           if (expandedId === comment.audio_file_id) {
@@ -310,14 +316,13 @@ const Limbo = (props) => {
                                   <Avatar sx={{ width: 24, height: 24, marginRight: 1 }} alt='' src={comment.profile_picture} />
                                   <Typography                            
                                     variant="p"
-                                    color="#919191"
-                                    component="div"
+                                    color="#919191"                                  
                                     >
                                     {comment.user_name}
                                   </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                  <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" component="div" variant="subtitle1">
+                                  <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" variant="subtitle1">
                                     {comment.comment}
                                   </Typography>
                                   {comment.user_id === props.user.id &&
@@ -329,7 +334,11 @@ const Limbo = (props) => {
                               </Box> 
                             )
                           }
-                        })) : <div>No comment</div>
+                        })) : (
+                          <Typography color="#919191" variant="subtitle1">
+                            <em>Be the first to comment!</em>
+                          </Typography>
+                        )
                       }                                 
                     </CardContent>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -393,7 +402,9 @@ const Limbo = (props) => {
                   boxShadow: "0px 3px 10px black"
                 }}
               >
-                <Typography variant='h5' fontWeight='500' color='#e8e8e8'>Carousel?</Typography>
+                <Button onClick={handleScroll} variant="contained">
+                  Go to First Post
+                </Button>
               </Box>
               <Box
                 sx={{
@@ -442,7 +453,7 @@ const Limbo = (props) => {
               </Box>
             </Stack>
           </Box>
-          <Box flex={3} sx={{ display: { xs: "none", xl: "block" } }}></Box>
+          <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>
         </Stack>
       </>
       }

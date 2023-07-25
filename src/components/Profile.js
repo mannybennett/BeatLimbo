@@ -113,32 +113,32 @@ const Profile = (props) => {
       {!loading &&
         <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
           <AvatarContainer>
-            <Box sx={{ width: '100%', height: {xs: '75px', md: '110px'}, bgcolor: '#e8e8e8', backgroundImage: `url(${grey})` }}></Box>
-            <Avatar sx={{ width: {xs: '165px', md: '200px'}, height: {xs: '165px', md: '200px'}, position: 'absolute', top: '-50px', boxShadow: "0px 0px 20px 5px black" }} src={props.user.profile_picture} alt="User"/>
+            <Box sx={{ width: '90%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, bgcolor: '#e8e8e8', backgroundImage: `url(${grey})`, borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
+            <Avatar sx={{ width: {xs: '150px', md: '200px'}, height: {xs: '150px', md: '200px'}, position: 'absolute', top: '-43px', boxShadow: "0px 0px 20px 5px black" }} src={props.user.profile_picture} alt="User"/>
           </AvatarContainer>
           {/* <Typography component="div" variant="h6">{props.user.user_name}</Typography> */}
-          <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 0 }}>
+          <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell></StyledTableCell>
-                  <StyledTableCell sx={{ fontSize: '20px' }} align="center">Vote Stats</StyledTableCell>
-                  <StyledTableCell></StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%' }}></StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%', fontSize: '20px' }} align="center">Vote Stats</StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%' }}></StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Beats</StyledTableCell>
-                  <StyledTableCell align="center">Complete</StyledTableCell>
-                  <StyledTableCell align="center">Delete</StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%' }}>Beats</StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%' }} align="center">Complete</StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%' }} align="center">Delete</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {userFiles.map((file, idx) => (
                   <StyledTableRow key={idx}>
-                    <StyledTableCell component="th" scope="row">{file.title}</StyledTableCell>
-                    <StyledTableCell align="center">{voteCounts[file.id]?.complete || 0}</StyledTableCell>
-                    <StyledTableCell align="center">{voteCounts[file.id]?.delete || 0}</StyledTableCell>
+                    <StyledTableCell component="th" scope="row" sx={{ width: '33%' }}>{file.title}</StyledTableCell>
+                    <StyledTableCell align="center" sx={{ width: '33%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
+                    <StyledTableCell align="center" sx={{ width: '33%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
