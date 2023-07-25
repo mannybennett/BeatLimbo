@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import ReactAudioPlayer from 'react-audio-player';
-import { useMediaQuery, Card, Button, Box, CardContent, CardMedia, Typography, CardActions, Collapse, IconButton, styled, Checkbox, Divider, Modal, TextField, Avatar, CircularProgress, Backdrop, Stack } from '@mui/material';
+import YoutubeEmbed from './YouTubeEmbed';
+import { useMediaQuery, Card, Button, Box, CardContent, CardMedia, Typography, CardActions, Collapse, IconButton, styled, Checkbox, Divider, Modal, TextField, Avatar, CircularProgress, Backdrop, Stack, Chip } from '@mui/material';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import grey from '../images/grey.jpg';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -18,12 +18,13 @@ const Limbo = (props) => {
   const [newComment, setNewComment] = useState('')
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false);
+  const playerRef = useRef(null);
   // const [allVotes, setAllVotes] = useState([]);
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const mobileView = useMediaQuery('(max-width: 600px)');
+  const mobileView = useMediaQuery('(max-width: 900px)');
   const space = mobileView ? 0 : 3;
 
   const modalStyle = {
@@ -205,8 +206,8 @@ const Limbo = (props) => {
       {!loading &&
       <>
         <Stack marginTop={3} spacing={space} sx={{ minHeight: "100vh" }} direction='row'>
-          <Box flex={2} sx={{ display: { xs: "none", xl: "block" } }}></Box>
-          <Box flex={5} sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Box flex={3} sx={{ display: { xs: "none", xl: "block" } }}></Box>
+          <Box flex={5} sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: 3, md: 0 }, paddingRight: { xs: 3, md: 0 } }}>
           {props.audioFiles.length > 0 && 
             props.audioFiles.toReversed().map((file, idx) => {
               const isExpanded = file.id === expandedId;
@@ -235,14 +236,13 @@ const Limbo = (props) => {
                           alt="Track Image"
                           />
                         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', marginBottom: '10px' }}>
-                          <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" component="div" variant="h6">
+                          <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" variant="h6">
                             {file.title}
                           </Typography>
                           <Typography
                             sx={{  }}
                             variant="p"
                             color="#919191"
-                            component="div"
                             >
                             {file.user_name}
                           </Typography>
@@ -382,14 +382,67 @@ const Limbo = (props) => {
             }
             )}
           </Box>
-          <Box flex={2} sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box flex={2} sx={{ display: { xs: "none", md: "block" } }}>
             <Stack paddingRight={{ xs: 3, xl: 0 }} width="100%" spacing={3} position="sticky" top={88}>
-              <Box sx={{ bgcolor: '#1f1f1f', width: '100%', height: '300px' }}>hi</Box>
-              <Box sx={{ bgcolor: '#1f1f1f', width: '100%', height: '300px' }}></Box>
-              <Box sx={{ bgcolor: '#1f1f1f', width: '100%', height: '300px' }}></Box>
+              <Box
+                sx={{
+                  bgcolor: '#1f1f1f',
+                  width: '100%',
+                  height: '300px',
+                  borderRadius: 1,
+                  boxShadow: "0px 3px 10px black"
+                }}
+              >
+                <Typography variant='h5' fontWeight='500' color='#e8e8e8'>Carousel?</Typography>
+              </Box>
+              <Box
+                sx={{
+                  bgcolor: '#1f1f1f',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: 1,
+                  boxShadow: "0px 3px 10px black",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: 2,
+                }}
+              >
+                <Typography variant='h5' fontWeight='500' color='#e8e8e8'>Featured Beat</Typography>
+                <Typography marginBottom={2} variant='h6' fontWeight='300' color='#919191'>
+                  <em>that made it out of </em> 
+                  <span style={{color: '#d91226', fontWeight: 400}}><em>Limbo</em></span>
+                </Typography>
+                <YoutubeEmbed />         
+              </Box>
+              <Box
+                sx={{
+                  bgcolor: '#1f1f1f',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: 1,
+                  boxShadow: "0px 3px 10px black",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: 2
+                }}
+              >
+                <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>General Tips</Typography>
+                <Typography marginBottom={2} variant='subtitle1'color='#919191'>To achieve quality beats, keep the following components in mind:</Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='melody'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='drums'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='mixing'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='arrangement'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='sound selection'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='tempo'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='transitions'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='effects'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='bassline'/>
+                </Box>
+              </Box>
             </Stack>
           </Box>
-          <Box flex={2} sx={{ display: { xs: "none", xl: "block" } }}></Box>
+          <Box flex={3} sx={{ display: { xs: "none", xl: "block" } }}></Box>
         </Stack>
       </>
       }

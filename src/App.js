@@ -1,13 +1,11 @@
 import React from 'react'
 import Navigation from './containers/Navigation'
 import { BrowserRouter } from 'react-router-dom';
-import LeftBar from './components/LeftBar'
-import RightBar from './components/RightBar'
 import Router from './Router';
-import { Provider } from 'react-redux'
-import store from './redux/store'
-import './App.css'
-import { Box, Stack, useMediaQuery } from '@mui/material';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import './App.css';
+import { useMediaQuery } from '@mui/material';
 
 function App() {
   const mobileView = useMediaQuery('(max-width: 600px)');
