@@ -113,10 +113,10 @@ const Profile = (props) => {
       {!loading &&
         <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
           <AvatarContainer>
-            <Box sx={{ width: '90%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, bgcolor: '#e8e8e8', backgroundImage: `url(${grey})`, borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
+            <Box sx={{ width: '100%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, bgcolor: '#e8e8e8', backgroundImage: `url(${grey})`, borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
             <Avatar sx={{ width: {xs: '150px', md: '200px'}, height: {xs: '150px', md: '200px'}, position: 'absolute', top: '-43px', boxShadow: "0px 0px 20px 5px black" }} src={props.user.profile_picture} alt="User"/>
           </AvatarContainer>
-          {/* <Typography component="div" variant="h6">{props.user.user_name}</Typography> */}
+          <Typography variant="h6">{props.user.user_name}</Typography>
           <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
             <Table aria-label="customized table">
               <TableHead>

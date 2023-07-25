@@ -18,14 +18,16 @@ const Limbo = (props) => {
   const [newComment, setNewComment] = useState('')
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false);
-  // const [allVotes, setAllVotes] = useState([]);
+  const [play, setPlay] = useState(false)
+  const [highlightMostPlayed, setHighlightMostPlayed] = useState(false);
 
   const postRef = useRef(null);
 
   const handleScroll = () => {
     postRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setHighlightMostPlayed(true);
   };
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -126,6 +128,16 @@ const Limbo = (props) => {
     }
   };
 
+  const playCount = async (id) => {
+    try {
+      await axios.put(`/api/audioFiles/${id}/playCount`, {});
+      setPlay((prevState) => !prevState);
+      console.log('Count updated successfully');
+    } catch (error) {
+      console.error('Error updating count:', error);
+    }
+  };
+
   const postComment = async (comment, userId, userName, audioFileId, profilePicture) => {
     try {
       await axios.post('/api/limbo/comments', {
@@ -164,7 +176,7 @@ const Limbo = (props) => {
   
   useEffect(() => {
     getAudioFiles();
-  }, []);
+  }, [play]);
   
   useEffect(() => {
     getAllComments()
@@ -194,6 +206,19 @@ const Limbo = (props) => {
     fetchVotes();
   }, [props.user]);
 
+  useEffect(() => {
+    if (highlightMostPlayed) {
+      const timeout = setTimeout(() => {
+        setHighlightMostPlayed(false);
+      }, 3500);
+  
+      return () => clearTimeout(timeout);
+    }
+  }, [highlightMostPlayed]);
+
+  const mostPlays = Math.max(...props.audioFiles.map((file) => file.plays));
+  const mostPlayedFile = props.audioFiles.find((file) => file.plays === mostPlays);
+
 // console.log("User", props.user)
 // console.log("Comments", comments)
 // console.log("Files", props.audioFiles)
@@ -216,9 +241,10 @@ const Limbo = (props) => {
           {props.audioFiles.length > 0 && 
             props.audioFiles.toReversed().map((file, idx) => {
               const isExpanded = file.id === expandedId;
+              const isMostPlayed = file === mostPlayedFile;
               return (
                 <Card key={idx}
-                  ref={isExpanded ? postRef : null}
+                  ref={isMostPlayed ? postRef : null}
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -227,7 +253,7 @@ const Limbo = (props) => {
                     bgcolor: "#1f1f1f",
                     width: "100%",
                     maxWidth: '2000px',
-                    boxShadow: "0px 3px 10px black",
+                    boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px #d91226" : "0px 3px 10px black",
                     // backgroundImage: `url(${grey})`,
                     // backgroundImage: 'linear-gradient(to bottom right, #d91226, #5e0810)',
                   }}
@@ -241,16 +267,17 @@ const Limbo = (props) => {
                           image={file.image}
                           alt="Track Image"
                           />
-                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', marginBottom: '10px' }}>
-                          <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" variant="h6">
-                            {file.title}
-                          </Typography>
-                          <Typography
-                            sx={{  }}
-                            variant="p"
-                            color="#919191"
-                            >
-                            {file.user_name}
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '10px' }}>
+                          <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+                            <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" variant="h6">
+                              {file.title}
+                            </Typography>
+                            <Typography variant="p" color="#919191">
+                              {file.user_name}
+                            </Typography>
+                          </Box>
+                          <Typography variant="subtitle2" color="#919191">
+                            {`${file.plays} plays`}
                           </Typography>
                         </Box>
                       </Box>
@@ -260,7 +287,8 @@ const Limbo = (props) => {
                           src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
                           controls
                           controlsList='nodownload noplaybackrate'
-                          />
+                          onPlay={() => props.user.id !== file.user_id && playCount(file.id)}
+                        />
                         <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
                           <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
                             <Checkbox
@@ -397,13 +425,25 @@ const Limbo = (props) => {
                 sx={{
                   bgcolor: '#1f1f1f',
                   width: '100%',
-                  height: '300px',
+                  height: 'auto',
                   borderRadius: 1,
-                  boxShadow: "0px 3px 10px black"
+                  boxShadow: "0px 3px 10px black",
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: 2,
                 }}
               >
+                <Typography marginBottom={1.5} variant='h5' fontWeight='500' color='#e8e8e8'>Most Played</Typography>
+                {mostPlayedFile && 
+                  <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2.5 }}>
+                    <Avatar sx={{ width: 35, height: 35, marginRight: 1, borderRadius: 1 }} alt='user' src={mostPlayedFile.image} />
+                    <Typography variant="p" color="#919191">
+                      {mostPlayedFile.title} by <span style={{color: '#d91226', fontWeight: 500}}>{mostPlayedFile.user_name}</span>
+                    </Typography>
+                  </Box>
+                }
                 <Button onClick={handleScroll} variant="contained">
-                  Go to First Post
+                  Go to Post
                 </Button>
               </Box>
               <Box
@@ -418,10 +458,10 @@ const Limbo = (props) => {
                   padding: 2,
                 }}
               >
-                <Typography variant='h5' fontWeight='500' color='#e8e8e8'>Featured Beat</Typography>
-                <Typography marginBottom={2} variant='h6' fontWeight='300' color='#919191'>
-                  <em>that made it out of </em> 
-                  <span style={{color: '#d91226', fontWeight: 400}}><em>Limbo</em></span>
+                <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>Featured Beat</Typography>
+                <Typography marginBottom={2} variant='subtitle1'color='#919191'>
+                  that made it out of&nbsp; 
+                  <span style={{color: '#d91226', fontWeight: 500}}>Limbo</span>
                 </Typography>
                 <YoutubeEmbed />         
               </Box>
@@ -444,10 +484,10 @@ const Limbo = (props) => {
                   <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='drums'/>
                   <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='mixing'/>
                   <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='arrangement'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='sound selection'/>
                   <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='tempo'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='transitions'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='sound selection'/>
                   <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='effects'/>
+                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='transitions'/>
                   <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='bassline'/>
                 </Box>
               </Box>
