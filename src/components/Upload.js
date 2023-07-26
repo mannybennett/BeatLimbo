@@ -69,6 +69,7 @@ const Upload =(props) => {
         user_name: userName,
         image: image
       });
+      setTitle('')
       console.log('Audio file posted successfully');
     } catch (error) {
       console.error('Error posting audio file:', error);
@@ -84,8 +85,6 @@ const Upload =(props) => {
       e.preventDefault()
       await uploadObject(audioFile);
       await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name, props.user.profile_picture ? props.user.profile_picture : defaultImg);
-      // v Not Working v
-      setTitle('')
     } else {
       e.preventDefault()
       handleOpen()
@@ -96,9 +95,11 @@ const Upload =(props) => {
     setAudioFile(file)
   };
 
+  console.log(title)
+
   return (
     <div className="App">
-        <form>
+        <form onSubmit={uploadFile}>
           <FileUploader
             onSelect={onSelect}
             maxSize={20}
@@ -108,7 +109,7 @@ const Upload =(props) => {
             // children="Reset Style"
             types={fileTypes} />
           <TextField inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" variant="outlined" required />
-          <Button type="submit" onClick={uploadFile} variant="contained">Upload</Button>
+          <Button type="submit" variant="contained">Upload</Button>
           <Modal
             open={open}
             onClose={handleClose}
