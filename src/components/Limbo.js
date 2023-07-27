@@ -6,6 +6,7 @@ import MostPlayed from './MostPlayed';
 import FeaturedBeat from './FeaturedBeat';
 import Post from './Post';
 import { useMediaQuery, Box, CircularProgress, Backdrop, Stack } from '@mui/material';
+import lightGreyTopo from '../images/lightGreyTopo.jpg';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -210,39 +211,39 @@ const Limbo = (props) => {
       }
       {!loading &&
       <>
-        <Stack marginTop={3} spacing={space} sx={{ minHeight: "100vh" }} direction='row'>
+        <Stack sx={{ minHeight: "100vh" }} bgcolor='#aeaeae' spacing={space} direction='row'>
           <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>
-          <Box flex={5} sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: 3, md: 0 }, paddingRight: { xs: 3, md: 0 } }}>
-          {props.audioFiles.length > 0 && 
-            props.audioFiles.toReversed().map((file, idx) => {
-              const isExpanded = file.id === expandedId;
-              const isMostPlayed = file === mostPlayedFile;
-              return (
-                <Post
-                  idx={idx}
-                  isMostPlayed={isMostPlayed}
-                  postRef={postRef}
-                  highlightMostPlayed={highlightMostPlayed}
-                  file={file}
-                  user={props.user}
-                  playCount={playCount}
-                  clickedButton={clickedButton}
-                  handleChange={handleChange}
-                  isExpanded={isExpanded}
-                  handleExpandClick={handleExpandClick}
-                  comments={comments}
-                  deleteComment={deleteComment}
-                  handleOpen={handleOpen}
-                  handleClose={handleClose}
-                  sendComment={sendComment}
-                  setNewComment={setNewComment}
-                  open={open}
-                  expandedId={expandedId}
-                  mobileView={mobileView}
-                />
-              )
+          <Box flex={5} sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: 3, md: 0 }, paddingRight: { xs: 3, md: 0 }, marginTop: '24px !important' }}>
+            {props.audioFiles.length > 0 && 
+              props.audioFiles.toReversed().map((file, idx) => {
+                const isExpanded = file.id === expandedId;
+                const isMostPlayed = file === mostPlayedFile;
+                return (
+                  <Post
+                    idx={idx}
+                    isMostPlayed={isMostPlayed}
+                    postRef={postRef}
+                    highlightMostPlayed={highlightMostPlayed}
+                    file={file}
+                    user={props.user}
+                    playCount={playCount}
+                    clickedButton={clickedButton}
+                    handleChange={handleChange}
+                    isExpanded={isExpanded}
+                    handleExpandClick={handleExpandClick}
+                    comments={comments}
+                    deleteComment={deleteComment}
+                    handleOpen={handleOpen}
+                    handleClose={handleClose}
+                    sendComment={sendComment}
+                    setNewComment={setNewComment}
+                    open={open}
+                    expandedId={expandedId}
+                    mobileView={mobileView}
+                  />
+                )
+              })
             }
-            )}
           </Box>
           <Box flex={2} sx={{ display: { xs: "none", md: "block" } }}>
             <Stack paddingRight={{ xs: 3, xl: 0 }} width="100%" spacing={3} position="sticky" top={88}>

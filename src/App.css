@@ -1,5 +1,7 @@
 body {
   background-color: #bfbfbf;
+  background-image: url('./images/lightGreyTopo.jpg');
+  background-attachment: fixed;
 }
 
 a {
@@ -34,6 +36,11 @@ a {
   align-items: flex-end;
 }
 
+/* Landing Button */
+.css-1cahvsh-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #e72135 !important;
+}
+
 /* Checkbox Buttons */
 .css-19uu3ae-MuiButtonBase-root-MuiCheckbox-root {
   padding: 0 !important;
@@ -45,6 +52,7 @@ a {
   background-color: #00000070 !important;
 }
 
+/* Chips */
 .css-1tfwrh9-MuiButtonBase-root-MuiChip-root:hover {
   background-color: #990d1b !important;
 }

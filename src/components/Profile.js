@@ -16,7 +16,7 @@ import {
   Avatar,
   Typography
 } from "@mui/material";
-import grey from '../images/grey.jpg';
+import redTopo from '../images/redTopo.jpg';
 
 const Profile = (props) => {
   const [allVotes, setAllVotes] = useState([]);
@@ -113,7 +113,7 @@ const Profile = (props) => {
       {!loading &&
         <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
           <AvatarContainer>
-            <Box sx={{ width: '100%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, bgcolor: '#e8e8e8', backgroundImage: `url(${grey})`, borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
+            <Box sx={{ width: '100%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, backgroundImage: `url(${redTopo})`, backgroundOrigin: 'border-box', backgroundPosition: '5% 100%', borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
             <Avatar sx={{ width: {xs: '150px', md: '200px'}, height: {xs: '150px', md: '200px'}, position: 'absolute', top: '-43px', boxShadow: "0px 0px 20px 5px black" }} src={props.user.profile_picture} alt="User"/>
           </AvatarContainer>
           <Typography variant="h6">{props.user.user_name}</Typography>

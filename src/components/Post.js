@@ -50,7 +50,7 @@ const Post = (props) => {
         bgcolor: "#1f1f1f",
         width: "100%",
         maxWidth: '2000px',
-        boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px #d91226" : "0px 3px 10px black",
+        boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px 5px #d91226" : "0px 3px 10px black",
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
