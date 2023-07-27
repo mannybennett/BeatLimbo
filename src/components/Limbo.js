@@ -2,13 +2,34 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import ReactAudioPlayer from 'react-audio-player';
-import YoutubeEmbed from './YouTubeEmbed';
-import { useMediaQuery, Card, Button, Box, CardContent, CardMedia, Typography, CardActions, Collapse, IconButton, styled, Checkbox, Divider, Modal, TextField, Avatar, CircularProgress, Backdrop, Stack, Chip } from '@mui/material';
+import FeaturedBeat from './FeaturedBeat';
+import {
+  useMediaQuery,
+  Card,
+  Button,
+  Box,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActions,
+  Collapse,
+  IconButton,
+  styled,
+  Checkbox,
+  Divider,
+  Avatar,
+  CircularProgress,
+  Backdrop,
+  Stack
+} from '@mui/material';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import GeneralTips from './GeneralTips';
+import MostPlayed from './MostPlayed';
+import ModalLimbo from './ModalLimbo';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -33,20 +54,6 @@ const Limbo = (props) => {
 
   const mobileView = useMediaQuery('(max-width: 900px)');
   const space = mobileView ? 0 : 3;
-
-  const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: mobileView ? '50%' : '49.7%',
-    transform: 'translate(-50%, -50%)',
-    width: mobileView ? '90%' : '50%',
-    maxWidth: '600px',
-    bgcolor: '#1f1f1f',
-    borderRadius: 1,
-    boxShadow: 24,
-    p: 2,
-    textAlign: "center"
-  };
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -277,7 +284,7 @@ const Limbo = (props) => {
                             </Typography>
                           </Box>
                           <Typography variant="subtitle2" color="#919191">
-                            {`${file.plays} plays`}
+                            {`${file.plays ? file.plays : '0'} plays`}
                           </Typography>
                         </Box>
                       </Box>
@@ -361,7 +368,7 @@ const Limbo = (props) => {
                                 </Box>                    
                               </Box> 
                             )
-                          }
+                          } return null
                         })) : (
                           <Typography color="#919191" variant="subtitle1">
                             <em>Be the first to comment!</em>
@@ -375,45 +382,7 @@ const Limbo = (props) => {
                       </IconButton>
                     </Box>                
                   </Collapse>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    slotProps={{
-                      backdrop: {
-                        sx: {
-                          opacity: '0.3 !important',
-                          position: 'fixed !important',
-                          zIndex: -1,
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0
-                        }
-                      }
-                    }}
-                    >
-                    <Box sx={modalStyle}>
-                      <form onSubmit={sendComment} className='commentForm'>
-                        <TextField
-                          onChange={(e) => setNewComment(e.target.value)}
-                          sx={{
-                            marginBottom: 2,
-                            background: 'white',
-                            borderRadius: 1,
-                          }}
-                          inputProps={{ maxLength: 100 }}
-                          fullWidth={true}
-                          color='primary'
-                          label="Comment"
-                          variant="filled"
-                          multiline
-                          required
-                          />
-                        <Button sx={{ width: '20%' }} type='submit' variant='contained'>POST</Button>
-                      </form>                  
-                    </Box>
-                  </Modal>
+                  <ModalLimbo open={open} handleClose={handleClose} sendComment={sendComment} setNewComment={setNewComment} />
                 </Card>
               )
             }
@@ -421,76 +390,9 @@ const Limbo = (props) => {
           </Box>
           <Box flex={2} sx={{ display: { xs: "none", md: "block" } }}>
             <Stack paddingRight={{ xs: 3, xl: 0 }} width="100%" spacing={3} position="sticky" top={88}>
-              <Box
-                sx={{
-                  bgcolor: '#1f1f1f',
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: 1,
-                  boxShadow: "0px 3px 10px black",
-                  display: 'flex',
-                  flexDirection: 'column',
-                  padding: 2,
-                }}
-              >
-                <Typography marginBottom={1.5} variant='h5' fontWeight='500' color='#e8e8e8'>Most Played</Typography>
-                {mostPlayedFile && 
-                  <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2.5 }}>
-                    <Avatar sx={{ width: 35, height: 35, marginRight: 1, borderRadius: 1 }} alt='user' src={mostPlayedFile.image} />
-                    <Typography variant="p" color="#919191">
-                      {mostPlayedFile.title} by <span style={{color: '#d91226', fontWeight: 500}}>{mostPlayedFile.user_name}</span>
-                    </Typography>
-                  </Box>
-                }
-                <Button onClick={handleScroll} variant="contained">
-                  Go to Post
-                </Button>
-              </Box>
-              <Box
-                sx={{
-                  bgcolor: '#1f1f1f',
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: 1,
-                  boxShadow: "0px 3px 10px black",
-                  display: 'flex',
-                  flexDirection: 'column',
-                  padding: 2,
-                }}
-              >
-                <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>Featured Beat</Typography>
-                <Typography marginBottom={2} variant='subtitle1'color='#919191'>
-                  that made it out of&nbsp; 
-                  <span style={{color: '#d91226', fontWeight: 500}}>Limbo</span>
-                </Typography>
-                <YoutubeEmbed />         
-              </Box>
-              <Box
-                sx={{
-                  bgcolor: '#1f1f1f',
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: 1,
-                  boxShadow: "0px 3px 10px black",
-                  display: 'flex',
-                  flexDirection: 'column',
-                  padding: 2
-                }}
-              >
-                <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>General Tips</Typography>
-                <Typography marginBottom={2} variant='subtitle1'color='#919191'>To achieve quality beats, keep the following components in mind:</Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='melody'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='drums'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='mixing'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='arrangement'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='tempo'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='sound selection'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='effects'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='transitions'/>
-                  <Chip sx={{ fontSize: '16px', fontWeight: '400', margin: '0 4px 4px 0' }} color='secondary' label='bassline'/>
-                </Box>
-              </Box>
+              <MostPlayed mostPlayedFile={mostPlayedFile} handleScroll={handleScroll}/>
+              <FeaturedBeat />         
+              <GeneralTips />
             </Stack>
           </Box>
           <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>

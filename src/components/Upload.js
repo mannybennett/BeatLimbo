@@ -62,6 +62,7 @@ const Upload =(props) => {
   
   const postAudioFile = async (fileName, userId, title, userName, image) => {
     try {
+      setTitle('')
       await axios.post('/api/audioFiles/upload', {
         file_name: fileName,
         user_id: userId,
@@ -69,7 +70,6 @@ const Upload =(props) => {
         user_name: userName,
         image: image
       });
-      setTitle('')
       console.log('Audio file posted successfully');
     } catch (error) {
       console.error('Error posting audio file:', error);
@@ -108,7 +108,7 @@ const Upload =(props) => {
             multiple={false}
             // children="Reset Style"
             types={fileTypes} />
-          <TextField inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" variant="outlined" required />
+          <TextField inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" required />
           <Button type="submit" variant="contained">Upload</Button>
           <Modal
             open={open}
