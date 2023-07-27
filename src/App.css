@@ -45,6 +45,10 @@ a {
   background-color: #00000070 !important;
 }
 
+.css-1tfwrh9-MuiButtonBase-root-MuiChip-root:hover {
+  background-color: #990d1b !important;
+}
+
 /* Show Comments Button */
 .css-o9bkbe-MuiButtonBase-root-MuiIconButton-root:hover {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;

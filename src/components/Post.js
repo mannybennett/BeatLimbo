@@ -1,0 +1,148 @@
+import React from 'react';
+import ReactAudioPlayer from 'react-audio-player';
+import CardCollapse from './CardCollapse';
+import ModalLimbo from './ModalLimbo';
+import { Box, Card, CardMedia, Typography, Checkbox, Button, CardActions, IconButton, styled } from '@mui/material';
+import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
+const Post = (props) => {
+  const {
+    idx,
+    isMostPlayed,
+    postRef,
+    highlightMostPlayed,
+    file,
+    user,
+    playCount,
+    clickedButton,
+    handleChange,
+    isExpanded,
+    handleExpandClick,
+    comments,
+    deleteComment,
+    handleOpen,
+    handleClose,
+    sendComment,
+    setNewComment,
+    open,
+    expandedId,
+    mobileView
+  } = props;
+
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto'
+  }));
+
+  return (
+    <Card key={idx}
+      ref={isMostPlayed ? postRef : null}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        padding: "10px",
+        marginBottom: 3,
+        bgcolor: "#1f1f1f",
+        width: "100%",
+        maxWidth: '2000px',
+        boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px #d91226" : "0px 3px 10px black",
+      }}
+    >
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
+          <Box sx={{ display: 'flex', width: '100%' }}>
+            <CardMedia
+              component="img"
+              sx={{ width: 80, height: 80, borderRadius: 1, marginBottom: '10px', marginRight: '10px'}}
+              image={file.image}
+              alt="Track Image"
+              />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '10px' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+                <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" variant="h6">
+                  {file.title}
+                </Typography>
+                <Typography variant="p" color="#919191">
+                  {file.user_name}
+                </Typography>
+              </Box>
+              <Typography variant="subtitle2" color="#919191">
+                {`${file.plays ? file.plays : '0'} plays`}
+              </Typography>
+            </Box>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: 'flex-start', flexDirection: 'column', width: "100%" }}>
+            <ReactAudioPlayer
+              className='audioPlayer'
+              src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
+              controls
+              controlsList='nodownload noplaybackrate'
+              onPlay={() => user.id !== file.user_id && playCount(file.id)}
+            />
+            <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
+              <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
+                <Checkbox
+                checked={clickedButton[file.id] === 'complete'}
+                onChange={() => handleChange('complete', file.id)}
+                value="complete"
+                sx={{ width: '100%', height: '100%' }}
+                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE</Button>}
+                checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE</Button>}
+                />
+              </Box>
+              <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', lg: 'flex'}, justifyContent: 'center', alignItems: 'center' }}>
+                <ArrowLeftIcon color="info" />
+                <Typography color="#e8e8e8" variant="subtitle1">
+                  VOTE
+                </Typography>
+                <ArrowRightIcon color="info" />
+              </Box>
+              <Box sx={{ width: '100%', height: '100%', paddingLeft: '5px' }}>
+                <Checkbox
+                checked={clickedButton[file.id] === 'delete'}
+                onChange={() => handleChange('delete', file.id)}
+                value="delete"
+                sx={{ width: '100%', height: '100%' }}
+                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE</Button>}
+                checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE</Button>}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>    
+      </Box>
+      <CardActions sx={{ paddingRight: 0 }}>
+        <ExpandMore
+          expand={isExpanded}
+          onClick={() => handleExpandClick(file.id)}
+          aria-expanded={isExpanded}
+          aria-label="show more"
+          >
+          <InsertCommentOutlinedIcon color='info' fontSize='medium' />
+        </ExpandMore>
+      </CardActions>
+      <CardCollapse
+        isExpanded={isExpanded}
+        comments={comments}
+        expandedId={expandedId}
+        user={user}
+        deleteComment={deleteComment}
+        handleOpen={handleOpen}
+      />
+      <ModalLimbo
+        open={open}
+        handleClose={handleClose}
+        sendComment={sendComment}
+        setNewComment={setNewComment}
+        mobileView={mobileView}
+      />
+    </Card>
+  )
+};
+
+export default Post;

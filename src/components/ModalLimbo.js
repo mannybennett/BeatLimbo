@@ -1,8 +1,7 @@
 import React from "react";
-import { Box, Modal, TextField, Button, useMediaQuery } from "@mui/material";
+import { Box, Modal, TextField, Button } from "@mui/material";
 
-const ModalLimbo = ({ open, handleClose, sendComment, setNewComment }) => {
-  const mobileView = useMediaQuery('(max-width: 900px)');
+const ModalLimbo = ({ open, handleClose, sendComment, setNewComment, mobileView }) => {
 
   const modalStyle = {
     position: 'absolute',

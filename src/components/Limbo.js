@@ -1,35 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
-import ReactAudioPlayer from 'react-audio-player';
-import FeaturedBeat from './FeaturedBeat';
-import {
-  useMediaQuery,
-  Card,
-  Button,
-  Box,
-  CardContent,
-  CardMedia,
-  Typography,
-  CardActions,
-  Collapse,
-  IconButton,
-  styled,
-  Checkbox,
-  Divider,
-  Avatar,
-  CircularProgress,
-  Backdrop,
-  Stack
-} from '@mui/material';
-import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import GeneralTips from './GeneralTips';
 import MostPlayed from './MostPlayed';
-import ModalLimbo from './ModalLimbo';
+import FeaturedBeat from './FeaturedBeat';
+import Post from './Post';
+import { useMediaQuery, Box, CircularProgress, Backdrop, Stack } from '@mui/material';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -54,14 +30,6 @@ const Limbo = (props) => {
 
   const mobileView = useMediaQuery('(max-width: 900px)');
   const space = mobileView ? 0 : 3;
-
-  const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto'
-  }));
 
   const handleExpandClick = (id) => {
     setExpandedId(id === expandedId ? null : id);
@@ -250,140 +218,28 @@ const Limbo = (props) => {
               const isExpanded = file.id === expandedId;
               const isMostPlayed = file === mostPlayedFile;
               return (
-                <Card key={idx}
-                  ref={isMostPlayed ? postRef : null}
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    padding: "10px",
-                    marginBottom: 3,
-                    bgcolor: "#1f1f1f",
-                    width: "100%",
-                    maxWidth: '2000px',
-                    boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px #d91226" : "0px 3px 10px black",
-                    // backgroundImage: `url(${grey})`,
-                    // backgroundImage: 'linear-gradient(to bottom right, #d91226, #5e0810)',
-                  }}
-                >
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
-                      <Box sx={{ display: 'flex', width: '100%' }}>
-                        <CardMedia
-                          component="img"
-                          sx={{ width: 80, height: 80, borderRadius: 1, marginBottom: '10px', marginRight: '10px'}}
-                          image={file.image}
-                          alt="Track Image"
-                          />
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '10px' }}>
-                          <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-                            <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" variant="h6">
-                              {file.title}
-                            </Typography>
-                            <Typography variant="p" color="#919191">
-                              {file.user_name}
-                            </Typography>
-                          </Box>
-                          <Typography variant="subtitle2" color="#919191">
-                            {`${file.plays ? file.plays : '0'} plays`}
-                          </Typography>
-                        </Box>
-                      </Box>
-                      <Box sx={{ display: "flex", alignItems: 'flex-start', flexDirection: 'column', width: "100%" }}>
-                        <ReactAudioPlayer
-                          className='audioPlayer'
-                          src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
-                          controls
-                          controlsList='nodownload noplaybackrate'
-                          onPlay={() => props.user.id !== file.user_id && playCount(file.id)}
-                        />
-                        <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
-                          <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
-                            <Checkbox
-                            checked={clickedButton[file.id] === 'complete'}
-                            onChange={() => handleChange('complete', file.id)}
-                            value="complete"
-                            sx={{ width: '100%', height: '100%' }}
-                            icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE</Button>}
-                            checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE</Button>}
-                            />
-                          </Box>
-                          <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', lg: 'flex'}, justifyContent: 'center', alignItems: 'center' }}>
-                            <ArrowLeftIcon color="info" />
-                            <Typography color="#e8e8e8" variant="subtitle1">
-                              VOTE
-                            </Typography>
-                            <ArrowRightIcon color="info" />
-                          </Box>
-                          <Box sx={{ width: '100%', height: '100%', paddingLeft: '5px' }}>
-                            <Checkbox
-                            checked={clickedButton[file.id] === 'delete'}
-                            onChange={() => handleChange('delete', file.id)}
-                            value="delete"
-                            sx={{ width: '100%', height: '100%' }}
-                            icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE</Button>}
-                            checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE</Button>}
-                            />
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Box>    
-                  </Box>
-                  <CardActions sx={{ paddingRight: 0 }}>
-                    <ExpandMore
-                      expand={isExpanded}
-                      onClick={() => handleExpandClick(file.id)}
-                      aria-expanded={isExpanded}
-                      aria-label="show more"
-                      >
-                      <InsertCommentOutlinedIcon color='info' fontSize='medium' />
-                    </ExpandMore>
-                  </CardActions>
-                  <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                    <Divider sx={{ backgroundColor: '#3d3d3d' }} variant="middle" />
-                    <CardContent>
-                      {/* <Typography marginBottom={1.2} color="#e8e8e8" variant="h5">Comments</Typography> */}
-                      {comments.some(comment => expandedId === comment.audio_file_id) ? (
-                        comments.map((comment, idx) => {
-                          if (expandedId === comment.audio_file_id) {
-                            return (
-                              <Box sx={{ marginBottom: 1 }} key={idx}>
-                                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                                  <Avatar sx={{ width: 24, height: 24, marginRight: 1 }} alt='' src={comment.profile_picture} />
-                                  <Typography                            
-                                    variant="p"
-                                    color="#919191"                                  
-                                    >
-                                    {comment.user_name}
-                                  </Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                  <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" variant="subtitle1">
-                                    {comment.comment}
-                                  </Typography>
-                                  {comment.user_id === props.user.id &&
-                                  <IconButton onClick={() => deleteComment(comment.id)}>
-                                    <DeleteIcon sx={{ fill: '#3d3d3d' }} fontSize='small' />
-                                  </IconButton>
-                                  }                            
-                                </Box>                    
-                              </Box> 
-                            )
-                          } return null
-                        })) : (
-                          <Typography color="#919191" variant="subtitle1">
-                            <em>Be the first to comment!</em>
-                          </Typography>
-                        )
-                      }                                 
-                    </CardContent>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <IconButton onClick={handleOpen}>
-                        <AddBoxIcon sx={{ fill: '#e8e8e8' }} fontSize='large' />
-                      </IconButton>
-                    </Box>                
-                  </Collapse>
-                  <ModalLimbo open={open} handleClose={handleClose} sendComment={sendComment} setNewComment={setNewComment} />
-                </Card>
+                <Post
+                  idx={idx}
+                  isMostPlayed={isMostPlayed}
+                  postRef={postRef}
+                  highlightMostPlayed={highlightMostPlayed}
+                  file={file}
+                  user={props.user}
+                  playCount={playCount}
+                  clickedButton={clickedButton}
+                  handleChange={handleChange}
+                  isExpanded={isExpanded}
+                  handleExpandClick={handleExpandClick}
+                  comments={comments}
+                  deleteComment={deleteComment}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  sendComment={sendComment}
+                  setNewComment={setNewComment}
+                  open={open}
+                  expandedId={expandedId}
+                  mobileView={mobileView}
+                />
               )
             }
             )}
