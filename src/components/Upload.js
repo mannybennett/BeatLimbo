@@ -98,18 +98,21 @@ const Upload =(props) => {
   console.log(title)
 
   return (
-    <div className="App">
-        <form onSubmit={uploadFile}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '93vh' }} className="App">
+      <Box width='90%' height='90%' maxWidth='600px' maxHeight='600px' display='flex' justifyContent='center'>
+        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={uploadFile}>
+          <Typography align='center' sx={{ marginBottom: '50px' }} fontSize='2rem' fontWeight={500}>Select a file and title for your track</Typography>
           <FileUploader
+            style={{ width: '100%' }}
             onSelect={onSelect}
             maxSize={20}
             onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
             label="Click Here to Upload an MP3/WAV File"
             multiple={false}
-            // children="Reset Style"
+            children={<Button size='large' variant='contained'>choose an MP3 or WAV file</Button>}
             types={fileTypes} />
-          <TextField inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" required />
-          <Button type="submit" variant="contained">Upload</Button>
+          <TextField sx={{ width: '261.75px', marginBottom: '80px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" required />
+          <Button size='large' type="submit" color='secondary' variant="contained">Upload</Button>
           <Modal
             open={open}
             onClose={handleClose}
@@ -122,6 +125,7 @@ const Upload =(props) => {
             </Box>
           </Modal>
         </form>
+      </Box>        
     </div>
   );
 };

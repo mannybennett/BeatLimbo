@@ -1,5 +1,7 @@
 body {
-  background-color: #bfbfbf;
+  background-color: #f0f0f0;
+  background-image: url(./images/audioVisInverted2.jpg);
+  background-attachment: fixed;
 }
 
 a {
@@ -35,7 +37,7 @@ a {
 }
 
 /* Landing Button */
-.css-xglbvo-MuiButtonBase-root-MuiButton-root:hover {
+.css-jlww28-MuiButtonBase-root-MuiButton-root:hover {
   background-color: #d91226 !important;
 }
 

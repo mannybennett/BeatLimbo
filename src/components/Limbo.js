@@ -6,7 +6,7 @@ import MostPlayed from './MostPlayed';
 import FeaturedBeat from './FeaturedBeat';
 import Post from './Post';
 import { useMediaQuery, Box, CircularProgress, Backdrop, Stack } from '@mui/material';
-import lightGreyTopo from '../images/lightGreyTopo.jpg';
+import audioVisInverted2 from '../images/audioVisInverted2.jpg';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -211,7 +211,7 @@ const Limbo = (props) => {
       }
       {!loading &&
       <>
-        <Stack sx={{ minHeight: "100vh" }} bgcolor='#aeaeae' spacing={space} direction='row'>
+        <Stack sx={{ minHeight: "100vh" }} spacing={space} direction='row'>
           <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>
           <Box flex={5} sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: 3, md: 0 }, paddingRight: { xs: 3, md: 0 }, marginTop: '24px !important' }}>
             {props.audioFiles.length > 0 && 

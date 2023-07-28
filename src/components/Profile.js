@@ -17,6 +17,7 @@ import {
   Typography
 } from "@mui/material";
 import redTopo from '../images/redTopo.jpg';
+import audioVisInvertedRed from '../images/audioVisInvertedRed.jpg';
 
 const Profile = (props) => {
   const [allVotes, setAllVotes] = useState([]);
@@ -45,7 +46,7 @@ const Profile = (props) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: '70px 0 100px 0'
+    margin: '70px 0 30px 0'
   });
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -111,12 +112,14 @@ const Profile = (props) => {
         </Backdrop>
       }
       {!loading &&
-        <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center" }}>
+        <Box sx={{ marginTop: 2, display: 'flex', flexDirection: 'column', alignItems: "center", width: '100%' }}>
           <AvatarContainer>
-            <Box sx={{ width: '100%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, backgroundImage: `url(${redTopo})`, backgroundOrigin: 'border-box', backgroundPosition: '5% 100%', borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
-            <Avatar sx={{ width: {xs: '150px', md: '200px'}, height: {xs: '150px', md: '200px'}, position: 'absolute', top: '-43px', boxShadow: "0px 0px 20px 5px black" }} src={props.user.profile_picture} alt="User"/>
+            <Box sx={{ width: '100%', maxWidth: '900px', height: {xs: '75px', md: '110px'}, backgroundImage: `url(${audioVisInvertedRed})`, backgroundOrigin: 'border-box', backgroundPosition: '0% 85%', borderRadius: 1, boxShadow: "0px 3px 10px black" }}></Box>
+            <Avatar sx={{ width: {xs: '150px', md: '200px'}, height: {xs: '150px', md: '200px'}, position: 'absolute', top: '-43px', boxShadow: "0px 0px 10px 1px black", borderRadius: 1 }} src={props.user.profile_picture} alt="User"/>
           </AvatarContainer>
-          <Typography variant="h6">{props.user.user_name}</Typography>
+          <Box width='90%' maxWidth='900px' display='flex' marginBottom='23px'>
+            <Typography fontWeight={600} variant="h6">{props.user.user_name}</Typography>
+          </Box>          
           <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
             <Table aria-label="customized table">
               <TableHead>
