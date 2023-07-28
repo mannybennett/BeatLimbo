@@ -23,7 +23,7 @@ const MostPlayed = ({ mostPlayedFile, handleScroll }) => (
         </Typography>
       </Box>
     }
-    <Button onClick={handleScroll} variant="contained">
+    <Button sx={{ fontFamily: 'Poppins' }} onClick={handleScroll} variant="contained">
       Go to Post
     </Button>
   </Box>

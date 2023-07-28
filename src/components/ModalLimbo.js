@@ -53,7 +53,7 @@ const ModalLimbo = ({ open, handleClose, sendComment, setNewComment, mobileView 
             multiline
             required
             />
-          <Button sx={{ width: '20%' }} type='submit' variant='contained'>POST</Button>
+          <Button sx={{ width: '20%', fontFamily: 'Poppins', fontSize: '15px' }} type='submit' variant='contained'>POST</Button>
         </form>                  
       </Box>
     </Modal>

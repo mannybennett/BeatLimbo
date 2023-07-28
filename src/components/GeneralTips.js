@@ -4,10 +4,10 @@ import { Box, Chip, Typography } from '@mui/material';
 const tips = [
   { title: 'melody', link: 'https://www.izotope.com/en/learn/how-to-create-strong-melodies.html' },
   { title: 'drums', link: 'https://www.izotope.com/en/learn/live-drums-vs-sampled-drums-when-to-use-which.html' },
-  { title: 'mixing', link: 'https://www.izotope.com/en/learn/how-to-mix-music.html' },
   { title: 'arrangement', link: 'https://www.izotope.com/en/learn/arranging-music-for-better-mixdown.html' },
-  { title: 'tempo', link: 'https://www.izotope.com/en/learn/using-different-tempos-to-make-beats-for-different-genres.html' },
+  { title: 'mixing', link: 'https://www.izotope.com/en/learn/how-to-mix-music.html' },
   { title: 'sound selection', link: 'https://stickz.co/blog/sound-selection-secrets/' },
+  { title: 'tempo', link: 'https://www.izotope.com/en/learn/using-different-tempos-to-make-beats-for-different-genres.html' },
   { title: 'effects', link: 'https://www.izotope.com/en/learn/guide-to-audio-effects.html' },
   { title: 'transitions', link: 'https://www.izotope.com/en/learn/how-to-create-better-transitions-in-your-mix.html' },
   { title: 'bassline', link: 'https://www.izotope.com/en/learn/how-to-get-a-fat-deep-bass-sound.html' },

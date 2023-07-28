@@ -4,8 +4,7 @@ import CardCollapse from './CardCollapse';
 import ModalLimbo from './ModalLimbo';
 import { Box, Card, CardMedia, Typography, Checkbox, Button, CardActions, IconButton, styled } from '@mui/material';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 
 const Post = (props) => {
   const {
@@ -95,12 +94,8 @@ const Post = (props) => {
                 checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">COMPLETE</Button>}
                 />
               </Box>
-              <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', lg: 'flex'}, justifyContent: 'center', alignItems: 'center' }}>
-                <ArrowLeftIcon color="info" />
-                <Typography color="#e8e8e8" variant="subtitle1">
-                  VOTE
-                </Typography>
-                <ArrowRightIcon color="info" />
+              <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', sm: 'flex'}, justifyContent: 'center', alignItems: 'center', marginLeft: '5px', marginRight: '5px' }}>
+                <ThumbsUpDownIcon color='info' fontSize='large' />
               </Box>
               <Box sx={{ width: '100%', height: '100%', paddingLeft: '5px' }}>
                 <Checkbox
