@@ -91,8 +91,8 @@ const Post = (props) => {
                 onChange={() => handleChange('complete', file.id)}
                 value="complete"
                 sx={{ width: '100%', height: '100%' }}
-                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(79, 195, 247, 0.1)' }} color='warning' variant="outlined">COMPLETE</Button>}
-                checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='warning' variant="contained">COMPLETE</Button>}
+                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">COMPLETE</Button>}
+                checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">COMPLETE</Button>}
                 />
               </Box>
               <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', lg: 'flex'}, justifyContent: 'center', alignItems: 'center' }}>
@@ -108,7 +108,7 @@ const Post = (props) => {
                 onChange={() => handleChange('delete', file.id)}
                 value="delete"
                 sx={{ width: '100%', height: '100%' }}
-                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(217, 18, 38, 0.1)' }} color='secondary' variant="outlined">DELETE</Button>}
+                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">DELETE</Button>}
                 checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE</Button>}
                 />
               </Box>

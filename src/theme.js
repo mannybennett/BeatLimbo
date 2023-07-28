@@ -11,7 +11,7 @@ export const theme = createTheme({
       light: "#cc3333"
     },
     warning:{
-      main: '#4fc3f7'
+      main: '#8352ff'
     },
     info:{
       main:"#e8e8e8"
