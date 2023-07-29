@@ -136,8 +136,8 @@ const Profile = (props) => {
                 <TableRow>
                   <StyledTableCell sx={{ width: '25%' }}>Title</StyledTableCell>
                   <StyledTableCell align='center' sx={{ width: '25%' }}>Plays</StyledTableCell>
-                  <StyledTableCell align='center' sx={{ width: '25%' }}>Complete</StyledTableCell>
-                  <StyledTableCell align='center' sx={{ width: '25%' }}>Delete</StyledTableCell>
+                  <StyledTableCell align='center' sx={{ width: '25%' }}>Finish This</StyledTableCell>
+                  <StyledTableCell align='center' sx={{ width: '25%' }}>Move On</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -155,7 +155,7 @@ const Profile = (props) => {
 
           {/* Manage Uploads */}
           
-          <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
+          <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black", marginBottom: 2.5 }}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -176,8 +176,8 @@ const Profile = (props) => {
                         controlsList='nodownload noplaybackrate'
                       />
                     </StyledTableCell>
-                    <StyledTableCell align="right" sx={{ width: '33%' }}>
-                      <Button color="secondary" variant='contained' size="small">Remove</Button>
+                    <StyledTableCell padding='none' align="right" sx={{ width: '33%', paddingRight: '10px' }}>
+                      <Button color="secondary" variant='contained' size="small">delete</Button>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

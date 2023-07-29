@@ -107,11 +107,10 @@ const Upload =(props) => {
             onSelect={onSelect}
             maxSize={20}
             onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
-            label="Click Here to Upload an MP3/WAV File"
             multiple={false}
             children={<Button size='large' variant='contained'>choose an MP3 or WAV file</Button>}
             types={fileTypes} />
-          <TextField sx={{ width: '261.75px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" required />
+          <TextField sx={{ width: '261.75px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" size='small' required />
           <Button size='large' type="submit" color='secondary' variant="contained">submit</Button>
           <Modal
             open={open}

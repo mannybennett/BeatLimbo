@@ -32,9 +32,13 @@ a {
 }
 
 .profileAudioPlayer {
-  /* background-color: white; */
-  /* border-radius: 4px; */
+  background-color: white;
+  border-radius: 4px;
   width: 100%;
+}
+
+audio.react-audio-player.profileAudioPlayer {
+  height: 30.75px;
 }
 
 .commentForm {
@@ -86,7 +90,21 @@ a {
 /* Add Comment Button */
 .css-1ifeshr-MuiSvgIcon-root {
   animation: animate 2s ease infinite;
-} 
+}
+
+/* Upload Button */
+.css-1nhjpit-MuiButtonBase-root-MuiButton-root {
+  transition: background-color 0.3s !important;
+}
+
+.css-1nhjpit-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #262626 !important;
+}
+
+/* FileUploader */
+/* .juBESy > input:focus-visible {
+  outline: solid red;
+} */
 
 @keyframes shake {
   70% {

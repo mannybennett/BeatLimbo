@@ -86,12 +86,12 @@ const Post = (props) => {
             <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
               <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
                 <Checkbox
-                checked={clickedButton[file.id] === 'complete'}
-                onChange={() => handleChange('complete', file.id)}
-                value="complete"
-                sx={{ width: '100%', height: '100%' }}
-                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">COMPLETE</Button>}
-                checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">COMPLETE</Button>}
+                  checked={clickedButton[file.id] === 'complete'}
+                  onChange={() => handleChange('complete', file.id)}
+                  value="complete"
+                  sx={{ width: '100%', height: '100%' }}
+                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">finish this</Button>}
+                  checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">finish this</Button>}
                 />
               </Box>
               <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', sm: 'flex'}, justifyContent: 'center', alignItems: 'center', marginLeft: '5px', marginRight: '5px' }}>
@@ -99,12 +99,12 @@ const Post = (props) => {
               </Box>
               <Box sx={{ width: '100%', height: '100%', paddingLeft: '5px' }}>
                 <Checkbox
-                checked={clickedButton[file.id] === 'delete'}
-                onChange={() => handleChange('delete', file.id)}
-                value="delete"
-                sx={{ width: '100%', height: '100%' }}
-                icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">DELETE</Button>}
-                checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">DELETE</Button>}
+                  checked={clickedButton[file.id] === 'delete'}
+                  onChange={() => handleChange('delete', file.id)}
+                  value="delete"
+                  sx={{ width: '100%', height: '100%' }}
+                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">move on</Button>}
+                  checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">move on</Button>}
                 />
               </Box>
             </Box>
