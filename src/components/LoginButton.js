@@ -9,11 +9,11 @@ function LoginButton() {
     <Button
       sx={{
         height: 'auto',
-        width: { xs: '110px', md: '150px' },
+        width: { xs: '130px', md: '150px' },
         backgroundColor: '#d10e1f',
         borderRadius: 1,
         fontFamily: 'Poppins',
-        fontSize: { xs: '0.8rem', md: '1.1rem' },
+        fontSize: { xs: '1rem', md: '1.1rem' },
         transition: 'transform 0.3s',
         '&:hover': {
           transform: 'scale(1.2)'

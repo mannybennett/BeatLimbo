@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ReactAudioPlayer from 'react-audio-player';
 import {
   Box,
   styled,
@@ -14,9 +15,9 @@ import {
   CircularProgress,
   Backdrop,
   Avatar,
-  Typography
+  Typography,
+  Button
 } from "@mui/material";
-import redTopo from '../images/redTopo.jpg';
 import audioVisInvertedRed from '../images/audioVisInvertedRed.jpg';
 
 const Profile = (props) => {
@@ -99,7 +100,7 @@ const Profile = (props) => {
 
   // console.log(voteCounts)
   // console.log(userVotes)
-  // console.log(userFiles)
+  console.log(userFiles)
 
   return (
     <>
@@ -120,28 +121,64 @@ const Profile = (props) => {
           <Box width='90%' maxWidth='900px' display='flex' marginBottom='23px'>
             <Typography fontWeight={600} variant="h6">{props.user.user_name}</Typography>
           </Box>          
+          <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black", marginBottom: '40px' }}>
+            <Table aria-label="customized table">
+              <TableHead sx={{ width: '100%', backgroundColor: '#0F0F0F' }}>
+                <TableRow>
+                  <StyledTableCell sx={{ width: '100%' }} colSpan={4}>
+                    <Typography align='center' color='#e8e8e8' fontSize='20px' fontWeight={500}>
+                      Vote Stats
+                    </Typography>
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell sx={{ width: '25%' }}>Title</StyledTableCell>
+                  <StyledTableCell align='center' sx={{ width: '25%' }}>Plays</StyledTableCell>
+                  <StyledTableCell align='center' sx={{ width: '25%' }}>Complete</StyledTableCell>
+                  <StyledTableCell align='center' sx={{ width: '25%' }}>Delete</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {userFiles.map((file, idx) => (
+                  <StyledTableRow key={idx}>
+                    <StyledTableCell component="th" scope="row" sx={{ width: '25%' }}>{file.title}</StyledTableCell>
+                    <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%' }}>{file.plays}</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          {/* Manage Uploads */}
+          
           <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell sx={{ width: '33%' }}></StyledTableCell>
-                  <StyledTableCell sx={{ width: '33%', fontSize: '20px' }} align="center">Vote Stats</StyledTableCell>
+                  <StyledTableCell sx={{ width: '33%', fontSize: '20px' }} align="center">Manage Uploads</StyledTableCell>
                   <StyledTableCell sx={{ width: '33%' }}></StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell sx={{ width: '33%' }}>Beats</StyledTableCell>
-                  <StyledTableCell sx={{ width: '33%' }} align="center">Complete</StyledTableCell>
-                  <StyledTableCell sx={{ width: '33%' }} align="center">Delete</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {userFiles.map((file, idx) => (
                   <StyledTableRow key={idx}>
                     <StyledTableCell component="th" scope="row" sx={{ width: '33%' }}>{file.title}</StyledTableCell>
-                    <StyledTableCell align="center" sx={{ width: '33%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
-                    <StyledTableCell align="center" sx={{ width: '33%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
+                    <StyledTableCell padding='none' align="center" sx={{ width: '33%', paddingTop: '5px' }}>
+                      <ReactAudioPlayer
+                        className='profileAudioPlayer'
+                        src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
+                        controls
+                        controlsList='nodownload noplaybackrate'
+                      />
+                    </StyledTableCell>
+                    <StyledTableCell align="right" sx={{ width: '33%' }}>
+                      <Button color="secondary" variant='contained' size="small">Remove</Button>
+                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

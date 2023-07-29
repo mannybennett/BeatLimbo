@@ -4,7 +4,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FileUploader } from "react-drag-drop-files";
-import {TextField, Button, CircularProgress, Backdrop} from '@mui/material';
+import { TextField, Button, CircularProgress, Backdrop, Box, Typography } from '@mui/material';
 
 const ProfileCreation = () => {
   const { user:auth0User } = useAuth0();
@@ -107,16 +107,22 @@ const ProfileCreation = () => {
         </Backdrop>
       }
       {!loading &&
-        <div>
-          <p>Select Profile Picture and Username</p>
-          <form onSubmit={navigation}>
-            <FileUploader onSelect={selectPic} maxSize={20} onSizeError={(file) => console.log(`${file} exceeds 20MB`)} name="file" types={fileTypes} />
-            <br></br>
-            <TextField inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" variant="outlined" required></TextField>
-            <Button type="submit" onClick={createUser} variant="contained">Submit</Button>
-            <br></br>
-            {console.log()}
-          </form>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }} className="App">
+          <Box width='90%' height='90%' maxWidth='600px' maxHeight='500px' display='flex' justifyContent='center'>
+            <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={navigation}>
+              <Typography align='center' sx={{ marginBottom: '50px' }} fontSize='2rem' fontWeight={500}>Complete your profile with an image and username</Typography>
+              <FileUploader
+                style={{ width: '100%' }}
+                onSelect={selectPic}
+                maxSize={20}
+                onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
+                multiple={false}
+                children={<Button size='large' variant='contained'>choose a profile picture</Button>}
+                types={fileTypes} />
+              <TextField sx={{ width: '245.77px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" value={userName} variant="outlined" required />
+              <Button size='large' type="submit" color='secondary' variant="contained" onClick={createUser}>finish profile</Button>
+            </form>
+          </Box>        
         </div>
       }
     </>

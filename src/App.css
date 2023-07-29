@@ -2,6 +2,7 @@ body {
   background-color: #f0f0f0;
   background-image: url(./images/audioVisInverted2.jpg);
   background-attachment: fixed;
+  background-size: cover;
 }
 
 a {
@@ -30,6 +31,12 @@ a {
   margin-bottom: 10px;
 }
 
+.profileAudioPlayer {
+  /* background-color: white; */
+  /* border-radius: 4px; */
+  width: 100%;
+}
+
 .commentForm {
   display: flex;
   flex-direction: column;
@@ -37,18 +44,18 @@ a {
 }
 
 /* Landing Button */
-.css-jlww28-MuiButtonBase-root-MuiButton-root:hover {
+.css-21y8le-MuiButtonBase-root-MuiButton-root:hover {
   background-color: #d91226 !important;
 }
 
 /* Checkboxes */
-.css-19uu3ae-MuiButtonBase-root-MuiCheckbox-root {
+.css-14layt2-MuiButtonBase-root-MuiCheckbox-root {
   padding: 0 !important;
   border-radius: 4px !important;
   transition: background-color 0.3s !important;
 }
 
-.css-19uu3ae-MuiButtonBase-root-MuiCheckbox-root:hover {
+.css-14layt2-MuiButtonBase-root-MuiCheckbox-root:hover {
   background-color: #e8e8e8 !important;
 }
 
