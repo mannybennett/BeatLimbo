@@ -11,3 +11,10 @@ export const getFiles = (files) => {
     value: files
   }
 } 
+
+export const deleteFile = (id) => {
+  return {
+    type: "DELETE_FILE",
+    value: id
+  }
+} 

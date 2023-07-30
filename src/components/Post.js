@@ -8,7 +8,6 @@ import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 
 const Post = (props) => {
   const {
-    idx,
     isMostPlayed,
     postRef,
     highlightMostPlayed,
@@ -39,7 +38,7 @@ const Post = (props) => {
   }));
 
   return (
-    <Card key={idx}
+    <Card
       ref={isMostPlayed ? postRef : null}
       sx={{
         display: 'flex',

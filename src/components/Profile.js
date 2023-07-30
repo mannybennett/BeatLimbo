@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ReactAudioPlayer from 'react-audio-player';
+import ModalProfile from "./ModalProfile";
 import {
   Box,
   styled,
@@ -24,22 +25,41 @@ const Profile = (props) => {
   const [allVotes, setAllVotes] = useState([]);
   const [userFiles, setUserFiles] = useState([])
   const [loading, setLoading] = useState(true)
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => setOpen(true);
+  const handleNoClose = () => setOpen(false)
+  const handleYesClose = async (id) => {
+    setOpen(false)
+    await props.deleteFile(id)
+  }
+
+  const getAudioFiles = async () => {
+    await axios.get('/api/audioFiles/')
+    .then(res => props.getFiles(res.data))
+  }
+
+  const getUserFiles = async () => {
+    await getAudioFiles()
+    const filteredFiles = await props.audioFiles.filter(file => file.user_id === props.user.id)
+    setUserFiles(filteredFiles)
+    setLoading(false)
+  }
 
   useEffect(() => {
     const getAllVotes = async () => {
       try {
         const response = await axios.get('/api/limbo/');
-        setLoading(false)
-        return setAllVotes(response.data);
+        await getUserFiles()
+        setAllVotes(response.data)
+        return setLoading(false)
       } catch (error) {
         console.log('Error fetching votes:', error);
         throw error;
       }
     };
     getAllVotes()
-    const filteredFiles = props.audioFiles.filter(file => file.user_id === props.user.id)
-    setUserFiles(filteredFiles)
-  }, [])
+  }, [props.audioFiles.length])
 
   const AvatarContainer = styled(Box)({
     position: 'relative',
@@ -144,7 +164,7 @@ const Profile = (props) => {
                 {userFiles.map((file, idx) => (
                   <StyledTableRow key={idx}>
                     <StyledTableCell component="th" scope="row" sx={{ width: '25%' }}>{file.title}</StyledTableCell>
-                    <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%' }}>{file.plays}</StyledTableCell>
+                    <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%' }}>{file.plays ? file.plays : 0}</StyledTableCell>
                     <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
                     <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
                   </StyledTableRow>
@@ -177,8 +197,9 @@ const Profile = (props) => {
                       />
                     </StyledTableCell>
                     <StyledTableCell padding='none' align="right" sx={{ width: '33%', paddingRight: '10px' }}>
-                      <Button color="secondary" variant='contained' size="small">delete</Button>
+                      <Button onClick={handleOpen} color="secondary" variant='contained' size="small">delete</Button>
                     </StyledTableCell>
+                    <ModalProfile setLoading={setLoading} handleYesClose={handleYesClose} handleNoClose={handleNoClose} open={open} title={file.title} id={file.id} fileName={file.file_name}/>
                   </StyledTableRow>
                 ))}
               </TableBody>

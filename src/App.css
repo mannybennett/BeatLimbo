@@ -48,7 +48,7 @@ audio.react-audio-player.profileAudioPlayer {
 }
 
 /* Landing Button */
-.css-21y8le-MuiButtonBase-root-MuiButton-root:hover {
+.css-1yn8zp2-MuiButtonBase-root-MuiButton-root:hover {
   background-color: #d91226 !important;
 }
 
@@ -99,6 +99,23 @@ audio.react-audio-player.profileAudioPlayer {
 
 .css-1nhjpit-MuiButtonBase-root-MuiButton-root:hover {
   background-color: #262626 !important;
+}
+
+/* Confirm Delete Buttons */
+.css-xyktzx-MuiButtonBase-root-MuiButton-root {
+  transition: background-color 0.3s !important;
+}
+
+.css-xyktzx-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #d91226 !important;
+}
+
+.css-jq1d7s-MuiButtonBase-root-MuiButton-root {
+  transition: background-color 0.3s !important;
+}
+
+.css-jq1d7s-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #d91226 !important;
 }
 
 /* FileUploader */

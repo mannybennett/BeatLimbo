@@ -1,11 +1,12 @@
 import React from "react";
-import {AppBar, Avatar, Box, Toolbar, Typography, styled } from "@mui/material";
+import {AppBar, Avatar, Box, Toolbar, styled } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import MobileLogoutButton from "./MobileLogoutButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import UploadIcon from '@mui/icons-material/Upload';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+import BLheader from '../images/BLheader.png'
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -40,9 +41,9 @@ const Navigation = (props) => {
     {!isLandingPage &&
       <AppBar sx={{ boxShadow: "0 3px 10px 2px black" }} position="sticky">
         <StyledToolbar>
-          <Typography variant="h6" style={{ flexGrow: "1" }}>
-            <Link className="linkHover" to="/limbo">Beat Limbo</Link>
-          </Typography>
+          <Link style={{ marginTop: '8px' }} className="linkHover" to="/limbo">
+            <img alt="logo" width='125px' src={BLheader} />
+          </Link>
           <Links>
             <div>
               <Link className="textIcon linkHover" to="/limbo">

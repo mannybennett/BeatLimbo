@@ -13,6 +13,8 @@ const audioFiles = (state = [], action) => {
   switch (action.type) {
     case 'GET_FILES':
       return action.value;
+    case 'DELETE_FILE':
+      return state.filter(file => file.id !== action.value);
     default:
       return state;
   }

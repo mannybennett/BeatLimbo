@@ -62,7 +62,6 @@ const Upload =(props) => {
   
   const postAudioFile = async (fileName, userId, title, userName, image) => {
     try {
-      setTitle('')
       await axios.post('/api/audioFiles/upload', {
         file_name: fileName,
         user_id: userId,
@@ -83,6 +82,7 @@ const Upload =(props) => {
   const uploadFile = async (e) => {
     if (audioFile && title) {
       e.preventDefault()
+      setTitle('')
       await uploadObject(audioFile);
       await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name, props.user.profile_picture ? props.user.profile_picture : defaultImg);
     } else {

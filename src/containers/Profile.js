@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Profile from '../components/Profile';
-import { updateUser } from '../redux/actions';
+import { deleteFile, getFiles } from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUser: (user) => dispatch(updateUser(user))
+    deleteFile: (id) => dispatch(deleteFile(id)),
+    getFiles: (file) => dispatch(getFiles(file))
   };
 };
 

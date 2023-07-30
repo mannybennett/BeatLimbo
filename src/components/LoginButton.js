@@ -10,7 +10,7 @@ function LoginButton() {
       sx={{
         height: 'auto',
         width: { xs: '130px', md: '150px' },
-        backgroundColor: '#d10e1f',
+        backgroundColor: '#d91226',
         borderRadius: 1,
         fontFamily: 'Poppins',
         fontSize: { xs: '1rem', md: '1.1rem' },
