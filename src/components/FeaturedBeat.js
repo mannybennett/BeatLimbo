@@ -13,6 +13,7 @@ const FeaturedBeat = () => {
         display: 'flex',
         flexDirection: 'column',
         padding: 2,
+        paddingBottom: '10px'
       }}
     >
       <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>Featured Beat</Typography>

@@ -1,15 +1,45 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { FileUploader } from "react-drag-drop-files";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import {TextField, Button, Modal, Typography, Box} from '@mui/material';
+import {TextField, Button, Modal, Typography, Box, Snackbar, IconButton} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const Upload =(props) => {
   const [audioFile, setAudioFile] = useState(null);
   const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
+
+  const handleOpenSnack = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnack(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Link to='/limbo'>
+        <Typography marginRight='2px' color='#d91226' fontWeight={400} fontSize='0.875rem'>SEE POST</Typography>
+      </Link>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleCloseSnack}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -83,6 +113,8 @@ const Upload =(props) => {
     if (audioFile && title) {
       e.preventDefault()
       setTitle('')
+      setAudioFile(null)
+      handleOpenSnack()
       await uploadObject(audioFile);
       await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name, props.user.profile_picture ? props.user.profile_picture : defaultImg);
     } else {
@@ -93,6 +125,7 @@ const Upload =(props) => {
 
   const onSelect = async (file) => {
     setAudioFile(file)
+    console.log(file)
   };
 
   console.log(title)
@@ -101,7 +134,8 @@ const Upload =(props) => {
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }} className="App">
       <Box width='90%' height='90%' maxWidth='600px' maxHeight='500px' display='flex' justifyContent='center'>
         <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={uploadFile}>
-          <Typography align='center' sx={{ marginBottom: '50px' }} fontSize='2rem' fontWeight={500}>Select a file and title for your track</Typography>
+          <Typography align='center' sx={{ marginBottom: '50px' }} fontSize='2rem' fontWeight={500}>Select a file and title for your track</Typography>          
+          <Typography color='#919191' variant='subtitle2'>{audioFile && audioFile.name}</Typography>
           <FileUploader
             style={{ width: '100%' }}
             onSelect={onSelect}
@@ -109,7 +143,8 @@ const Upload =(props) => {
             onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
             multiple={false}
             children={<Button size='large' variant='contained'>choose an MP3 or WAV file</Button>}
-            types={fileTypes} />
+            types={fileTypes}
+          />
           <TextField sx={{ width: '261.75px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" size='small' required />
           <Button size='large' type="submit" color='secondary' variant="contained">submit</Button>
           <Modal
@@ -123,6 +158,13 @@ const Upload =(props) => {
               </Typography>
             </Box>
           </Modal>
+          <Snackbar         
+            open={openSnack}
+            autoHideDuration={5000}
+            onClose={handleCloseSnack}
+            message="Upload Complete"
+            action={action}
+          />
         </form>
       </Box>        
     </div>
