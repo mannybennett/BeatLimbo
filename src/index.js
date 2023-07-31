@@ -14,7 +14,10 @@ root.render(
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: "http://localhost:3000/profilecreation"
-      }}>
+      }}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
+    >
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>

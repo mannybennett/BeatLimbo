@@ -55,6 +55,7 @@ const Upload =(props) => {
     transform: 'translate(-50%, -50%)',
     width: 'auto',
     maxWidth: '300px',
+    minWidth: '186px',
     bgcolor: '#e8e8e8',
     borderRadius: 1,
     boxShadow: 1,
@@ -160,7 +161,7 @@ const Upload =(props) => {
           </Modal>
           <Snackbar         
             open={openSnack}
-            autoHideDuration={8000}
+            autoHideDuration={30000}
             onClose={handleCloseSnack}
             message="Upload Complete"
             action={action}

@@ -24,7 +24,7 @@ const Landing = () => {
       }}
     >
       <Box marginBottom={10} width='100%' height={height} minHeight='293px' display='flex' flexDirection='column' alignItems='center' justifyContent='space-between'>
-        <Box marginLeft={1} width={width}>
+        <Box marginLeft={0.5} width={width}>
           <img width='100%' alt='logo' src={BLheader} />
         </Box>
         {/* Desktop */}

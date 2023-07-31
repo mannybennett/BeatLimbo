@@ -32,7 +32,7 @@ const CardCollapse = (props) => {
                       </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" variant="subtitle1">
+                      <Typography sx={{ paddingLeft: '32px' }} color="#e8e8e8" fontSize='15.5px'>
                         {comment.comment}
                       </Typography>
                       {comment.user_id === user.id &&

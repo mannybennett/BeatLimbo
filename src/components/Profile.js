@@ -17,7 +17,8 @@ import {
   Backdrop,
   Avatar,
   Typography,
-  Button
+  Button,
+  useMediaQuery
 } from "@mui/material";
 import audioVisInvertedRed from '../images/audioVisInvertedRed.jpg';
 
@@ -26,6 +27,9 @@ const Profile = (props) => {
   const [userFiles, setUserFiles] = useState([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
+
+  const mobileView = useMediaQuery('(max-width: 600px)');
+  const className = mobileView ? 'mobileAudioPlayer' : 'profileAudioPlayer'
 
   const handleOpen = () => setOpen(true);
   const handleNoClose = () => setOpen(false)
@@ -190,7 +194,7 @@ const Profile = (props) => {
                     <StyledTableCell component="th" scope="row" sx={{ width: '33%' }}>{file.title}</StyledTableCell>
                     <StyledTableCell padding='none' align="center" sx={{ width: '33%', paddingTop: '5px' }}>
                       <ReactAudioPlayer
-                        className='profileAudioPlayer'
+                        className={className}
                         src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
                         controls
                         controlsList='nodownload noplaybackrate'

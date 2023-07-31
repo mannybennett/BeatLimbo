@@ -31,14 +31,22 @@ a {
   margin-bottom: 10px;
 }
 
-.profileAudioPlayer {
+.profileAudioPlayer,
+.mobileAudioPlayer {
   background-color: white;
   border-radius: 4px;
   width: 100%;
 }
 
-audio.react-audio-player.profileAudioPlayer {
+audio.react-audio-player.profileAudioPlayer,
+audio.react-audio-player.mobileAudioPlayer {
   height: 30.75px;
+}
+
+audio.react-audio-player.mobileAudioPlayer::-webkit-media-controls-mute-button,
+audio.react-audio-player.mobileAudioPlayer::-webkit-media-controls-volume-slider,
+audio.react-audio-player.mobileAudioPlayer::-webkit-media-controls-timeline {
+  display: none;
 }
 
 .commentForm {
@@ -79,6 +87,11 @@ audio.react-audio-player.profileAudioPlayer {
   background-color: #990d1b !important;
 }
 
+/* Snackbar */
+/* .css-1d9qac8-MuiPaper-root-MuiSnackbarContent-root {
+  background-color: #919191 !important;
+} */
+
 /* Show Comments Button */
 .css-o9bkbe-MuiButtonBase-root-MuiIconButton-root:hover {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
@@ -90,6 +103,15 @@ audio.react-audio-player.profileAudioPlayer {
 /* Add Comment Button */
 .css-1ifeshr-MuiSvgIcon-root {
   animation: animate 2s ease infinite;
+}
+
+/* Post Comment Button */
+.css-1wdtny5-MuiButtonBase-root-MuiButton-root {
+  transition: background-color 0.3s !important;
+}
+
+.css-1wdtny5-MuiButtonBase-root-MuiButton-root:hover {
+  background-color: #d91226 !important;
 }
 
 /* Upload Button */

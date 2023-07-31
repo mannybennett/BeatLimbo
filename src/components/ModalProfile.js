@@ -76,6 +76,7 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
     transform: 'translate(-47.3%, -50%)',
     width: 'auto',
     maxWidth: '300px',
+    minWidth: '186px',
     bgcolor: '#e8e8e8',
     borderRadius: 1,
     boxShadow: 1,
