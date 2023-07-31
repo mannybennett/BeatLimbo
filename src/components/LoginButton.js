@@ -9,7 +9,7 @@ function LoginButton() {
     <Button
       sx={{
         height: 'auto',
-        width: { xs: '130px', md: '150px' },
+        width: '150px',
         backgroundColor: '#d91226',
         borderRadius: 1,
         fontFamily: 'Poppins',
