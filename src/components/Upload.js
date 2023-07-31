@@ -26,9 +26,9 @@ const Upload =(props) => {
   };
 
   const action = (
-    <React.Fragment>
+    <Box display='flex' alignItems='center'>
       <Link to='/limbo'>
-        <Typography marginRight='2px' color='#d91226' fontWeight={400} fontSize='0.875rem'>SEE POST</Typography>
+        <Typography marginRight='2px' color='#d91226' fontWeight={600} fontSize='0.875rem'>SEE POST</Typography>
       </Link>
       <IconButton
         size="small"
@@ -38,7 +38,7 @@ const Upload =(props) => {
       >
         <CloseIcon fontSize="small" />
       </IconButton>
-    </React.Fragment>
+    </Box>
   );
   
   const handleOpen = () => setOpen(true);
@@ -53,12 +53,12 @@ const Upload =(props) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
-    maxWidth: '400px',
-    bgcolor: '#1f1f1f',
-    borderRadius: 10,
-    boxShadow: 24,
-    p: 2,
+    width: 'auto',
+    maxWidth: '300px',
+    bgcolor: '#e8e8e8',
+    borderRadius: 1,
+    boxShadow: 1,
+    p: 1,
     textAlign: "center"
   };
   
@@ -153,14 +153,14 @@ const Upload =(props) => {
           >
             <Box sx={modalStyle}>
               <WarningAmberIcon sx={{ fontSize: 40, color: "#d91226" }} />
-              <Typography sx={{ color: "white" }} variant="p" component="div">
-                Please select an audio file and a title
+              <Typography fontWeight={600} variant="h6">
+                Please select an audio file and title
               </Typography>
             </Box>
           </Modal>
           <Snackbar         
             open={openSnack}
-            autoHideDuration={5000}
+            autoHideDuration={8000}
             onClose={handleCloseSnack}
             message="Upload Complete"
             action={action}

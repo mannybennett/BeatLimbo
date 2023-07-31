@@ -6,7 +6,6 @@ import MostPlayed from './MostPlayed';
 import FeaturedBeat from './FeaturedBeat';
 import Post from './Post';
 import { useMediaQuery, Box, CircularProgress, Backdrop, Stack } from '@mui/material';
-import audioVisInverted2 from '../images/audioVisInverted2.jpg';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -170,12 +169,10 @@ const Limbo = (props) => {
               return acc;
             }, {})
           );
+          setLoading(false)
         } catch (error) {
           return console.log('Error:', error)
         }
-        setLoading(false)
-      } else {
-        setLoading(false)
       }
     };
 

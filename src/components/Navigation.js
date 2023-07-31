@@ -85,7 +85,7 @@ const Navigation = (props) => {
               <GraphicEqIcon
                 sx={{
                   fontSize: 30,
-                  marginTop: "3px",
+                  marginTop: "8px",
                   transition: "color 0.6s",
                   "&:hover": {
                     color: "#d91226",
@@ -97,7 +97,7 @@ const Navigation = (props) => {
               <UploadIcon
                 sx={{
                   fontSize: 30,
-                  marginTop: "3px",
+                  marginTop: "8px",
                   transition: "color 0.6s",
                   "&:hover": {
                     color: "#d91226",

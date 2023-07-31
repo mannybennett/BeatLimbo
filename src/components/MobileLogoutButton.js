@@ -11,7 +11,7 @@ const MobileLogoutButton = () => {
       sx={{
         cursor: 'pointer',
         fontSize: 30,
-        marginTop: "3px",
+        marginTop: "8px",
         transition: "color 0.6s",
         "&:hover": {
           color: "#d91226",

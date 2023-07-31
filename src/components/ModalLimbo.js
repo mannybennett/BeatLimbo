@@ -10,9 +10,9 @@ const ModalLimbo = ({ open, handleClose, sendComment, setNewComment, mobileView 
     transform: 'translate(-50%, -50%)',
     width: mobileView ? '90%' : '50%',
     maxWidth: '600px',
-    bgcolor: '#1f1f1f',
+    bgcolor: '#e8e8e8',
     borderRadius: 1,
-    boxShadow: 24,
+    boxShadow: 1,
     p: 2,
     textAlign: "center"
   };
@@ -49,7 +49,7 @@ const ModalLimbo = ({ open, handleClose, sendComment, setNewComment, mobileView 
             fullWidth={true}
             color='primary'
             label="Comment"
-            variant="filled"
+            variant="outlined"
             multiline
             required
             />
