@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Chip, Typography } from '@mui/material';
+import { Box, Chip, Typography, Avatar } from '@mui/material';
+import { Link } from "@phosphor-icons/react";
 
 const tips = [
   { title: 'melody', link: 'https://www.izotope.com/en/learn/how-to-create-strong-melodies.html' },
@@ -9,8 +10,8 @@ const tips = [
   { title: 'sound selection', link: 'https://stickz.co/blog/sound-selection-secrets/' },
   { title: 'tempo', link: 'https://www.izotope.com/en/learn/using-different-tempos-to-make-beats-for-different-genres.html' },
   { title: 'effects', link: 'https://www.izotope.com/en/learn/guide-to-audio-effects.html' },
-  { title: 'transitions', link: 'https://www.izotope.com/en/learn/how-to-create-better-transitions-in-your-mix.html' },
   { title: 'bassline', link: 'https://www.izotope.com/en/learn/how-to-get-a-fat-deep-bass-sound.html' },
+  { title: 'transitions', link: 'https://www.izotope.com/en/learn/how-to-create-better-transitions-in-your-mix.html' },
 ];
 
 const GeneralTips = () => {
@@ -28,11 +29,12 @@ const GeneralTips = () => {
       }}
     >
       <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>General Tips</Typography>
-      <Typography marginBottom={2} variant='subtitle1' color='#919191'>To achieve quality beats, keep the following components in mind and click to learn more:</Typography>
+      <Typography marginBottom={2} variant='subtitle1' color='#919191'>To achieve quality beats, keep the following components in mind:</Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
         {tips.map((tip, idx) => {
           return (
             <Chip
+              avatar={<Link />}
               key={idx}
               component="a"
               href={tip.link}

@@ -119,7 +119,7 @@ const ProfileCreation = () => {
                 multiple={false}
                 children={<Button size='large' variant='contained'>choose a profile picture</Button>}
                 types={fileTypes} />
-              <TextField sx={{ width: '245.77px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" value={userName} variant="outlined" required />
+              <TextField sx={{ width: '245.77px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" value={userName} variant="outlined" size='small' required />
               <Button size='large' type="submit" color='secondary' variant="contained" onClick={createUser}>finish profile</Button>
             </form>
           </Box>        

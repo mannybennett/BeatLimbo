@@ -48,7 +48,7 @@ const Post = (props) => {
         bgcolor: "#1f1f1f",
         width: "100%",
         maxWidth: '2000px',
-        boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px 5px #d91226" : "0px 3px 10px black",
+        boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px 10px #d91226" : "0px 3px 10px black",
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -89,8 +89,8 @@ const Post = (props) => {
                   onChange={() => handleChange('complete', file.id)}
                   value="complete"
                   sx={{ width: '100%', height: '100%' }}
-                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">finish this</Button>}
-                  checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">finish this</Button>}
+                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5 }} color='primary' variant="contained">finish this</Button>}
+                  checkedIcon={<Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5 }} color='secondary' variant="contained">finish this</Button>}
                 />
               </Box>
               <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', sm: 'flex'}, justifyContent: 'center', alignItems: 'center', marginLeft: '5px', marginRight: '5px' }}>
@@ -102,8 +102,8 @@ const Post = (props) => {
                   onChange={() => handleChange('delete', file.id)}
                   value="delete"
                   sx={{ width: '100%', height: '100%' }}
-                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)' }} color='primary' variant="outlined">move on</Button>}
-                  checkedIcon={<Button sx={{ width: '100%', height: '100%' }} color='secondary' variant="contained">move on</Button>}
+                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5 }} color='primary' variant="contained">move on</Button>}
+                  checkedIcon={<Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5 }} color='secondary' variant="contained">move on</Button>}
                 />
               </Box>
             </Box>

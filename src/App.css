@@ -24,6 +24,10 @@ a {
   color: #d91226;
 }
 
+.linkHover:focus {
+  color: #d91226;
+}
+
 .audioPlayer {
   background-color: white;
   border-radius: 4px;
@@ -68,23 +72,18 @@ audio.react-audio-player.mobileAudioPlayer::-webkit-media-controls-timeline {
 }
 
 .css-14layt2-MuiButtonBase-root-MuiCheckbox-root:hover {
-  background-color: #e8e8e8 !important;
-}
-
-/* Checkbox Buttons */
-.css-gx0t89-MuiButtonBase-root-MuiButton-root {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
-}
-
-.css-jzph84-MuiButtonBase-root-MuiButton-root {
-  font-family: 'Poppins', sans-serif !important;
-  font-size: 15px !important;
+  background-color: #424242 !important;
 }
 
 /* Chips */
 .css-1tfwrh9-MuiButtonBase-root-MuiChip-root:hover {
   background-color: #990d1b !important;
+}
+
+.css-1pjx6fa-MuiButtonBase-root-MuiChip-root .MuiChip-avatarColorSecondary {
+  background-color: transparent !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 /* Snackbar */

@@ -1,15 +1,16 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Button } from '@mui/material';
+import { Button, useMediaQuery } from '@mui/material';
 
 function LoginButton() {
   const { loginWithRedirect } = useAuth0();
+  const mobileView = useMediaQuery('(max-width: 600px)');
 
   return (
     <Button
       sx={{
         height: 'auto',
-        width: '150px',
+        width: mobileView ? '80%' : '150px',
         backgroundColor: '#d91226',
         borderRadius: 1,
         fontFamily: 'Poppins',
