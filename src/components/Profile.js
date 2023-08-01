@@ -18,7 +18,8 @@ import {
   Avatar,
   Typography,
   Button,
-  useMediaQuery
+  useMediaQuery,
+  Divider
 } from "@mui/material";
 import audioVisInvertedRed from '../images/audioVisInvertedRed.jpg';
 
@@ -28,7 +29,7 @@ const Profile = (props) => {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
 
-  const mobileView = useMediaQuery('(max-width: 600px)');
+  const mobileView = useMediaQuery('(max-width: 400px)');
   const className = mobileView ? 'mobileAudioPlayer' : 'profileAudioPlayer'
 
   const handleOpen = () => setOpen(true);
@@ -82,7 +83,8 @@ const Profile = (props) => {
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
-      color: theme.palette.info.main, 
+      color: theme.palette.info.main,
+      height: '52.02px' 
     },
   }));
   
@@ -100,31 +102,48 @@ const Profile = (props) => {
     },
   }));
 
-  const userVotes = allVotes.filter(vote => userFiles.some(file => file.id === vote.audio_file_id));
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, options);
+  }
 
   const getVoteCounts = (userFiles, userVotes) => {
-    // Initialize an object to store the vote counts for each audio file
     const voteCounts = userFiles.reduce((acc, file) => {
       acc[file.id] = { complete: 0, delete: 0 };
       return acc;
     }, {});
   
-    // Calculate the vote counts from the userVotes array
+    let totalCompletes = 0;
+    let totalDeletes = 0;
+  
     userVotes.forEach((vote) => {
       if (vote.vote === 'complete') {
         voteCounts[vote.audio_file_id].complete += 1;
+        totalCompletes += 1;
       } else if (vote.vote === 'delete') {
         voteCounts[vote.audio_file_id].delete += 1;
+        totalDeletes += 1;
       }
     });
-    return voteCounts;
-  };
+  
+    return { voteCounts, totalCompletes, totalDeletes };
+  };  
 
-  const voteCounts = getVoteCounts(userFiles, userVotes);
+  const userVotes = allVotes.filter(vote => userFiles.some(file => file.id === vote.audio_file_id));
 
-  // console.log(voteCounts)
-  // console.log(userVotes)
-  console.log(userFiles)
+  const { voteCounts, totalCompletes, totalDeletes } = getVoteCounts(userFiles, userVotes);
+
+  const totalVotes = totalCompletes + totalDeletes;
+
+  const completionPercentage = (totalCompletes / totalVotes) * 100 || 0;
+
+  const totalPlays = userFiles.reduce((sum, file) => sum + (file.plays || 0), 0);
+
+  // console.log('Vote Counts:', voteCounts)
+  // console.log('Percentage:', completionPercentage)
+  // console.log('User Votes:', userVotes)
+  console.log('User Files:', userFiles)
 
   return (
     <>
@@ -144,55 +163,86 @@ const Profile = (props) => {
           </AvatarContainer>
           <Box width='90%' maxWidth='900px' display='flex' marginBottom='23px'>
             <Typography fontWeight={600} variant="h6">{props.user.user_name}</Typography>
+          </Box>
+          {/* Stats + Summary */}
+          <Box width='90%' display='flex' maxWidth='900px' justifyContent='space-between' marginBottom='40px' alignItems='center'>
+            {/* Summary */}
+            <Box
+              sx={{
+                bgcolor: '#e8e8e8',
+                width: '48%',
+                height: '100%',
+                borderRadius: 1,
+                boxShadow: "0px 3px 10px black",
+                display: 'flex',
+                flexDirection: 'column',
+                padding: 1.5,
+                border: '5px solid #0F0F0F',
+                alignItems: 'center'
+              }}
+            >
+              <Typography marginBottom={2} fontSize='22px' fontWeight={600} color='#0F0F0F'>Account Summary</Typography>
+              <Typography marginBottom={1} fontSize='18px' fontWeight={600} color='#424242'>
+                <span style={{color: '#d91226'}}>{userFiles.length}</span> Tracks
+              </Typography>
+              <Divider sx={{ backgroundColor: '#0F0F0F', width: '90%', marginBottom: 1 }} variant="middle" />       
+              <Typography marginBottom={1} fontSize='18px' fontWeight={600} color='#424242'>
+                <span style={{color: '#d91226'}}>{totalPlays}</span> Plays
+              </Typography>
+              <Divider sx={{ backgroundColor: '#0F0F0F', width: '90%', marginBottom: 1 }} variant="middle" />
+              <Typography marginBottom={1} fontSize='18px' fontWeight={600} color='#424242'>
+                <span style={{color: '#d91226'}}>{completionPercentage.toFixed(0)}%</span> Positive Votes
+              </Typography>       
+            </Box>
+            {/* Stats */}
+            <TableContainer component={Paper} sx={{ width: '48%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
+              <Table aria-label="customized table">
+                <TableHead sx={{ width: '100%', backgroundColor: '#0F0F0F' }}>
+                  <TableRow>
+                    <StyledTableCell sx={{ width: '100%' }} colSpan={4}>
+                      <Typography align='center' color='#e8e8e8' fontSize='20px' fontWeight={500}>
+                        Vote Stats
+                      </Typography>
+                    </StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell sx={{ width: '25%' }}>Title</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%' }}>Plays</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%' }}>Finish This</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%' }}>Move On</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {userFiles.map((file, idx) => (
+                    <StyledTableRow key={idx}>
+                      <StyledTableCell component="th" scope="row" sx={{ width: '25%' }}>{file.title}</StyledTableCell>
+                      <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%' }}>{file.plays ? file.plays : 0}</StyledTableCell>
+                      <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
+                      <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Box>          
-          <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black", marginBottom: '40px' }}>
-            <Table aria-label="customized table">
-              <TableHead sx={{ width: '100%', backgroundColor: '#0F0F0F' }}>
-                <TableRow>
-                  <StyledTableCell sx={{ width: '100%' }} colSpan={4}>
-                    <Typography align='center' color='#e8e8e8' fontSize='20px' fontWeight={500}>
-                      Vote Stats
-                    </Typography>
-                  </StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell sx={{ width: '25%' }}>Title</StyledTableCell>
-                  <StyledTableCell align='center' sx={{ width: '25%' }}>Plays</StyledTableCell>
-                  <StyledTableCell align='center' sx={{ width: '25%' }}>Finish This</StyledTableCell>
-                  <StyledTableCell align='center' sx={{ width: '25%' }}>Move On</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {userFiles.map((file, idx) => (
-                  <StyledTableRow key={idx}>
-                    <StyledTableCell component="th" scope="row" sx={{ width: '25%' }}>{file.title}</StyledTableCell>
-                    <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%' }}>{file.plays ? file.plays : 0}</StyledTableCell>
-                    <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
-                    <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          {/* Manage Uploads */}
-          
+          {/* Manage Uploads */}          
           <TableContainer component={Paper} sx={{ width: '90%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black", marginBottom: 2.5 }}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
-                  <StyledTableCell sx={{ width: '33%' }}></StyledTableCell>
-                  <StyledTableCell sx={{ width: '33%', fontSize: '20px' }} align="center">Manage Uploads</StyledTableCell>
-                  <StyledTableCell sx={{ width: '33%' }}></StyledTableCell>
+                  <StyledTableCell sx={{ fontSize: '20px' }} colSpan={3} align="center">Manage Uploads</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {userFiles.map((file, idx) => (
                   <StyledTableRow key={idx}>
-                    <StyledTableCell component="th" scope="row" sx={{ width: '33%' }}>{file.title}</StyledTableCell>
-                    <StyledTableCell padding='none' align="center" sx={{ width: '33%', paddingTop: '5px' }}>
+                    <StyledTableCell component="th" scope="row" sx={{ width: '20%', padding: '0 0 0 16px' }}>
+                      {file.title}
+                      <Typography color='#919191' fontSize='12px'>{formatDate(file.created_at)}</Typography>
+                    </StyledTableCell>
+                    <StyledTableCell padding='none' align="center" sx={{ width: '60%', padding: '5px 10px 0 5px' }}>
                       <ReactAudioPlayer
                         className={className}
                         src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
@@ -200,7 +250,7 @@ const Profile = (props) => {
                         controlsList='nodownload noplaybackrate'
                       />
                     </StyledTableCell>
-                    <StyledTableCell padding='none' align="right" sx={{ width: '33%', paddingRight: '10px' }}>
+                    <StyledTableCell padding='none' align="right" sx={{ width: '20%', paddingRight: '10px' }}>
                       <Button onClick={handleOpen} color="secondary" variant='contained' size="small">delete</Button>
                     </StyledTableCell>
                     <ModalProfile setLoading={setLoading} handleYesClose={handleYesClose} handleNoClose={handleNoClose} open={open} title={file.title} id={file.id} fileName={file.file_name}/>
