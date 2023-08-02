@@ -139,6 +139,10 @@ audio.react-audio-player.mobileAudioPlayer::-webkit-media-controls-timeline {
   background-color: #d91226 !important;
 }
 
+.css-i4bv87-MuiSvgIcon-root {
+  fill: #e8e8e8 !important;
+}
+
 /* FileUploader */
 /* .juBESy > input:focus-visible {
   outline: solid red;

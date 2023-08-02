@@ -12,6 +12,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
+  TableFooter,
   Paper,
   CircularProgress,
   Backdrop,
@@ -28,6 +30,19 @@ const Profile = (props) => {
   const [userFiles, setUserFiles] = useState([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
+
+  const rowCount = userFiles.length;
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const mobileView = useMediaQuery('(max-width: 400px)');
   const className = mobileView ? 'mobileAudioPlayer' : 'profileAudioPlayer'
@@ -79,7 +94,7 @@ const Profile = (props) => {
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.info.main,
-      border: 0,
+      border: 0
     },
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
@@ -199,7 +214,7 @@ const Profile = (props) => {
               <Table aria-label="customized table">
                 <TableHead sx={{ width: '100%', backgroundColor: '#0F0F0F' }}>
                   <TableRow>
-                    <StyledTableCell sx={{ width: '100%' }} colSpan={4}>
+                    <StyledTableCell colSpan={4}>
                       <Typography align='center' color='#e8e8e8' fontSize='20px' fontWeight={500}>
                         Vote Stats
                       </Typography>
@@ -208,23 +223,33 @@ const Profile = (props) => {
                 </TableHead>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell sx={{ width: '25%' }}>Title</StyledTableCell>
-                    <StyledTableCell align='center' sx={{ width: '25%' }}>Plays</StyledTableCell>
-                    <StyledTableCell align='center' sx={{ width: '25%' }}>Finish This</StyledTableCell>
-                    <StyledTableCell align='center' sx={{ width: '25%' }}>Move On</StyledTableCell>
+                    <StyledTableCell sx={{ width: '25%', padding: '0 16px 16px 16px' }}>Title</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%', padding: '0 16px 16px 16px' }}>Plays</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%', padding: '0 16px 16px 16px' }}>Finish This</StyledTableCell>
+                    <StyledTableCell align='center' sx={{ width: '25%', padding: '0 16px 16px 16px' }}>Move On</StyledTableCell>
                   </TableRow>
                 </TableHead>
-                <TableBody>
-                  {userFiles.map((file, idx) => (
+                <TableBody sx={{ height: '156.05px' }}>
+                  {userFiles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((file, idx) => (                    
                     <StyledTableRow key={idx}>
-                      <StyledTableCell component="th" scope="row" sx={{ width: '25%' }}>{file.title}</StyledTableCell>
-                      <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%' }}>{file.plays ? file.plays : 0}</StyledTableCell>
-                      <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
-                      <StyledTableCell align='center' sx={{ width: '25%' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
+                      <StyledTableCell component="th" scope="row" sx={{ width: '25%', height: '52.02px !important' }}>{file.title}</StyledTableCell>
+                      <StyledTableCell align='center' component="th" scope="row" sx={{ width: '25%', height: '52.02px !important' }}>{file.plays ? file.plays : 0}</StyledTableCell>
+                      <StyledTableCell align='center' sx={{ width: '25%', height: '52.02px !important' }}>{voteCounts[file.id]?.complete || 0}</StyledTableCell>
+                      <StyledTableCell align='center' sx={{ width: '25%', height: '52.02px !important' }}>{voteCounts[file.id]?.delete || 0}</StyledTableCell>
                     </StyledTableRow>
                   ))}
                 </TableBody>
               </Table>
+              <TablePagination
+                sx={{ backgroundColor: '#0F0F0F', color: '#e8e8e8' }}
+                rowsPerPageOptions={[0]}
+                component="div"
+                count={rowCount}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
             </TableContainer>
           </Box>          
           {/* Manage Uploads */}          
@@ -242,7 +267,7 @@ const Profile = (props) => {
                       {file.title}
                       <Typography color='#919191' fontSize='12px'>{formatDate(file.created_at)}</Typography>
                     </StyledTableCell>
-                    <StyledTableCell padding='none' align="center" sx={{ width: '60%', padding: '5px 10px 0 5px' }}>
+                    <StyledTableCell align="center" sx={{ width: '60%', padding: '5px 10px 0 5px' }}>
                       <ReactAudioPlayer
                         className={className}
                         src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}

@@ -44,11 +44,11 @@ const CardCollapse = (props) => {
                   </Box> 
                 )
               } return null
-            })) : (
+            })) : isExpanded ? (
               <Typography color="#919191" variant="subtitle1">
                 <em>Be the first to comment!</em>
               </Typography>
-            )
+            ) : null
           }                                 
         </CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
