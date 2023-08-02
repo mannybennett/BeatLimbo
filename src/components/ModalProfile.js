@@ -90,14 +90,14 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
   return (
     <Modal
       open={open}
-      onClose={handleNoClose}
+      onClose={() => handleNoClose(id)}
       aria-labelledby="modal-modal-title"
       >
       <Box sx={modalStyle}>
         <Typography fontWeight={600} marginBottom={2} variant='h6'>Are you sure you want to <span style={{color: '#d91226'}}>delete</span> "{title}"?</Typography>
         <Box width='100%' display='flex'>
           <Button sx={{ marginRight: '4px' }} fullWidth onClick={() => deleteVCAF(id, fileName)} variant='contained'>yes</Button>
-          <Button sx={{ marginLeft: '4px' }} fullWidth onClick={handleNoClose} variant='contained'>no</Button>
+          <Button sx={{ marginLeft: '4px' }} fullWidth onClick={() => handleNoClose(id)} variant='contained'>no</Button>
         </Box>                  
       </Box>
     </Modal>

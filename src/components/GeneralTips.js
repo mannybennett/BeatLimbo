@@ -28,7 +28,7 @@ const GeneralTips = () => {
         padding: 2
       }}
     >
-      <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>General Tips</Typography>
+      <Typography marginBottom={1} variant='h5' fontWeight='500' color='#e8e8e8'>Resources</Typography>
       <Typography marginBottom={2} variant='subtitle1' color='#919191'>To achieve quality beats, keep the following components in mind:</Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
         {tips.map((tip, idx) => {

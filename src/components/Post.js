@@ -72,7 +72,7 @@ const Post = (props) => {
                 </Typography>
               </Box>
               <Typography variant="subtitle2" color="#919191">
-                {`${file.plays ? file.plays : '0'} plays`}
+                {file.plays === 1 ? `${file.plays} play` : `${file.plays ? file.plays : '0'} plays`}
               </Typography>
             </Box>
           </Box>

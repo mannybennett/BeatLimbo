@@ -31,7 +31,7 @@ const MobileLinks = styled(Box)(({ theme }) => ({
     display: "none",
   },
 }));
-// console.log(props.user)
+
 const Navigation = (props) => {
   const location = useLocation();
   const isLandingPage = location.pathname === '/' || location.pathname === '/profilecreation';
@@ -46,7 +46,7 @@ const Navigation = (props) => {
           </Link>
           <Links>
             <div>
-              <Link className="textIcon linkHover" to="/limbo">
+              <Link style={{ color: location.pathname === '/limbo' && '#d91226' }} className="textIcon linkHover" to="/limbo">
                 <GraphicEqIcon sx={{ fontSize: 22 }} />
                 Limbo
               </Link>

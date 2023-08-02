@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 import GeneralTips from './GeneralTips';
 import MostPlayed from './MostPlayed';
 import FeaturedBeat from './FeaturedBeat';
@@ -17,6 +18,8 @@ const Limbo = (props) => {
   const [open, setOpen] = useState(false);
   const [play, setPlay] = useState(false)
   const [highlightMostPlayed, setHighlightMostPlayed] = useState(false);
+
+  const navigate = useNavigate()
 
   const postRef = useRef(null);
 
@@ -48,6 +51,7 @@ const Limbo = (props) => {
   };
   
   const getUser = async () => {
+    !auth0User && navigate('/')
     await axios.get(`/api/users/${auth0User?.email}`)
     .then(res => props.updateUser(res.data[0]))
   }

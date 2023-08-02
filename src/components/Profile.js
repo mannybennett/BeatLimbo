@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import ReactAudioPlayer from 'react-audio-player';
 import ModalProfile from "./ModalProfile";
 import {
@@ -28,18 +29,35 @@ const Profile = (props) => {
   const [allVotes, setAllVotes] = useState([]);
   const [userFiles, setUserFiles] = useState([])
   const [loading, setLoading] = useState(true)
-  const [open, setOpen] = useState(false)
+  const [openModal, setOpenModal] = useState({});
 
   const mobileView = useMediaQuery('(max-width: 400px)');
   const tabletView = useMediaQuery('(max-width: 735px)');
   const className = mobileView ? 'mobileAudioPlayer' : 'profileAudioPlayer'
 
-  const handleOpen = () => setOpen(true);
-  const handleNoClose = () => setOpen(false)
+  const navigate = useNavigate()
+
+  const handleOpen = (id) => {
+    setOpenModal((prevState) => ({
+      ...prevState,
+      [id]: true,
+    }));
+  };
+
+  const handleNoClose = (id) => {
+    setOpenModal((prevState) => ({
+      ...prevState,
+      [id]: false,
+    }));
+  };
+
   const handleYesClose = async (id) => {
-    setOpen(false)
-    await props.deleteFile(id)
-  }
+    setOpenModal((prevState) => ({
+      ...prevState,
+      [id]: false,
+    }));
+    await props.deleteFile(id);
+  };
 
   const getAudioFiles = async () => {
     await axios.get('/api/audioFiles/')
@@ -54,6 +72,7 @@ const Profile = (props) => {
   }
 
   useEffect(() => {
+    !props.user && navigate('/')
     const getAllVotes = async () => {
       try {
         const response = await axios.get('/api/limbo/');
@@ -104,16 +123,11 @@ const Profile = (props) => {
     },
   }));
 
-  const StyledTableBody = styled(TableBody)`
-    display: block;
-    height: 162px;
-    overflow-y: scroll; 
-`
-
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options1 = { year: 'numeric', month: 'short', day: 'numeric' };
+    const options2 = { year: '2-digit', month: 'numeric', day: 'numeric' };
     const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, options);
+    return date.toLocaleDateString(undefined, tabletView ? options2 : options1);
   }
 
   const getVoteCounts = (userFiles, userVotes) => {
@@ -151,7 +165,7 @@ const Profile = (props) => {
   // console.log('Vote Counts:', voteCounts)
   // console.log('Percentage:', completionPercentage)
   // console.log('User Votes:', userVotes)
-  console.log('User Files:', userFiles)
+  // console.log('User Files:', userFiles)
 
   return (
     <>
@@ -265,9 +279,9 @@ const Profile = (props) => {
                         />
                       </StyledTableCell>
                       <StyledTableCell padding='none' align="right" sx={{ width: '20%', paddingRight: '10px' }}>
-                        <Button onClick={handleOpen} color="secondary" variant='contained' size="small">delete</Button>
+                        <Button onClick={() => handleOpen(file.id)} color="secondary" variant='contained' size="small">delete</Button>
                       </StyledTableCell>
-                      <ModalProfile setLoading={setLoading} handleYesClose={handleYesClose} handleNoClose={handleNoClose} open={open} title={file.title} id={file.id} fileName={file.file_name}/>
+                      <ModalProfile setLoading={setLoading} handleYesClose={handleYesClose} handleNoClose={handleNoClose} open={openModal[file.id] || false} title={file.title} id={file.id} fileName={file.file_name}/>
                     </StyledTableRow>
                   ))) : (
                     <StyledTableRow>

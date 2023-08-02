@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { FileUploader } from "react-drag-drop-files";
 import axios from 'axios';
@@ -13,6 +13,8 @@ const Upload =(props) => {
   const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
   const [openSnack, setOpenSnack] = useState(false);
+
+  const navigate = useNavigate()
 
   const handleOpenSnack = () => {
     setOpenSnack(true);
@@ -129,7 +131,9 @@ const Upload =(props) => {
     console.log(file)
   };
 
-  console.log(title)
+  useEffect(() => {
+    !props.user && navigate('/')
+  }, []);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }} className="App">
