@@ -10,7 +10,7 @@ const MobileLogoutButton = () => {
       onClick={() => logout({ returnTo: "http://localhost:3000" })}
       sx={{
         cursor: 'pointer',
-        fontSize: 30,
+        fontSize: 25,
         marginTop: "8px",
         transition: "color 0.6s",
         "&:hover": {

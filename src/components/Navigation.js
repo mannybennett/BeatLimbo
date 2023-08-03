@@ -81,10 +81,10 @@ const Navigation = (props) => {
             </div>
           </Links>
           <MobileLinks>
-            <Link to="/limbo">
+            <Link style={{ color: location.pathname === '/limbo' && '#d91226' }} to="/limbo">
               <GraphicEqIcon
                 sx={{
-                  fontSize: 30,
+                  fontSize: 25,
                   marginTop: "8px",
                   transition: "color 0.6s",
                   "&:hover": {
@@ -96,7 +96,7 @@ const Navigation = (props) => {
             <Link to="/upload">
               <UploadIcon
                 sx={{
-                  fontSize: 30,
+                  fontSize: 26,
                   marginTop: "8px",
                   transition: "color 0.6s",
                   "&:hover": {
