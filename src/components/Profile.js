@@ -220,7 +220,7 @@ const Profile = (props) => {
             {/* Stats */}
             <TableContainer component={Paper} sx={{ width: tabletView ? '100%' : '48%', maxWidth: '900px', borderRadius: 1, bgcolor: 'black', boxShadow: "0px 3px 10px black" }}>
               <Table aria-label="customized table">
-                <TableHead sx={{ width: '100%', backgroundColor: '#0F0F0F' }}>
+                <TableHead>
                   <TableRow>
                     <StyledTableCell colSpan={4}>
                       <Typography align='center' color='#e8e8e8' fontSize='20px' fontWeight={500}>

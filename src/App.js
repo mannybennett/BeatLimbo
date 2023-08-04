@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Router from './Router';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import './App.css';
+import './styles/App.css';
 import { useMediaQuery } from '@mui/material';
 
 function App() {

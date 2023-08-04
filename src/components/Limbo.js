@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import GeneralTips from './GeneralTips';
+import Resources from './Resources';
 import MostPlayed from './MostPlayed';
 import FeaturedBeat from './FeaturedBeat';
 import Post from './Post';
 import { useMediaQuery, Box, CircularProgress, Backdrop, Stack } from '@mui/material';
+import '../styles/Limbo.css'
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
@@ -196,10 +197,6 @@ const Limbo = (props) => {
   const mostPlays = Math.max(...props.audioFiles.map((file) => file.plays));
   const mostPlayedFile = props.audioFiles.find((file) => file.plays === mostPlays);
 
-// console.log("User", props.user)
-// console.log("Comments", comments)
-// console.log("Files", props.audioFiles)
-
   return (
     <>
       {loading && 
@@ -213,8 +210,8 @@ const Limbo = (props) => {
       {!loading &&
       <>
         <Stack sx={{ minHeight: "100vh" }} spacing={space} direction='row'>
-          <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>
-          <Box flex={5} sx={{ display: 'flex', flexDirection: 'column', paddingLeft: { xs: 3, md: 0 }, paddingRight: { xs: 3, md: 0 }, marginTop: '24px !important' }}>
+          <Box flex={{ md: 0.5, xl: 3 }} display={{ xs: "none", lg: "block" }}></Box>
+          <Box className='postsContainer' flex={5} paddingLeft={{ xs: 3, md: 0 }} paddingRight={{ xs: 3, md: 0 }}>
             {props.audioFiles.length > 0 && 
               props.audioFiles.toReversed().map((file, idx) => {
                 const isExpanded = file.id === expandedId;
@@ -246,14 +243,14 @@ const Limbo = (props) => {
               })
             }
           </Box>
-          <Box flex={2} sx={{ display: { xs: "none", md: "block" } }}>
-            <Stack paddingRight={{ xs: 3, xl: 0 }} width="100%" spacing={3} position="sticky" top={88}>
+          <Box flex={2} display={{ xs: "none", md: "block" }}>
+            <Stack className='sideStack' paddingRight={{ xs: 3, xl: 0 }} spacing={3} top={88}>
               <MostPlayed mostPlayedFile={mostPlayedFile} handleScroll={handleScroll}/>
               <FeaturedBeat />         
-              <GeneralTips />
+              <Resources />
             </Stack>
           </Box>
-          <Box flex={{ md: 0.5, xl: 3 }} sx={{ display: { xs: "none", lg: "block" } }}></Box>
+          <Box flex={{ md: 0.5, xl: 3 }} display={{ xs: "none", lg: "block" }}></Box>
         </Stack>
       </>
       }

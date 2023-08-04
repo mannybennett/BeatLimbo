@@ -4,7 +4,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import App from './App';
-import "./index.css";
+import "./styles/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

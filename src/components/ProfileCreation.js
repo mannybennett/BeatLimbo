@@ -5,6 +5,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FileUploader } from "react-drag-drop-files";
 import { TextField, Button, CircularProgress, Backdrop, Box, Typography } from '@mui/material';
+import '../styles/ProfileCreation.css'
 
 const ProfileCreation = () => {
   const { user:auth0User } = useAuth0();
@@ -16,7 +17,6 @@ const ProfileCreation = () => {
 
   const navigation = (e) => {
     e.preventDefault();
-    // Create new component instead to welcome users that has link to feed component (limbo)
     navigate("/limbo");
   }
 
@@ -107,10 +107,12 @@ const ProfileCreation = () => {
         </Backdrop>
       }
       {!loading &&
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }} className="App">
-          <Box width='90%' height='90%' maxWidth='600px' maxHeight='500px' display='flex' justifyContent='center'>
-            <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={navigation}>
-              <Typography align='center' sx={{ marginBottom: '50px' }} fontSize='2rem' fontWeight={500}>Complete your profile with an image and username</Typography>
+        <div className='bodyContainer'>
+          <Box className='formContainer'>
+            <form className='form' onSubmit={navigation}>
+              <Typography className='mainText'>
+                Complete your profile with an image and username
+              </Typography>
               <FileUploader
                 style={{ width: '100%' }}
                 onSelect={selectPic}
@@ -119,8 +121,25 @@ const ProfileCreation = () => {
                 multiple={false}
                 children={<Button size='large' variant='contained'>choose a profile picture</Button>}
                 types={fileTypes} />
-              <TextField sx={{ width: '245.77px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectUsername} label="Username" value={userName} variant="outlined" size='small' required />
-              <Button size='large' type="submit" color='secondary' variant="contained" onClick={createUser}>finish profile</Button>
+              <TextField
+                className='inputText'
+                inputProps={{ maxLength: 20 }}
+                onChange={selectUsername}
+                label="Username"
+                value={userName}
+                variant="outlined"
+                size='small'
+                required
+              />
+              <Button
+                size='large'
+                type="submit"
+                color='secondary'
+                variant="contained"
+                onClick={createUser}
+              >
+                finish profile
+              </Button>
             </form>
           </Box>        
         </div>

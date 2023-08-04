@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginButton from './LoginButton';
 import { Box, Typography, useMediaQuery } from '@mui/material';
-import audioVisBlack from '../images/audioVisBlack.jpg';
+import '../styles/Landing.css'
 import BLheader from '../images/BLheader.png';
 
 const Landing = () => {
@@ -11,63 +11,57 @@ const Landing = () => {
   const height = tabletView ? '40%' : '25%'
   const width = mobileView ? '140px' : '185px'
   const padding = tinyView ? 0 : 3
+
   return (
-    <Box
-      width='100vw'
-      height='100vh'
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      sx={{
-        backgroundImage: `url(${audioVisBlack})`,
-        backgroundSize: 'cover',
-      }}
-    >
-      <Box marginBottom={10} width='100%' height={height} minHeight='293px' display='flex' flexDirection='column' alignItems='center' justifyContent='space-between'>
-        <Box marginLeft={0.5} width={width}>
+    <Box className='bodyBox'>
+      <Box className='mainBox' height={height}>
+        <Box className='logo' width={width}>
           <img width='100%' alt='logo' src={BLheader} />
         </Box>
+
         {/* Desktop */}
-        <Box display={tabletView ? 'none' : 'flex'} flexDirection='column' alignItems='center'>
-          <Box paddingBottom={1} display='flex'>
-            <Typography marginRight='3.5px' color='#e8e8e8' sx={{ fontSize: '4rem', lineHeight: 1 }}>
+        <Box className='allTextContainer' display={tabletView ? 'none' : 'flex'}>
+          <Box className='bigTextDesktopContainer'>
+            <Typography className='ubDesktopText'>
               Unfinished Beats.
             </Typography>
-            <Typography marginLeft='3.5px' color='#e8e8e8' sx={{ fontSize: '4rem', lineHeight: 1 }}>
+            <Typography className='upDesktopText'>
               <em>Unlimited Potential.</em>
             </Typography>
           </Box>          
-          <Typography paddingBottom={1.2} fontWeight={500} color='#424242' sx={{ fontSize: { xs: '1.25rem', md: '1.75rem' }, lineHeight: 1 }}>
+          <Typography className='feedbackDesktopText'>
             Get feedback on your incomplete tracks.
           </Typography>
         </Box>
+
         {/* Tablet */}                    
-        <Box display={!tabletView ? 'none' : 'flex'} flexDirection='column' alignItems='center' padding={padding}>
-          <Box paddingBottom={1} display={{ xs: 'none', sm: 'flex' }} flexDirection='column' alignItems='center'>
-            <Typography color='#e8e8e8' sx={{ fontSize: { xs: '3rem', sm: '3.5rem', md: '4rem' }, lineHeight: 1 }}>
+        <Box className='allTextContainer' display={!tabletView ? 'none' : 'flex'} padding={padding}>
+          <Box className='bigTextTabletContainer' display={{ xs: 'none', sm: 'flex' }}>
+            <Typography className='bigTextTablet' sx={{ fontSize: { sm: '3.5rem', md: '4rem' } }}>
               Unfinished Beats.
             </Typography>
-            <Typography color='#e8e8e8' sx={{ fontSize: { xs: '3rem', sm: '3.5rem', md: '4rem' }, lineHeight: 1 }}>
+            <Typography className='bigTextTablet' sx={{ fontSize: { sm: '3.5rem', md: '4rem' } }}>
               <em>Unlimited Potential.</em>
             </Typography>
           </Box>
-          <Typography display={{ xs: 'none', sm: 'flex' }} fontWeight={500} color='#424242' sx={{ fontSize: '1.5rem', lineHeight: 1 }}>
+          <Typography className='feedbackTabletText' display={{ xs: 'none', sm: 'flex' }}>
             Get feedback on your incomplete tracks.
           </Typography> 
+          
           {/* Mobile */}  
-          <Box paddingBottom={1} display={{ xs: 'flex', sm: 'none' }} flexDirection='column' alignItems='center'>
-            <Typography color='#e8e8e8' sx={{ fontSize: '2rem', lineHeight: 1 }}>
+          <Box className='allTextMobileContainer' display={{ xs: 'flex', sm: 'none' }}>
+            <Typography className='bigTextMobile'>
               Unfinished Beats.
             </Typography>
-            <Typography color='#e8e8e8' sx={{ fontSize: '2rem', lineHeight: 1 }}>
+            <Typography className='bigTextMobile'>
               <em>Unlimited Potential.</em>
             </Typography>
           </Box>                                 
-          <Box display={{ xs: 'flex', sm: 'none' }} flexDirection='column' alignItems='center'>
-            <Typography fontWeight={500} color='#424242' sx={{ fontSize: '1.25rem', lineHeight: 1 }}>
+          <Box className='allTextContainer' display={{ xs: 'flex', sm: 'none' }}>
+            <Typography className='feedbackMobileText'>
               Get feedback on your
             </Typography>
-            <Typography fontWeight={500} color='#424242' sx={{ fontSize: '1.25rem', lineHeight: 1 }}>
+            <Typography className='feedbackMobileText'>
               incomplete tracks.
             </Typography>
           </Box>             

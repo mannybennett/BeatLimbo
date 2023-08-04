@@ -1,0 +1,10 @@
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px !important;
+}
+
+.sideStack {
+  width: 100%;
+  position: sticky;
+}

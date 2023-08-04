@@ -7,6 +7,7 @@ import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined
 import ThumbsUpDownIcon from '@mui/icons-material/ThumbsUpDown';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import '../styles/Post.css'
 
 const Post = (props) => {
   const {

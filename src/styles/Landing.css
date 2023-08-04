@@ -1,0 +1,92 @@
+.bodyBox {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../images/audioVisBlack.jpg');
+  background-size: cover;
+}
+
+.mainBox {
+  margin-bottom: 10px;
+  width: 100%;
+  min-height: 293px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  margin-left: 4px;
+}
+
+.allTextContainer {
+  flex-direction: column;
+  align-items: center;
+}
+
+.bigTextDesktopContainer {
+  padding-bottom: 8px;
+  display: flex;
+}
+
+.ubDesktopText {
+  margin-right: 3.5px !important;
+  color: #e8e8e8;
+  font-size: 4rem !important;
+  line-height: 1 !important;
+}
+
+.upDesktopText {
+  margin-left: 3.5px !important;
+  color: #e8e8e8;
+  font-size: 4rem !important;
+  line-height: 1 !important;
+}
+
+.feedbackDesktopText {
+  padding-bottom: 9.6px;
+  font-weight: 500 !important;
+  font-size: 1.75rem !important;
+  color: #424242;
+  line-height: 1 !important;
+}
+
+.bigTextTabletContainer {
+  padding-bottom: 8px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bigTextTablet {
+  color: #e8e8e8;
+  line-height: 1 !important;
+}
+
+.feedbackTabletText {
+  font-weight: 500 !important;
+  color: #424242;
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+}
+
+.allTextMobileContainer {
+  padding-bottom: 8px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bigTextMobile {
+  color: #e8e8e8;
+  font-size: 2rem !important;
+  line-height: 1 !important;
+}
+
+.feedbackMobileText {
+  font-weight: 500 !important;
+  color: #424242;
+  font-size: 1.25rem !important;
+  line-height: 1 !important;
+}

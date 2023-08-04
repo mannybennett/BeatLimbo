@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Chip, Typography, Avatar } from '@mui/material';
+import { Box, Chip, Typography } from '@mui/material';
 import { Link } from "@phosphor-icons/react";
 
 const tips = [
