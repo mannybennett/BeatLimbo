@@ -75,15 +75,9 @@ const Post = (props) => {
 
   return (
     <Card
+      className='postContainer'
       ref={isMostPlayed ? postRef : null}
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: "10px",
-        marginBottom: 3,
-        bgcolor: "#1f1f1f",
-        width: "100%",
-        maxWidth: '2000px',
         boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px 10px #d91226" : "0px 3px 10px black",
       }}
     >
