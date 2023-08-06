@@ -6,7 +6,7 @@ import MobileLogoutButton from "./MobileLogoutButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import UploadIcon from '@mui/icons-material/Upload';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import BLheader from '../images/BLheader.png'
+import newLogo from '../images/newLogo.png'
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -42,7 +42,7 @@ const Navigation = (props) => {
       <AppBar sx={{ boxShadow: "0 3px 10px 2px black" }} position="sticky">
         <StyledToolbar>
           <Link style={{ marginTop: '8px' }} className="linkHover" to="/limbo">
-            <img alt="logo" width='125px' src={BLheader} />
+            <img alt="logo" width='125px' src={newLogo} />
           </Link>
           <Links>
             <div>

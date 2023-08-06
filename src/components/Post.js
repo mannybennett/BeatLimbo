@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import CardCollapse from './CardCollapse';
 import ModalLimbo from './ModalLimbo';
@@ -40,6 +40,39 @@ const Post = (props) => {
     marginLeft: 'auto'
   }));
 
+  const [currentRef, setCurrentRef] = useState(null);
+  const [previousRef, setPreviousRef] = useState(null);
+
+  const handlePlay = () => {
+    if (currentRef !== previousRef) {
+      if (previousRef !== null) {
+        previousRef.audioEl.current.pause();
+      };
+    };
+    setPreviousRef(currentRef);
+  };
+
+  useEffect(() => {
+    console.log("Current Ref:", currentRef);
+  }, [currentRef]);
+  
+  useEffect(() => {
+    console.log("Previous Ref:", previousRef);
+  }, [previousRef]);
+
+  // const audioRef = useRef(null);
+
+  // const handleClick = (ref) => {
+  //   if (audioRef.current !== ref) {
+  //     if (audioRef.current && audioRef.current.audioEl.current) {
+  //       console.log('yes')
+  //       audioRef.current.audioEl.current.pause();
+  //     }
+  //     console.log('no')
+  //     audioRef.current = ref;
+  //   }
+  // };
+
   return (
     <Card
       ref={isMostPlayed ? postRef : null}
@@ -79,11 +112,14 @@ const Post = (props) => {
           </Box>
           <Box sx={{ display: "flex", alignItems: 'flex-start', flexDirection: 'column', width: "100%" }}>
             <ReactAudioPlayer
+              id={file.id}
+              //handleClick(ref)
+              ref={(ref) => setCurrentRef(ref)}
               className='audioPlayer'
               src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
               controls
               controlsList='nodownload noplaybackrate'
-              onPlay={() => user.id !== file.user_id && playCount(file.id)}
+              onPlay={() => {handlePlay(); user.id !== file.user_id && playCount(file.id);}}
             />
             <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
               <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
@@ -139,7 +175,7 @@ const Post = (props) => {
         mobileView={mobileView}
       />
     </Card>
-  )
+  );
 };
 
 export default Post;
