@@ -81,30 +81,30 @@ const Post = (props) => {
         boxShadow: isMostPlayed && highlightMostPlayed ? "0px 0px 20px 10px #d91226" : "0px 3px 10px black",
       }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
-          <Box sx={{ display: 'flex', width: '100%' }}>
+      <Box className='postSections'>
+        <Box className='postMain'>
+          <Box className='picAndText'>
             <CardMedia
+              className='pfp'
               component="img"
-              sx={{ width: 80, height: 80, borderRadius: 1, marginBottom: '10px', marginRight: '10px'}}
               image={file.image}
               alt="Track Image"
-              />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '10px' }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-                <Typography sx={{ width: '100%', wordBreak: 'break-all' }} color="#e8e8e8" variant="h6">
+            />
+            <Box className='textContainer'>
+              <Box className='postSections'>
+                <Typography className='title' variant="h6">
                   {file.title}
                 </Typography>
-                <Typography variant="p" color="#919191">
+                <Typography className='userColor' variant="p">
                   {file.user_name}
                 </Typography>
               </Box>
-              <Typography variant="subtitle2" color="#919191">
+              <Typography className='userColor' variant="subtitle2">
                 {file.plays === 1 ? `${file.plays} play` : `${file.plays ? file.plays : '0'} plays`}
               </Typography>
             </Box>
           </Box>
-          <Box sx={{ display: "flex", alignItems: 'flex-start', flexDirection: 'column', width: "100%" }}>
+          <Box className='playerAndButtons'>
             <ReactAudioPlayer
               id={file.id}
               //handleClick(ref)
@@ -115,8 +115,8 @@ const Post = (props) => {
               controlsList='nodownload noplaybackrate'
               onPlay={() => {handlePlay(); user.id !== file.user_id && playCount(file.id);}}
             />
-            <Box sx={{ display: 'flex', width: '100%', height: "53.99px" }}>
-              <Box sx={{ width: '100%', height: '100%', paddingRight: '5px' }}>
+            <Box className='checkboxesContainer'>
+              <Box className='leftCheckbox'>
                 <Checkbox
                   checked={clickedButton[file.id] === 'complete'}
                   onChange={() => handleChange('complete', file.id)}
