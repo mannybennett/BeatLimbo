@@ -2,7 +2,7 @@ import React from 'react';
 import LoginButton from './LoginButton';
 import { Box, Typography, useMediaQuery } from '@mui/material';
 import '../styles/Landing.css'
-import newLogo from '../images/newLogo.png';
+import logo from '../images/newLogo.png';
 
 const Landing = () => {
   const tabletView = useMediaQuery('(max-width: 1220px)');
@@ -16,7 +16,7 @@ const Landing = () => {
     <Box className='bodyBox'>
       <Box className='mainBox' height={height}>
         <Box className='logo' width={width}>
-          <img width='100%' alt='logo' src={newLogo} />
+          <img width='100%' alt='logo' src={logo} />
         </Box>
 
         {/* Desktop */}
