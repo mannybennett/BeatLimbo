@@ -10,8 +10,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Auth0Provider
-      domain='dev-0weh4iih7e30y5un.us.auth0.com'
-      clientId='esiozAWvO6GWJobk96KcDZVkmL0a1KSJ'
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: "https://beatlimbo-frontend.onrender.com/profilecreation"
       }}
