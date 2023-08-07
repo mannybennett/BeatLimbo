@@ -6,7 +6,7 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <div className="textIcon linkHover" style={{ cursor: "pointer" }} onClick={() => logout({ returnTo: "http://localhost:3000" })}>
+    <div className="textIcon linkHover" style={{ cursor: "pointer" }} onClick={() => logout({ returnTo: "https://beatlimbo-frontend.onrender.com/" })}>
       <LogoutIcon sx={{ fontSize: 22 }} />
       Sign Out
     </div>
