@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+
 const StaticLogin = () => {
   console.log('StaticLogin component is mounting.');
 
