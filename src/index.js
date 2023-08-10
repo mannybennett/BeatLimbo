@@ -11,13 +11,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Auth0Provider
-      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      domain='dev-0weh4iih7e30y5un.us.auth0.com'
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: "https://beatlimbo-frontend.onrender.com/profilecreation"
       }}
-      useRefreshTokens={true}
-      cacheLocation="localstorage"
     >
       <ThemeProvider theme={theme}>
         <App />
