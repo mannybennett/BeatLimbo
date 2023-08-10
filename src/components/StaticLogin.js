@@ -1,7 +1,14 @@
-import React from 'react';
-
 const StaticLogin = () => {
-  return ( <div>Hello World</div> );
-}
- 
-export default StaticLogin;
+  console.log('StaticLogin component is mounting.');
+
+  useEffect(() => {
+    console.log('Effect in StaticLogin component is triggered.');
+  }, []);
+
+  return (
+    <div>
+      Hello World
+      {console.log('Rendering is complete.')}
+    </div>
+  );
+};
