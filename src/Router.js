@@ -5,6 +5,7 @@ import Upload from './containers/Upload';
 import Limbo from './containers/Limbo';
 import Profile from './containers/Profile';
 import Landing from './components/Landing';
+import StaticLogin from './components/StaticLogin';
 import ProfileCreation from './containers/ProfileCreation';
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
         <Route path='/upload' element={<Upload/>} />
         <Route path='/profilecreation' element={<ProfileCreation/>} />
         <Route path='/profile' element={<Profile/>} />
+        <Route path='/staticlogin' element={<StaticLogin/>} />
       </Routes>
     </Box>
   )
