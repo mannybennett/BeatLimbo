@@ -12,3 +12,5 @@ const StaticLogin = () => {
     </div>
   );
 };
+
+export default StaticLogin;
