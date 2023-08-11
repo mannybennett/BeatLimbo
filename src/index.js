@@ -14,7 +14,7 @@ root.render(
       domain='dev-0weh4iih7e30y5un.us.auth0.com'
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: "https://beatlimbo.onrender.com/staticlogin"
+        redirect_uri: "https://beat-limbo.vercel.app/staticlogin"
       }}
     >
       <ThemeProvider theme={theme}>
