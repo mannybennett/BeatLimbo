@@ -53,8 +53,9 @@ const Limbo = (props) => {
   
   const getUser = async () => {
     !auth0User && navigate('/')
-    await axios.get(`https://beatlimbo-backend.onrender.com/api/users/${auth0User?.email}`)
-    .then(res => props.updateUser(res.data[0]))
+    console.log(auth0User)
+    await axios.get(`https://beatlimbo-backend.onrender.com/api/users/${auth0User.email}`)
+    .then(res => {console.log(res); props.updateUser(res.data[0]);})
   }
 
   const getAudioFiles = async () => {
