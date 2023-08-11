@@ -22,13 +22,12 @@ const ProfileCreation = () => {
 
   const getUser = async () => {
     if (!isLoading && auth0User) {
-      await axios.get(`https://beatlimbo-backend.onrender.com/api/users/mannybennett99@gmail.com`)
+      await axios.get(`https://beatlimbo-backend.onrender.com/api/users/${auth0User.email}`)
       .then(res => {
         console.log("Response:", res)
-        // if (res.data.length) {
-        //   console.log("Response:", res)
-        //   navigate("/limbo")
-        // }
+        if (res.data.length) {
+          navigate("/limbo")
+        }
       })
     setLoading(false)
     }    
