@@ -37,6 +37,10 @@ const ProfileCreation = () => {
   //   } 
   // }, [auth0User]);
 
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
   const s3Client = new S3Client({
     region: process.env.REACT_APP_REGION,
     credentials: {
@@ -95,8 +99,6 @@ const ProfileCreation = () => {
   };
 
   const fileTypes = ["jpg", "png", "jpeg"];
-
-  console.log(user)
 
   return (
     <>
