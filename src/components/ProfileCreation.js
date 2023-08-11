@@ -24,10 +24,11 @@ const ProfileCreation = () => {
     if (!isLoading && auth0User) {
       await axios.get(`/api/users/${auth0User.email}`)
       .then(res => {
-        if (res.data.length) {
-          console.log("Response:", res)
-          navigate("/limbo")
-        }
+        console.log("Response:", res)
+        // if (res.data.length) {
+        //   console.log("Response:", res)
+        //   navigate("/limbo")
+        // }
       })
     setLoading(false)
     }    
