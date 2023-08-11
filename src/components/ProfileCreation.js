@@ -21,10 +21,11 @@ const ProfileCreation = () => {
   }
 
   const getUser = async () => {
-    if (!isLoading) {
+    if (!isLoading && auth0User) {
       await axios.get(`/api/users/${auth0User.email}`)
       .then(res => {
         if (res.data.length) {
+          console.log("Response:", res)
           navigate("/limbo")
         }
       })
