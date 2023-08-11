@@ -15,8 +15,9 @@ const ProfileCreation = () => {
 
   const navigate = useNavigate()
 
-  const navigation = (e) => {
+  const navigation = async (e) => {
     e.preventDefault();
+    await createUser();
     navigate("/limbo");
   }
 
@@ -83,6 +84,7 @@ const ProfileCreation = () => {
   };
 
   const createUser = async () => {
+    setLoading(true)
     if (userName) {
       try {
         await axios.post('https://beatlimbo-backend.onrender.com/api/users', {
@@ -91,8 +93,10 @@ const ProfileCreation = () => {
           profile_picture: user.picture ? `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}` : null
         });
         console.log('User Created successfully');
+        setLoading(false)
       } catch (error) {
         console.error('Error creating user:', error);
+        setLoading(false)
       }
     }
   };
@@ -101,7 +105,7 @@ const ProfileCreation = () => {
 
   return (
     <>
-      {isLoading && loading &&
+      {loading &&
         <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}
@@ -139,7 +143,6 @@ const ProfileCreation = () => {
                 type="submit"
                 color='secondary'
                 variant="contained"
-                onClick={createUser}
               >
                 finish profile
               </Button>
