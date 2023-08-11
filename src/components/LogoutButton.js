@@ -6,7 +6,7 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
-    <div className="textIcon linkHover" style={{ cursor: "pointer" }} onClick={() => logout({ returnTo: "https://beat-limbo.vercel.app/" })}>
+    <div className="textIcon linkHover" style={{ cursor: "pointer" }} onClick={() => logout({ returnTo: "https://beatlimbo.com/" })}>
       <LogoutIcon sx={{ fontSize: 22 }} />
       Sign Out
     </div>
