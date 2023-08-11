@@ -60,7 +60,7 @@ const Profile = (props) => {
   };
 
   const getAudioFiles = async () => {
-    await axios.get('/api/audioFiles/')
+    await axios.get('https://beatlimbo-backend.onrender.com/api/audioFiles/')
     .then(res => props.getFiles(res.data))
   }
 
@@ -75,7 +75,7 @@ const Profile = (props) => {
     !props.user && navigate('/')
     const getAllVotes = async () => {
       try {
-        const response = await axios.get('/api/limbo/');
+        const response = await axios.get('https://beatlimbo-backend.onrender.com/api/limbo/');
         await getUserFiles()
         setAllVotes(response.data)
         return setLoading(false)

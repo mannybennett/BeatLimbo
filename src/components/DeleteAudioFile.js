@@ -28,7 +28,7 @@ const DeleteAudioFile =() => {
 
   const deleteAudioFile = async (id, key) => {
     try {
-      await axios.delete(`/api/audioFiles/${id}`);
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/audioFiles/${id}`);
       console.log('Audio file deleted successfully');
       await deleteObject(key);
       console.log('Object deleted from S3 bucket');

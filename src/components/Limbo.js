@@ -53,18 +53,18 @@ const Limbo = (props) => {
   
   const getUser = async () => {
     !auth0User && navigate('/')
-    await axios.get(`/api/users/${auth0User?.email}`)
+    await axios.get(`https://beatlimbo-backend.onrender.com/api/users/${auth0User?.email}`)
     .then(res => props.updateUser(res.data[0]))
   }
 
   const getAudioFiles = async () => {
-    await axios.get('/api/audioFiles/')
+    await axios.get('https://beatlimbo-backend.onrender.com/api/audioFiles/')
     .then(res => props.getFiles(res.data))
   }
   
   const getAllVotes = async () => {
     try {
-      const response = await axios.get('/api/limbo/');
+      const response = await axios.get('https://beatlimbo-backend.onrender.com/api/limbo/');
       return response.data;
     } catch (error) {
       console.log('Error fetching votes:', error);
@@ -74,7 +74,7 @@ const Limbo = (props) => {
   
   const getAllComments = async () => {
     try {
-      const response = await axios.get('/api/limbo/comments');
+      const response = await axios.get('https://beatlimbo-backend.onrender.com/api/limbo/comments');
       return setComments(response.data)
     } catch (error) {
       console.log('Error fetching votes:', error);
@@ -84,7 +84,7 @@ const Limbo = (props) => {
 
   const postVote = async (vote, userId, audioFileId) => {
     try {
-      await axios.post('/api/limbo', {
+      await axios.post('https://beatlimbo-backend.onrender.com/api/limbo', {
         vote: vote,
         user_id: userId,
         audio_file_id: audioFileId
@@ -97,7 +97,7 @@ const Limbo = (props) => {
 
   const updateVote = async (vote, userId, audioFileId) => {
     try {
-      await axios.put('/api/limbo', {
+      await axios.put('https://beatlimbo-backend.onrender.com/api/limbo', {
         vote: vote,
         user_id: userId,
         audio_file_id: audioFileId
@@ -110,7 +110,7 @@ const Limbo = (props) => {
 
   const playCount = async (id) => {
     try {
-      await axios.put(`/api/audioFiles/${id}/playCount`, {});
+      await axios.put(`https://beatlimbo-backend.onrender.com/api/audioFiles/${id}/playCount`, {});
       setPlay((prevState) => !prevState);
       console.log('Count updated successfully');
     } catch (error) {
@@ -120,7 +120,7 @@ const Limbo = (props) => {
 
   const postComment = async (comment, userId, userName, audioFileId, profilePicture) => {
     try {
-      await axios.post('/api/limbo/comments', {
+      await axios.post('https://beatlimbo-backend.onrender.com/api/limbo/comments', {
         comment: comment,
         user_id: userId,
         user_name: userName,
@@ -136,7 +136,7 @@ const Limbo = (props) => {
 
   const deleteComment = async (commentId) => {
     try {
-      await axios.delete(`/api/limbo/comments/${commentId}`);
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/limbo/comments/${commentId}`);
       console.log('Comment deleted successfully');
       setComments(comments.filter(comment => comment.id !== commentId))     
     } catch (error) {

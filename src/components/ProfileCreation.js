@@ -85,7 +85,7 @@ const ProfileCreation = () => {
   const createUser = async () => {
     if (userName) {
       try {
-        await axios.post('/api/users', {
+        await axios.post('https://beatlimbo-backend.onrender.com/api/users', {
           user_name: user.nickname,
           email: auth0User.email,
           profile_picture: user.picture ? `https://myfirstaudiobucket.s3.amazonaws.com/${user.picture}` : null

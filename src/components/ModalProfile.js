@@ -29,7 +29,7 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
 
   const deleteAudioFile = async (id) => {
     try {
-      await axios.delete(`/api/profile/audioFiles/${id}`);
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/profile/audioFiles/${id}`);
       console.log('Audio file deleted successfully');
     } catch (error) {
       console.error('Error deleting file:', error);
@@ -38,7 +38,7 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
 
   const deleteComments = async (audioFileId) => {
     try {
-      await axios.delete(`/api/profile/comments/${audioFileId}`);
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/profile/comments/${audioFileId}`);
       console.log('Comments deleted successfully');   
     } catch (error) {
       console.error('Error deleting comment:', error);
@@ -47,7 +47,7 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
 
   const deleteVotes = async (audioFileId) => {
     try {
-      await axios.delete(`/api/profile/votes/${audioFileId}`);
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/profile/votes/${audioFileId}`);
       console.log('Votes deleted successfully');   
     } catch (error) {
       console.error('Error deleting votes:', error);

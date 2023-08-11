@@ -95,7 +95,7 @@ const Upload =(props) => {
   
   const postAudioFile = async (fileName, userId, title, userName, image) => {
     try {
-      await axios.post('/api/audioFiles/upload', {
+      await axios.post('https://beatlimbo-backend.onrender.com/api/audioFiles/upload', {
         file_name: fileName,
         user_id: userId,
         title: title,
