@@ -8,7 +8,7 @@ import { TextField, Button, CircularProgress, Backdrop, Box, Typography } from '
 import '../styles/ProfileCreation.css'
 
 const ProfileCreation = () => {
-  const { user:auth0User } = useAuth0();
+  const { user:auth0User, isLoading } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(false)
@@ -38,8 +38,10 @@ const ProfileCreation = () => {
   // }, [auth0User]);
 
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    if (auth0User) { 
+      console.log(auth0User)
+    }    
+  }, [auth0User])
 
   const s3Client = new S3Client({
     region: process.env.REACT_APP_REGION,
@@ -102,7 +104,7 @@ const ProfileCreation = () => {
 
   return (
     <>
-      {loading && 
+      {isLoading && 
         <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={true}
@@ -110,7 +112,7 @@ const ProfileCreation = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       }
-      {!loading &&
+      {!isLoading &&
         <div className='bodyContainer'>
           <Box className='formContainer'>
             <form className='form' onSubmit={navigation}>
