@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://beatlimbo.onrender.com',
+      target: 'https://beatlimbo-backend.onrender.com',
       changeOrigin: true,
     })
   );
