@@ -11,7 +11,7 @@ const ProfileCreation = () => {
   const { user:auth0User } = useAuth0();
   const [user, setUser] = useState(auth0User);
   const [userName, setUserName] = useState('');
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -20,22 +20,22 @@ const ProfileCreation = () => {
     navigate("/limbo");
   }
 
-  const getUser = async () => {
-    setLoading(true)
-    await axios.get(`/api/users/${auth0User.email}`)
-    .then(res => {
-      if (res.data.length) {
-        navigate("/limbo")
-      }
-    })
-    setLoading(false)
-  };
+  // const getUser = async () => {
+  //   setLoading(true)
+  //   await axios.get(`/api/users/${auth0User.email}`)
+  //   .then(res => {
+  //     if (res.data.length) {
+  //       navigate("/limbo")
+  //     }
+  //   })
+  //   setLoading(false)
+  // };
 
-  useEffect(() => {
-    if (auth0User) {
-      getUser()
-    } 
-  }, [auth0User]);
+  // useEffect(() => {
+  //   if (auth0User) {
+  //     getUser()
+  //   } 
+  // }, [auth0User]);
 
   const s3Client = new S3Client({
     region: process.env.REACT_APP_REGION,
@@ -95,6 +95,8 @@ const ProfileCreation = () => {
   };
 
   const fileTypes = ["jpg", "png", "jpeg"];
+
+  console.log(user)
 
   return (
     <>
