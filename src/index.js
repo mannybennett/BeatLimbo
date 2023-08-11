@@ -14,7 +14,7 @@ root.render(
       domain='dev-0weh4iih7e30y5un.us.auth0.com'
       clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
-        redirect_uri: "https://beatlimbo-frontend.onrender.com/staticlogin"
+        redirect_uri: "https://beatlimbo.onrender.com/staticlogin"
       }}
     >
       <ThemeProvider theme={theme}>
