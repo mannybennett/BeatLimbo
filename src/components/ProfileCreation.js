@@ -101,7 +101,7 @@ const ProfileCreation = () => {
     }
   };
 
-  const fileTypes = ["jpg", "png", "jpeg"];
+  const fileTypes = ["jpg", "png", "jpeg", "heic"];
 
   const buttonStyle =
   {

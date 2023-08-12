@@ -37,6 +37,20 @@ a {
   margin-bottom: 10px;
 }
 
+/* Safari specific */
+@media not all and (min-resolution:.001dpcm) {
+  .audioPlayer { 
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    height: 53.99px !important;
+  }
+  .profileAudioPlayer,
+  .mobileAudioPlayer { 
+    background-color: transparent !important;
+    border-radius: 0 !important;
+  }
+}
+
 .profileAudioPlayer,
 .mobileAudioPlayer {
   background-color: white;
