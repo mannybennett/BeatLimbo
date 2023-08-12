@@ -38,7 +38,8 @@ a {
 }
 
 /* Safari specific */
-@media not (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) {
   .audioPlayer { 
     background-color: transparent !important;
     border-radius: 0 !important;
@@ -49,7 +50,7 @@ a {
     background-color: transparent !important;
     border-radius: 0 !important;
   }
-}
+}}
 
 .profileAudioPlayer,
 .mobileAudioPlayer {
