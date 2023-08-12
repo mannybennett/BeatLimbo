@@ -42,6 +42,14 @@ const Upload =(props) => {
       </IconButton>
     </Box>
   );
+
+  const buttonStyle =
+  {
+    transition: 'background-color 0.3s !important',
+    '&:hover': {
+      backgroundColor: '#262626 !important'
+    }
+  }
   
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -147,7 +155,7 @@ const Upload =(props) => {
             maxSize={20}
             onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
             multiple={false}
-            children={<Button size='large' variant='contained'>choose an MP3 or WAV file</Button>}
+            children={<Button sx={buttonStyle} size='large' variant='contained'>choose an MP3 or WAV file</Button>}
             types={fileTypes}
           />
           <TextField sx={{ width: '261.75px', marginBottom: '20px', marginTop: '20px' }} inputProps={{ maxLength: 20 }} onChange={selectTitle} label="Title" value={title} variant="outlined" size='small' required />

@@ -40,6 +40,18 @@ const Post = (props) => {
     marginLeft: 'auto'
   }));
 
+  const checkboxStyle =
+  {
+    width: '100%',
+    height: '100%',
+    padding: '0 !important',
+    borderRadius: '4px !important',
+    transition: 'background-color 0.3s !important',
+    '&:hover': {
+      backgroundColor: '#424242 !important'
+    }
+  };
+
   const [currentRef, setCurrentRef] = useState(null);
   const [previousRef, setPreviousRef] = useState(null);
 
@@ -52,13 +64,13 @@ const Post = (props) => {
     setPreviousRef(currentRef);
   };
 
-  useEffect(() => {
-    console.log("Current Ref:", currentRef);
-  }, [currentRef]);
+  // useEffect(() => {
+  //   console.log("Current Ref:", currentRef);
+  // }, [currentRef]);
   
-  useEffect(() => {
-    console.log("Previous Ref:", previousRef);
-  }, [previousRef]);
+  // useEffect(() => {
+  //   console.log("Previous Ref:", previousRef);
+  // }, [previousRef]);
 
   // const audioRef = useRef(null);
 
@@ -121,7 +133,7 @@ const Post = (props) => {
                   checked={clickedButton[file.id] === 'complete'}
                   onChange={() => handleChange('complete', file.id)}
                   value="complete"
-                  sx={{ width: '100%', height: '100%' }}
+                  sx={checkboxStyle}
                   icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5, display: 'flex' }} color='primary' variant="contained"><ThumbUpAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>finish this</Button>}
                   checkedIcon={<Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5, display: 'flex' }} color='secondary' variant="contained"><ThumbUpAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>finish this</Button>}
                 />
@@ -134,7 +146,7 @@ const Post = (props) => {
                   checked={clickedButton[file.id] === 'delete'}
                   onChange={() => handleChange('delete', file.id)}
                   value="delete"
-                  sx={{ width: '100%', height: '100%' }}
+                  sx={checkboxStyle}
                   icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5, display: 'flex' }} color='primary' variant="contained"><ThumbDownAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>move on</Button>}
                   checkedIcon={<Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5, display: 'flex' }} color='secondary' variant="contained"><ThumbDownAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>move on</Button>}
                 />
@@ -150,7 +162,7 @@ const Post = (props) => {
           aria-expanded={isExpanded}
           aria-label="show more"
           >
-          <InsertCommentOutlinedIcon color='info' fontSize='medium' />
+          <InsertCommentOutlinedIcon className='commentIcon' color='info' fontSize='medium' />
         </ExpandMore>
       </CardActions>
       <CardCollapse

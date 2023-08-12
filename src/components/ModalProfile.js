@@ -87,6 +87,24 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
     alignItems: 'center'
   };
 
+  const buttonStyle =
+  {
+    marginRight: '4px',
+    transition: 'background-color 0.3s !important',
+    '&:hover': {
+      backgroundColor: '#d91226 !important'
+    }
+  }
+
+  const buttonStyle2 =
+  {
+    marginLeft: '4px',
+    transition: 'background-color 0.3s !important',
+    '&:hover': {
+      backgroundColor: '#d91226 !important'
+    }
+  }
+
   return (
     <Modal
       open={open}
@@ -96,8 +114,8 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
       <Box sx={modalStyle}>
         <Typography fontWeight={600} marginBottom={2} variant='h6'>Are you sure you want to <span style={{color: '#d91226'}}>delete</span> "{title}"?</Typography>
         <Box width='100%' display='flex'>
-          <Button sx={{ marginRight: '4px' }} fullWidth onClick={() => deleteVCAF(id, fileName)} variant='contained'>yes</Button>
-          <Button sx={{ marginLeft: '4px' }} fullWidth onClick={() => handleNoClose(id)} variant='contained'>no</Button>
+          <Button sx={buttonStyle} fullWidth onClick={() => deleteVCAF(id, fileName)} variant='contained'>yes</Button>
+          <Button sx={buttonStyle2} fullWidth onClick={() => handleNoClose(id)} variant='contained'>no</Button>
         </Box>                  
       </Box>
     </Modal>

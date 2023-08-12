@@ -53,7 +53,7 @@ const CardCollapse = (props) => {
         </CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <IconButton onClick={handleOpen}>
-            <AddBoxIcon sx={{ fill: '#e8e8e8' }} fontSize='large' />
+            <AddBoxIcon className='addIcon' fontSize='large' />
           </IconButton>
         </Box>                
       </Collapse>

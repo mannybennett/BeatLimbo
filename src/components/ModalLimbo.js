@@ -18,6 +18,16 @@ const ModalLimbo = ({ open, handleClose, sendComment, setNewComment, mobileView 
     textAlign: "center"
   };
 
+  const buttonStyle =
+  {
+    width: '20%',
+    fontSize: '15px',
+    transition: 'background-color 0.3s !important',
+    '&:hover': {
+      backgroundColor: '#d91226 !important'
+    }
+  };
+
   return (
     <Modal
       open={open}
@@ -54,7 +64,7 @@ const ModalLimbo = ({ open, handleClose, sendComment, setNewComment, mobileView 
             multiline
             required
             />
-          <Button sx={{ width: '20%', fontFamily: 'Poppins', fontSize: '15px' }} type='submit' variant='contained'>POST</Button>
+          <Button sx={buttonStyle} type='submit' variant='contained'>POST</Button>
         </form>                  
       </Box>
     </Modal>

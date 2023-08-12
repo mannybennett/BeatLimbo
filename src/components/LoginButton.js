@@ -17,7 +17,8 @@ function LoginButton() {
         fontSize: { xs: '1rem', md: '1.1rem' },
         transition: 'transform 0.3s',
         '&:hover': {
-          transform: 'scale(1.2)'
+          transform: 'scale(1.2)',
+          backgroundColor: '#d91226 !important'
         }
       }}
       size='large'

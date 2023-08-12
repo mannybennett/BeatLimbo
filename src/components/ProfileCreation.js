@@ -103,6 +103,14 @@ const ProfileCreation = () => {
 
   const fileTypes = ["jpg", "png", "jpeg"];
 
+  const buttonStyle =
+  {
+    transition: 'background-color 0.3s !important',
+    '&:hover': {
+      backgroundColor: '#262626 !important'
+    }
+  }
+
   return (
     <>
       {loading &&
@@ -126,7 +134,7 @@ const ProfileCreation = () => {
                 maxSize={20}
                 onSizeError={(file) => console.log(`${file} exceeds 20MB`)}
                 multiple={false}
-                children={<Button size='large' variant='contained'>choose a profile picture</Button>}
+                children={<Button sx={buttonStyle} size='large' variant='contained'>choose a profile picture</Button>}
                 types={fileTypes} />
               <TextField
                 className='inputText'

@@ -3,6 +3,7 @@ body {
   background-image: url(../images/audioVisInverted2.jpg);
   background-attachment: fixed;
   background-size: cover;
+  height: 100vh;
 }
 
 a {
@@ -60,88 +61,25 @@ audio.react-audio-player.mobileAudioPlayer::-webkit-media-controls-timeline {
   align-items: flex-end;
 }
 
-/* Landing Button */
-.css-1n1xexf-MuiButtonBase-root-MuiButton-root:hover {
-  background-color: #d91226 !important;
-}
-
-/* Checkboxes */
-.css-14layt2-MuiButtonBase-root-MuiCheckbox-root {
-  padding: 0 !important;
-  border-radius: 4px !important;
-  transition: background-color 0.3s !important;
-}
-
-.css-14layt2-MuiButtonBase-root-MuiCheckbox-root:hover {
-  background-color: #424242 !important;
-}
-
 /* Chips */
-.css-1tfwrh9-MuiButtonBase-root-MuiChip-root:hover {
-  background-color: #990d1b !important;
-}
 
-.css-1pjx6fa-MuiButtonBase-root-MuiChip-root .MuiChip-avatarColorSecondary {
+.chip .MuiChip-avatarColorSecondary {
   background-color: transparent !important;
   width: 20px !important;
   height: 20px !important;
 }
 
-/* Snackbar */
-/* .css-1d9qac8-MuiPaper-root-MuiSnackbarContent-root {
-  background-color: #919191 !important;
-} */
-
-/* Show Comments Button */
-.css-o9bkbe-MuiButtonBase-root-MuiIconButton-root:hover {
+/* Show Comments Icon */
+.commentIcon:hover {
   animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
-/* Add Comment Button */
-.css-1ifeshr-MuiSvgIcon-root {
+/* Add Comment Icon */
+.addIcon {
   animation: animate 2s ease infinite;
-}
-
-/* Post Comment Button */
-.css-1wdtny5-MuiButtonBase-root-MuiButton-root {
-  transition: background-color 0.3s !important;
-}
-
-.css-1wdtny5-MuiButtonBase-root-MuiButton-root:hover {
-  background-color: #d91226 !important;
-}
-
-/* Upload Button */
-.css-1nhjpit-MuiButtonBase-root-MuiButton-root {
-  transition: background-color 0.3s !important;
-}
-
-.css-1nhjpit-MuiButtonBase-root-MuiButton-root:hover {
-  background-color: #262626 !important;
-}
-
-/* Confirm Delete Buttons */
-.css-xyktzx-MuiButtonBase-root-MuiButton-root {
-  transition: background-color 0.3s !important;
-}
-
-.css-xyktzx-MuiButtonBase-root-MuiButton-root:hover {
-  background-color: #d91226 !important;
-}
-
-.css-jq1d7s-MuiButtonBase-root-MuiButton-root {
-  transition: background-color 0.3s !important;
-}
-
-.css-jq1d7s-MuiButtonBase-root-MuiButton-root:hover {
-  background-color: #d91226 !important;
-}
-
-.css-i4bv87-MuiSvgIcon-root {
-  fill: #e8e8e8 !important;
 }
 
 @keyframes shake {

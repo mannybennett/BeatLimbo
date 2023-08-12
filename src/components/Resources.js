@@ -14,6 +14,18 @@ const tips = [
   { title: 'transitions', link: 'https://www.izotope.com/en/learn/how-to-create-better-transitions-in-your-mix.html' },
 ];
 
+const chipStyle =
+{
+  fontSize: '16px',
+  fontWeight: '400',
+  margin: '0 4px 4px 0',
+  transform: 'translateY(0)',
+  transition: 'transform 0.25s ease',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+  },
+};
+
 const GeneralTips = () => {
   return (
     <Box
@@ -34,22 +46,14 @@ const GeneralTips = () => {
         {tips.map((tip, idx) => {
           return (
             <Chip
-              avatar={<Link />}
+              className='chip'
+              avatar={<Link className='linkIcon' />}
               key={idx}
               component="a"
               href={tip.link}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{
-                fontSize: '16px',
-                fontWeight: '400',
-                margin: '0 4px 4px 0',
-                transform: 'translateY(0)',
-                transition: 'transform 0.25s ease',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                },
-              }}
+              sx={chipStyle}
               clickable
               color='secondary'
               label={tip.title}
