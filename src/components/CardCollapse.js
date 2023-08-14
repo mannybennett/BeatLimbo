@@ -36,7 +36,7 @@ const CardCollapse = (props) => {
                         {comment.comment}
                       </Typography>
                       {comment.user_id === user.id &&
-                      <IconButton onClick={() => deleteComment(comment.id)}>
+                      <IconButton sx={{ padding: 0 }} onClick={() => deleteComment(comment.id)}>
                         <DeleteIcon sx={{ fill: '#3d3d3d' }} fontSize='small' />
                       </IconButton>
                       }                            

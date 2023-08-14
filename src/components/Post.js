@@ -57,7 +57,7 @@ const Post = (props) => {
   const currentRef = useRef(null);
 
   const handlePlay = () => {
-    if (prevRef !== null) {
+    if (prevRef !== null && prevRef !== currentRef) {
       prevRef.current.audioEl.current.pause();
     };
     setPrevRef(currentRef)
