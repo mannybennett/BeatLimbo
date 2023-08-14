@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReactAudioPlayer from 'react-audio-player';
@@ -30,21 +30,12 @@ const Profile = (props) => {
   const [userFiles, setUserFiles] = useState([])
   const [loading, setLoading] = useState(true)
   const [openModal, setOpenModal] = useState({});
-  const [prevRef, setPrevRef] = useState(null);
-  const currentRef = useRef(null);
 
   const mobileView = useMediaQuery('(max-width: 400px)');
   const tabletView = useMediaQuery('(max-width: 735px)');
   const className = mobileView ? 'mobileAudioPlayer' : 'profileAudioPlayer'
 
   const navigate = useNavigate()
-
-  const handlePlay = () => {
-    if (prevRef !== null) {
-      prevRef.current.audioEl.current.pause();
-    };
-    setPrevRef(currentRef)
-  };
 
   const handleOpen = (id) => {
     setOpenModal((prevState) => ({
@@ -276,12 +267,10 @@ const Profile = (props) => {
                       </StyledTableCell>
                       <StyledTableCell padding='none' align="center" sx={{ width: '60%', padding: '5px 10px 0 5px' }}>
                         <ReactAudioPlayer
-                          ref={currentRef}
                           className={className}
                           src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
                           controls
                           controlsList='nodownload noplaybackrate'
-                          onPlay={() => handlePlay()}
                         />
                       </StyledTableCell>
                       <StyledTableCell padding='none' align="right" sx={{ width: '20%', paddingRight: '10px' }}>
