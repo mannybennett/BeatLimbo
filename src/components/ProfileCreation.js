@@ -25,7 +25,6 @@ const ProfileCreation = () => {
     if (!isLoading && auth0User) {
       await axios.get(`https://beatlimbo-backend.onrender.com/api/users/${auth0User.email}`)
       .then(res => {
-        console.log("Response:", res)
         if (res.data.length) {
           navigate("/limbo")
         }
@@ -37,7 +36,6 @@ const ProfileCreation = () => {
   useEffect(() => {
     if (!isLoading && auth0User) {
       getUser();
-      console.log(auth0User);
     }; 
   }, [auth0User]);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import CardCollapse from './CardCollapse';
 import ModalLimbo from './ModalLimbo';
@@ -29,7 +29,9 @@ const Post = (props) => {
     setNewComment,
     open,
     expandedId,
-    mobileView
+    mobileView,
+    prevRef,
+    setPrevRef
   } = props;
 
   const ExpandMore = styled((props) => {
@@ -52,38 +54,14 @@ const Post = (props) => {
     }
   };
 
-  const [currentRef, setCurrentRef] = useState(null);
-  const [previousRef, setPreviousRef] = useState(null);
+  const currentRef = useRef(null);
 
   const handlePlay = () => {
-    if (currentRef !== previousRef) {
-      if (previousRef !== null) {
-        previousRef.audioEl.current.pause();
-      };
+    if (prevRef !== null) {
+      prevRef.current.audioEl.current.pause();
     };
-    setPreviousRef(currentRef);
+    setPrevRef(currentRef)
   };
-
-  // useEffect(() => {
-  //   console.log("Current Ref:", currentRef);
-  // }, [currentRef]);
-  
-  // useEffect(() => {
-  //   console.log("Previous Ref:", previousRef);
-  // }, [previousRef]);
-
-  // const audioRef = useRef(null);
-
-  // const handleClick = (ref) => {
-  //   if (audioRef.current !== ref) {
-  //     if (audioRef.current && audioRef.current.audioEl.current) {
-  //       console.log('yes')
-  //       audioRef.current.audioEl.current.pause();
-  //     }
-  //     console.log('no')
-  //     audioRef.current = ref;
-  //   }
-  // };
 
   return (
     <Card
@@ -118,9 +96,7 @@ const Post = (props) => {
           </Box>
           <Box className='playerAndButtons'>
             <ReactAudioPlayer
-              id={file.id}
-              //handleClick(ref)
-              ref={(ref) => setCurrentRef(ref)}
+              ref={currentRef}
               className='audioPlayer'
               src={`https://myfirstaudiobucket.s3.amazonaws.com/${file.file_name}`}
               controls

@@ -53,9 +53,8 @@ const Limbo = (props) => {
   
   const getUser = async () => {
     !auth0User && navigate('/')
-    console.log(auth0User)
     await axios.get(`https://beatlimbo-backend.onrender.com/api/users/${auth0User.email}`)
-    .then(res => {console.log(res); props.updateUser(res.data[0]);})
+    .then(res => {props.updateUser(res.data[0]);})
   }
 
   const getAudioFiles = async () => {
@@ -198,6 +197,8 @@ const Limbo = (props) => {
   const mostPlays = Math.max(...props.audioFiles.map((file) => file.plays));
   const mostPlayedFile = props.audioFiles.find((file) => file.plays === mostPlays);
 
+  const [prevRef, setPrevRef] = useState(null); 
+
   return (
     <>
       {loading && 
@@ -239,6 +240,8 @@ const Limbo = (props) => {
                     open={open}
                     expandedId={expandedId}
                     mobileView={mobileView}
+                    prevRef={prevRef}
+                    setPrevRef={setPrevRef}
                   />
                 )
               })

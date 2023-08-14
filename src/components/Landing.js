@@ -8,8 +8,8 @@ const Landing = () => {
   const tabletView = useMediaQuery('(max-width: 1220px)');
   const mobileView = useMediaQuery('(max-width: 600px)');
   const tinyView = useMediaQuery('(max-width: 356px)');
-  const height = tabletView ? '40%' : '25%'
-  const width = mobileView ? '140px' : '185px'
+  const height = tabletView && !mobileView ? '40%' : (mobileView ? '70%' : '25%');
+  const width = mobileView ? '200px' : '185px'
   const padding = tinyView ? 0 : 3
 
   return (
