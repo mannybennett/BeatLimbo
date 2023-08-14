@@ -8,14 +8,13 @@ const Landing = () => {
   const tabletView = useMediaQuery('(max-width: 1220px)');
   const mobileView = useMediaQuery('(max-width: 600px)');
   const tinyView = useMediaQuery('(max-width: 356px)');
-  const height = tabletView && !mobileView ? '40%' : (mobileView ? '70%' : '25%');
-  const width = mobileView ? '200px' : '185px'
+  const height = tabletView && !mobileView ? '40%' : (mobileView ? '60%' : '25%');
   const padding = tinyView ? 0 : 3
 
   return (
     <Box className='bodyBox'>
       <Box className='mainBox' height={height}>
-        <Box className='logo' width={width}>
+        <Box className='logo' width='185px'>
           <img width='100%' alt='logo' src={logo} />
         </Box>
 
