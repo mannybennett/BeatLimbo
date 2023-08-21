@@ -110,8 +110,26 @@ const Post = (props) => {
                   onChange={() => handleChange('complete', file.id)}
                   value="complete"
                   sx={checkboxStyle}
-                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5, display: 'flex' }} color='primary' variant="contained"><ThumbUpAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>finish this</Button>}
-                  checkedIcon={<Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5, display: 'flex' }} color='secondary' variant="contained"><ThumbUpAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>finish this</Button>}
+                  icon={
+                    <Button 
+                      sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5, display: 'flex' }}
+                      color='primary'
+                      variant="contained"
+                    >
+                      <ThumbUpAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>
+                      finish this
+                    </Button>
+                  }
+                  checkedIcon={
+                    <Button
+                      sx={{ width: '100%', height: '100%', letterSpacing: 0.5, display: 'flex' }}
+                      color='secondary'
+                      variant="contained"
+                    >
+                      <ThumbUpAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>
+                      finish this
+                    </Button>
+                  }
                 />
               </Box>
               <Box sx={{ width: '10%', height: '100%', display: {xs: 'none', sm: 'flex'}, justifyContent: 'center', alignItems: 'center', marginLeft: '5px', marginRight: '5px' }}>
@@ -123,8 +141,25 @@ const Post = (props) => {
                   onChange={() => handleChange('delete', file.id)}
                   value="delete"
                   sx={checkboxStyle}
-                  icon={<Button sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5, display: 'flex' }} color='primary' variant="contained"><ThumbDownAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>move on</Button>}
-                  checkedIcon={<Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5, display: 'flex' }} color='secondary' variant="contained"><ThumbDownAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>move on</Button>}
+                  icon={
+                    <Button
+                      sx={{ width: '100%', height: '100%', bgcolor: 'rgba(255, 255, 255, 0.1)', letterSpacing: 0.5, display: 'flex' }}
+                      color='primary'
+                      variant="contained"
+                    >
+                      <ThumbDownAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>
+                      move on
+                    </Button>
+                  }
+                  checkedIcon={
+                    <Button sx={{ width: '100%', height: '100%', letterSpacing: 0.5, display: 'flex' }}
+                    color='secondary'
+                    variant="contained"
+                    >
+                      <ThumbDownAltIcon sx={{ display: {xs: 'flex', sm: 'none'}, paddingRight: '4px'}} fontSize='small'/>
+                      move on
+                    </Button>
+                  }
                 />
               </Box>
             </Box>
