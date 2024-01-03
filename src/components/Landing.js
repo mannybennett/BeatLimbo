@@ -11,6 +11,9 @@ const Landing = () => {
   const height = tabletView && !mobileView ? '40%' : (mobileView ? '60%' : '25%');
   const padding = tinyView ? 0 : 3
 
+  console.log(process.env.REACT_APP_KEY)
+  console.log(process.env.REACT_APP_S_KEY)
+
   return (
     <Box className='bodyBox'>
       <Box className='mainBox' height={height}>

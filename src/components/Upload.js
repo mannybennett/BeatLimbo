@@ -78,12 +78,7 @@ const Upload =(props) => {
     credentials: {
       accessKeyId: process.env.REACT_APP_KEY,
       secretAccessKey: process.env.REACT_APP_S_KEY
-    },
-    credentialDefaultProvider: () => () => Promise.resolve(
-      {
-        accessKeyId: process.env.REACT_APP_KEY, 
-        secretAccessKey: process.env.REACT_APP_S_KEY
-      }),
+    }
   });
   
   const uuid = uuidv4().slice(0, 8)
