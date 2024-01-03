@@ -78,7 +78,12 @@ const Upload =(props) => {
     credentials: {
       accessKeyId: process.env.REACT_APP_KEY,
       secretAccessKey: process.env.REACT_APP_S_KEY
-    }
+    },
+    credentialDefaultProvider: () => () => Promise.resolve(
+      {
+        accessKeyId: process.env.REACT_APP_KEY, 
+        secretAccessKey: process.env.REACT_APP_S_KEY
+      }),
   });
   
   const uuid = uuidv4().slice(0, 8)
@@ -126,6 +131,8 @@ const Upload =(props) => {
       setTitle('')
       setAudioFile(null)
       handleOpenSnack()
+      console.log(process.env.REACT_APP_KEY)
+      console.log(process.env.REACT_APP_S_KEY)
       await uploadObject(audioFile);
       await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name, props.user.profile_picture ? props.user.profile_picture : defaultImg);
     } else {

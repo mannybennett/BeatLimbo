@@ -10,7 +10,12 @@ const DeleteAudioFile =() => {
     credentials: {
       accessKeyId: process.env.REACT_APP_KEY,
       secretAccessKey: process.env.REACT_APP_S_KEY
-    }
+    },
+    credentialDefaultProvider: () => () => Promise.resolve(
+      {
+        accessKeyId: process.env.REACT_APP_KEY, 
+        secretAccessKey: process.env.REACT_APP_S_KEY
+      }),
   });
 
   const deleteObject = async (key) => {
