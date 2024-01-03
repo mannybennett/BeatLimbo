@@ -131,8 +131,6 @@ const Upload =(props) => {
       setTitle('')
       setAudioFile(null)
       handleOpenSnack()
-      console.log(process.env.REACT_APP_KEY)
-      console.log(process.env.REACT_APP_S_KEY)
       await uploadObject(audioFile);
       await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name, props.user.profile_picture ? props.user.profile_picture : defaultImg);
     } else {
