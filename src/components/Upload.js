@@ -136,7 +136,6 @@ const Upload =(props) => {
 
   const onSelect = async (file) => {
     setAudioFile(file)
-    console.log(file)
   };
 
   useEffect(() => {
