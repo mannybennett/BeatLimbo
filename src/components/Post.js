@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import CardCollapse from './CardCollapse';
 import ModalLimbo from './ModalLimbo';
