@@ -7,7 +7,7 @@ import MostPlayed from './MostPlayed';
 import FeaturedBeat from './FeaturedBeat';
 import Post from './Post';
 import { useMediaQuery, Box, CircularProgress, Backdrop, Stack } from '@mui/material';
-import '../styles/Limbo.css'
+import '../styles/Limbo.css';
 
 const Limbo = (props) => {
   const { user:auth0User } = useAuth0();
