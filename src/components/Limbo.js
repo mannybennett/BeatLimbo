@@ -14,13 +14,13 @@ const Limbo = (props) => {
   const [expandedId, setExpandedId] = useState(null);
   const [clickedButton, setClickedButton] = useState({});
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('')
-  const [loading, setLoading] = useState(true)
+  const [newComment, setNewComment] = useState('');
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
-  const [play, setPlay] = useState(false)
+  const [play, setPlay] = useState(false);
   const [highlightMostPlayed, setHighlightMostPlayed] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const postRef = useRef(null);
 
