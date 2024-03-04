@@ -1,31 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { Box, Modal, Button, Typography, useMediaQuery } from "@mui/material";
 
 const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName, setLoading }) => {
   const mobileView = useMediaQuery('(max-width: 900px)');
-
-  const s3Client = new S3Client({
-    region: process.env.REACT_APP_REGION,
-    credentials: {
-      accessKeyId: process.env.REACT_APP_KEY,
-      secretAccessKey: process.env.REACT_APP_S_KEY
-    }
-  });
-
-  const deleteObject = async (key) => {
-    try {
-      const command = new DeleteObjectCommand({
-        Bucket: process.env.REACT_APP_BUCKET,
-        Key: key
-      });
-      const response = await s3Client.send(command);
-      console.log('Object deleted successfully:', response);
-    } catch (error) {
-      console.error('Error deleting object:', error);
-    }
-  };
 
   const deleteAudioFile = async (id) => {
     try {
@@ -59,7 +37,7 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
     try {
       await deleteVotes(id)
       await deleteComments(id)
-      await deleteObject(key)
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/audioFiles/${key}`)
       await deleteAudioFile(id)
       await handleYesClose(id)
       console.log('Delete process complete')

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from "react-router-dom";
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { FileUploader } from "react-drag-drop-files";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
@@ -73,34 +72,6 @@ const Upload =(props) => {
     textAlign: "center"
   };
   
-  const s3Client = new S3Client({
-    region: process.env.REACT_APP_REGION,
-    credentials: {
-      accessKeyId: process.env.REACT_APP_KEY,
-      secretAccessKey: process.env.REACT_APP_S_KEY
-    }
-  });
-  
-  const uuid = uuidv4().slice(0, 8)
-  
-  const uploadObjectParams = (file) => {
-    return {
-      Bucket: process.env.REACT_APP_BUCKET,
-      Key: `${uuid}${file.name}`,
-      Body: file
-    }
-  };
-  
-  const uploadObject = async (file) => {
-    try {
-      const command = new PutObjectCommand(uploadObjectParams(file));
-      const response = await s3Client.send(command);
-      console.log('Object uploaded successfully:', response);
-    } catch (error) {
-      console.error('Error uploading object:', error);
-    }
-  };
-  
   const postAudioFile = async (fileName, userId, title, userName, image) => {
     try {
       await axios.post('https://beatlimbo-backend.onrender.com/api/audioFiles/upload', {
@@ -121,12 +92,19 @@ const Upload =(props) => {
   };
   
   const uploadFile = async (e) => {
+    const uuid = uuidv4().slice(0, 8)
+
     if (audioFile && title) {
       e.preventDefault()
       setTitle('')
       setAudioFile(null)
       handleOpenSnack()
-      await uploadObject(audioFile);
+
+      const formData = new FormData();
+      formData.append('file', audioFile);
+      formData.append('uuid', uuid);
+      await axios.post('https://beatlimbo-backend.onrender.com/api/audioFiles/uploadS3', formData);
+
       await postAudioFile(`${uuid}${audioFile.name}`, props.user.id, title, props.user.user_name, props.user.profile_picture ? props.user.profile_picture : defaultImg);
     } else {
       e.preventDefault()
