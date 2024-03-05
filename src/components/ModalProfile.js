@@ -35,9 +35,9 @@ const ModalProfile = ({ open, handleYesClose, handleNoClose, title, id, fileName
   const deleteVCAF = async (id, key) => {
     setLoading(true)
     try {
+      await axios.delete(`https://beatlimbo-backend.onrender.com/api/audioFiles/${key}`)
       await deleteVotes(id)
       await deleteComments(id)
-      await axios.delete(`https://beatlimbo-backend.onrender.com/api/audioFiles/${key}`)
       await deleteAudioFile(id)
       await handleYesClose(id)
       console.log('Delete process complete')

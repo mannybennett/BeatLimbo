@@ -124,7 +124,7 @@ const Upload =(props) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }} className="App">
       <Box width='90%' height='90%' maxWidth='600px' maxHeight='500px' display='flex' justifyContent='center'>
-        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} onSubmit={uploadFile}>
+        <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} enctype="multipart/form-data" onSubmit={uploadFile}>
           <Typography align='center' sx={{ marginBottom: '50px' }} fontSize='2rem' fontWeight={500}>Select a file and title for your track</Typography>          
           <Typography color='#919191' variant='subtitle2'>{audioFile && audioFile.name}</Typography>
           <FileUploader

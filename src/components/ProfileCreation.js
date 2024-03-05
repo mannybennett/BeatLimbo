@@ -97,7 +97,7 @@ const ProfileCreation = () => {
       {!isLoading && !loading &&
         <div className='bodyContainer'>
           <Box className='formContainer'>
-            <form className='form' onSubmit={navigation}>
+            <form className='form' enctype="multipart/form-data" onSubmit={navigation}>
               <Typography className='mainText'>
                 Complete your profile with an image and username
               </Typography>
